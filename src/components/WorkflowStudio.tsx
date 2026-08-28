@@ -4,14 +4,6 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Play, Globe, Calendar, FileText, Send, ShoppingCart, ShieldAlert, Truck, Sparkles, UserPlus, FolderKanban, CheckCircle2 } from "lucide-react";
 
-interface NodeItem {
-  id: number;
-  icon: any;
-  title: string;
-  desc: string;
-  time: string;
-}
-
 export default function WorkflowStudio() {
   const [activeScenario, setActiveScenario] = useState<"inbound" | "ecom" | "client">("inbound");
   const [isRunning, setIsRunning] = useState(false);
@@ -99,23 +91,23 @@ export default function WorkflowStudio() {
   }
 
   return (
-    <section id="studio" className="py-24 bg-slate-900 text-white relative overflow-hidden">
+    <section id="studio" className="py-20 bg-slate-900 text-white relative overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
-        <div className="text-center max-w-3xl mx-auto mb-14">
-          <div className="inline-block px-3.5 py-1 rounded-full bg-blue-500/10 border border-blue-500/30 text-cyan-400 font-mono text-xs font-bold uppercase mb-3">
+        <div className="text-center max-w-3xl mx-auto mb-10 sm:mb-14">
+          <div className="inline-block px-3.5 py-1 rounded-full bg-blue-500/10 border border-blue-500/30 text-cyan-400 font-mono text-[11px] sm:text-xs font-bold uppercase mb-3">
             Interactive Architecture
           </div>
-          <h2 className="font-heading font-black text-4xl sm:text-5xl tracking-tight mb-4 text-white">
+          <h2 className="font-heading font-black text-3xl sm:text-5xl tracking-tight mb-3 text-white">
             HandsFree Workflow Studio
           </h2>
-          <p className="text-slate-400 text-base sm:text-lg leading-relaxed">
+          <p className="text-slate-400 text-sm sm:text-base leading-relaxed">
             Test live automation logic. Watch how HandsFree ingests triggers, runs AI decisions, and coordinates systems autonomously in sub-second speed.
           </p>
         </div>
 
         {/* Tab Selection */}
-        <div className="flex flex-wrap items-center justify-center gap-3 mb-10">
+        <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-3 mb-8">
           {(["inbound", "ecom", "client"] as const).map((key) => (
             <button
               key={key}
@@ -126,7 +118,7 @@ export default function WorkflowStudio() {
                 setIsRunning(false);
                 setHudTime("0.00s");
               }}
-              className={`px-5 py-2.5 rounded-xl font-mono text-xs font-bold transition-all ${
+              className={`px-4 py-2 sm:px-5 sm:py-2.5 rounded-xl font-mono text-xs font-bold transition-all ${
                 activeScenario === key
                   ? "bg-blue-600 text-white shadow-lg shadow-blue-500/30 scale-105"
                   : "bg-slate-800 text-slate-300 hover:bg-slate-700 border border-slate-700"
@@ -138,14 +130,14 @@ export default function WorkflowStudio() {
         </div>
 
         {/* Studio Box */}
-        <div className="bg-slate-950 border border-slate-800 rounded-3xl p-6 sm:p-10 shadow-2xl">
+        <div className="bg-slate-950 border border-slate-800 rounded-3xl p-5 sm:p-10 shadow-2xl">
           {/* Header Bar */}
-          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 pb-6 border-b border-slate-800 mb-8">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 pb-6 border-b border-slate-800 mb-6 sm:mb-8">
             <div>
               <div className="font-mono text-xs text-blue-400 uppercase tracking-wider mb-1">
-                Active Architecture Stream
+                Active Stream
               </div>
-              <h3 className="font-heading font-bold text-xl sm:text-2xl text-white">
+              <h3 className="font-heading font-bold text-lg sm:text-2xl text-white">
                 {current.title}
               </h3>
             </div>
@@ -153,42 +145,42 @@ export default function WorkflowStudio() {
             <button
               onClick={runPipeline}
               disabled={isRunning}
-              className={`px-6 py-3 rounded-xl font-mono text-xs font-bold uppercase tracking-wider flex items-center gap-2 transition-all ${
+              className={`w-full sm:w-auto px-5 py-3 rounded-xl font-mono text-xs font-bold uppercase tracking-wider flex items-center justify-center gap-2 transition-all ${
                 isRunning
                   ? "bg-slate-800 text-slate-500 cursor-not-allowed"
                   : "bg-blue-600 hover:bg-blue-500 text-white shadow-lg shadow-blue-600/30 hover:scale-105"
               }`}
             >
               <Play className="w-4 h-4 fill-white" />
-              <span>{isRunning ? "Running Pipeline..." : "Execute Pipeline"}</span>
+              <span>{isRunning ? "Running..." : "Execute Pipeline"}</span>
             </button>
           </div>
 
           {/* Nodes Pipeline */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-6 sm:mb-8">
             {current.nodes.map((node) => {
               const Icon = node.icon;
               const isCompleted = completedNodes.includes(node.id);
               return (
                 <div
                   key={node.id}
-                  className={`p-5 rounded-2xl border transition-all duration-300 flex flex-col justify-between ${
+                  className={`p-4 sm:p-5 rounded-2xl border transition-all duration-300 flex flex-col justify-between ${
                     isCompleted
                       ? "bg-blue-950/40 border-blue-500/60 shadow-lg shadow-blue-500/10"
                       : "bg-slate-900/80 border-slate-800 opacity-70"
                   }`}
                 >
                   <div>
-                    <div className="flex items-center justify-between mb-4">
+                    <div className="flex items-center justify-between mb-3">
                       <div
-                        className={`w-10 h-10 rounded-xl flex items-center justify-center transition-colors ${
+                        className={`w-9 h-9 sm:w-10 sm:h-10 rounded-xl flex items-center justify-center transition-colors ${
                           isCompleted ? "bg-blue-600 text-white" : "bg-slate-800 text-slate-400"
                         }`}
                       >
-                        <Icon className="w-5 h-5" />
+                        <Icon className="w-4 h-4 sm:w-5 sm:h-5" />
                       </div>
                       <span
-                        className={`font-mono text-xs font-bold ${
+                        className={`font-mono text-[11px] font-bold ${
                           isCompleted ? "text-emerald-400" : "text-slate-500"
                         }`}
                       >
@@ -196,13 +188,13 @@ export default function WorkflowStudio() {
                       </span>
                     </div>
 
-                    <h4 className="font-bold text-sm text-white mb-1.5 leading-snug">
+                    <h4 className="font-bold text-xs sm:text-sm text-white mb-1 leading-snug">
                       {node.title}
                     </h4>
-                    <p className="text-xs text-slate-400 leading-relaxed">{node.desc}</p>
+                    <p className="text-[11px] sm:text-xs text-slate-400 leading-relaxed">{node.desc}</p>
                   </div>
 
-                  <div className="mt-4 pt-3 border-t border-slate-800/80 flex items-center justify-between font-mono text-[10px] text-slate-500">
+                  <div className="mt-3 pt-2.5 border-t border-slate-800/80 flex items-center justify-between font-mono text-[10px] text-slate-500">
                     <span>STEP 0{node.id}</span>
                     <span className={isCompleted ? "text-cyan-400 font-bold" : ""}>
                       {isCompleted ? node.time : "--"}
@@ -225,7 +217,7 @@ export default function WorkflowStudio() {
               </div>
             </div>
 
-            <div className="space-y-1.5 min-h-[110px] max-h-[140px] overflow-y-auto text-slate-300">
+            <div className="space-y-1.5 min-h-[90px] max-h-[120px] overflow-y-auto text-slate-300 text-[11px] sm:text-xs">
               {logs.length === 0 ? (
                 <div className="text-slate-600 italic">
                   Press &apos;Execute Pipeline&apos; to simulate autonomous data processing...
