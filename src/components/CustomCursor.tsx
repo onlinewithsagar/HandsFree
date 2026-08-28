@@ -4,11 +4,14 @@ import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 
 export default function CustomCursor() {
+  const [mounted, setMounted] = useState(false);
   const [position, setPosition] = useState({ x: -100, y: -100 });
   const [isPointer, setIsPointer] = useState(false);
   const [isClicking, setIsClicking] = useState(false);
 
   useEffect(() => {
+    setMounted(true);
+
     function handleMouseMove(e: MouseEvent) {
       setPosition({ x: e.clientX, y: e.clientY });
 
@@ -38,8 +41,7 @@ export default function CustomCursor() {
     };
   }, []);
 
-  // Only show on desktop screens
-  if (typeof window !== "undefined" && window.innerWidth < 1024) {
+  if (!mounted) {
     return null;
   }
 
