@@ -1,7 +1,7 @@
 "use client";
 
 import { motion, useScroll, useTransform } from "framer-motion";
-import { Layout, Cpu, TrendingUp, Check, ArrowRight } from "lucide-react";
+import { Layout, Cpu, TrendingUp, ArrowRight } from "lucide-react";
 import { useRef } from "react";
 import TiltCard from "./TiltCard";
 
@@ -13,122 +13,88 @@ export default function Services() {
     offset: ["start end", "end start"],
   });
 
-  // Continuous bidirectional multi-layer parallax scrubbing
-  const yCard1 = useTransform(scrollYProgress, [0, 1], [40, -40]);
-  const yCard2 = useTransform(scrollYProgress, [0, 1], [-30, 30]);
-  const yCard3 = useTransform(scrollYProgress, [0, 1], [40, -40]);
+  const yCard1 = useTransform(scrollYProgress, [0, 1], [30, -30]);
+  const yCard2 = useTransform(scrollYProgress, [0, 1], [-20, 20]);
+  const yCard3 = useTransform(scrollYProgress, [0, 1], [30, -30]);
 
   const pillars = [
     {
       num: "01",
-      pillar: "PILLAR 01",
-      sub: "UI / UX VELOCITY",
-      title: "Web Development",
-      desc: "Custom, ultra-fast web applications built with Next.js and modern React. Designed to captivate visitors and maximize conversions.",
+      pillar: "VELOCITY",
+      title: "Web Applications",
+      desc: "Sub-second Next.js web applications engineered to captivate visitors and maximize conversions.",
       icon: Layout,
       yMotion: yCard1,
-      features: [
-        "Sub-Second Google Lighthouse 100",
-        "Bespoke 3D & Micro-Interactions",
-        "Headless CMS & Client Portals",
-      ],
-      linkText: "Explore Web Builds",
+      linkText: "Explore Builds",
     },
     {
       num: "02",
-      pillar: "PILLAR 02",
-      sub: "0ms MANUAL TIME",
-      title: "Automation Tools",
-      desc: "Eliminate manual busywork with custom AI pipelines, automated lead routing, CRM enrichment, and zero-friction invoicing systems.",
+      pillar: "AUTOMATION",
+      title: "AI Workflows",
+      desc: "Custom AI pipelines, CRM sync, and automated billing that eliminate manual busywork.",
       icon: Cpu,
       yMotion: yCard2,
-      features: [
-        "GPT-4o Agent Customer Triage",
-        "HubSpot, Stripe & n8n Plumbing",
-        "Zero-Touch Onboarding Pipelines",
-      ],
-      linkText: "Explore Automations",
+      linkText: "Explore AI",
     },
     {
       num: "03",
-      pillar: "PILLAR 03",
-      sub: "COMPOUNDING LEVERAGE",
+      pillar: "LEVERAGE",
       title: "Growth Systems",
-      desc: "Data-driven growth infrastructure that accelerates client acquisition, customer retention, and compounding enterprise revenue.",
+      desc: "Data-driven referral loops and full-funnel telemetry for compounding enterprise scale.",
       icon: TrendingUp,
       yMotion: yCard3,
-      features: [
-        "Dynamic Viral Referral Loops",
-        "Full-Funnel Telemetry & Analytics",
-        "Automated Multi-Channel Retargeting",
-      ],
-      linkText: "Explore Growth Systems",
+      linkText: "Explore Growth",
     },
   ];
 
   return (
-    <section ref={containerRef} id="services" className="py-24 bg-slate-50 relative overflow-hidden">
+    <section ref={containerRef} id="services" className="py-20 bg-slate-50 relative overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Section Header with Stagger Animation */}
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.7 }}
-          className="text-center max-w-3xl mx-auto mb-16"
+          transition={{ duration: 0.6 }}
+          className="text-center max-w-2xl mx-auto mb-14"
         >
-          <div className="inline-block px-3 py-1 rounded-full bg-blue-100/70 border border-blue-200 text-blue-700 font-mono text-xs font-bold uppercase mb-3">
-            The HandsFree Trifecta
+          <div className="inline-block px-3 py-1 rounded-full bg-blue-100 text-blue-700 font-mono text-xs font-bold uppercase mb-3">
+            Core Pillars
           </div>
-          <h2 className="font-heading font-black text-4xl sm:text-5xl text-slate-900 tracking-tight mb-4">
-            Three pillars of <br /> digital excellence.
+          <h2 className="font-heading font-black text-3xl sm:text-4xl text-slate-900 tracking-tight mb-3">
+            Three pillars of digital scale.
           </h2>
-          <p className="text-slate-600 text-base sm:text-lg leading-relaxed">
-            From pixel-perfect Next.js web applications to intelligent AI automations and compounding growth infrastructure — we engineer the full autonomous machine.
+          <p className="text-slate-600 text-sm sm:text-base leading-relaxed">
+            Pixel-perfect web applications, autonomous AI automations, and compounding growth systems.
           </p>
         </motion.div>
 
-        {/* 3 Pillars Grid with TiltCard and Scroll-Linked Parallax */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           {pillars.map((p, idx) => {
             const Icon = p.icon;
             return (
               <motion.div key={idx} style={{ y: p.yMotion }}>
-                <TiltCard className="bg-white p-8 border border-slate-200 shadow-xl shadow-slate-200/50 flex flex-col justify-between h-full group">
+                <TiltCard className="bg-white p-7 border border-slate-200 shadow-lg shadow-slate-200/50 flex flex-col justify-between h-full group">
                   <div>
-                    <div className="flex items-center justify-between mb-8">
-                      <div className="w-14 h-14 rounded-2xl bg-blue-50 text-blue-600 flex items-center justify-center group-hover:bg-blue-600 group-hover:text-white transition-colors duration-300 shadow-sm">
-                        <Icon className="w-7 h-7" />
+                    <div className="flex items-center justify-between mb-6">
+                      <div className="w-12 h-12 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center group-hover:bg-blue-600 group-hover:text-white transition-colors duration-300 shadow-sm">
+                        <Icon className="w-6 h-6" />
                       </div>
-                      <span className="font-mono text-4xl font-black text-slate-200 group-hover:text-blue-200 transition-colors">
+                      <span className="font-mono text-3xl font-black text-slate-200 group-hover:text-blue-200 transition-colors">
                         {p.num}
                       </span>
                     </div>
 
-                    <div className="flex items-center gap-2 mb-2 text-xs font-mono font-bold text-blue-600">
-                      <span>{p.pillar}</span>
-                      <span className="text-slate-300">|</span>
-                      <span className="text-slate-400">{p.sub}</span>
+                    <div className="text-xs font-mono font-bold text-blue-600 mb-1.5">
+                      {p.pillar}
                     </div>
 
-                    <h3 className="font-heading font-bold text-2xl text-slate-900 mb-3">
+                    <h3 className="font-heading font-bold text-xl text-slate-900 mb-2">
                       {p.title}
                     </h3>
 
                     <p className="text-slate-600 text-sm leading-relaxed mb-6">
                       {p.desc}
                     </p>
-
-                    <ul className="space-y-2.5 mb-8">
-                      {p.features.map((f, fIdx) => (
-                        <li key={fIdx} className="flex items-center gap-2.5 text-xs font-semibold text-slate-700">
-                          <div className="w-4 h-4 rounded-full bg-emerald-50 text-emerald-600 flex items-center justify-center shrink-0">
-                            <Check className="w-2.5 h-2.5 stroke-[3]" />
-                          </div>
-                          <span>{f}</span>
-                        </li>
-                      ))}
-                    </ul>
                   </div>
 
                   <a
@@ -136,7 +102,7 @@ export default function Services() {
                     className="inline-flex items-center justify-between w-full pt-4 border-t border-slate-100 text-sm font-bold text-blue-600 group-hover:text-blue-700 transition-colors"
                   >
                     <span>{p.linkText}</span>
-                    <ArrowRight className="w-4 h-4 group-hover:translate-x-1.5 transition-transform" />
+                    <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                   </a>
                 </TiltCard>
               </motion.div>
