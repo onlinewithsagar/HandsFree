@@ -8,6 +8,9 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- GSAP & ScrollTrigger for high-end bidirectional parallax animations -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -2024,15 +2027,8 @@
         const hamburger = document.getElementById('hamburger');
         const navLinks = document.getElementById('navLinks');
         const scrollProgress = document.getElementById('scrollProgress');
-        const orb1 = document.getElementById('orb1');
-        const orb2 = document.getElementById('orb2');
-        const orb3 = document.getElementById('orb3');
-        const parallaxElements = document.querySelectorAll('[data-parallax]');
 
-        let lastScrollY = window.scrollY;
-        let ticking = false;
-
-        function updateParallax() {
+        window.addEventListener('scroll', () => {
             const scrollY = window.scrollY;
             const docHeight = document.documentElement.scrollHeight - window.innerHeight;
             const scrollPercent = docHeight > 0 ? (scrollY / docHeight) * 100 : 0;
@@ -2045,33 +2041,7 @@
                 navbar.classList.remove('scrolled');
                 backToTop.classList.remove('visible');
             }
-
-            // Smooth background ambient orbs
-            if (orb1) orb1.style.transform = `translate3d(-50%, ${scrollY * 0.18}px, 0)`;
-            if (orb2) orb2.style.transform = `translate3d(0, ${-scrollY * 0.14}px, 0)`;
-            if (orb3) orb3.style.transform = `translate3d(0, ${-scrollY * 0.16}px, 0)`;
-
-            // Comprehensive Multi-Element Parallax
-            const viewHeight = window.innerHeight;
-            parallaxElements.forEach(el => {
-                const rect = el.getBoundingClientRect();
-                if (rect.top < viewHeight && rect.bottom > 0) {
-                    const speed = parseFloat(el.getAttribute('data-parallax')) || 0.1;
-                    const offset = (rect.top - viewHeight / 2) * speed;
-                    el.style.transform = `translate3d(0, ${offset}px, 0)`;
-                }
-            });
-
-            ticking = false;
-        }
-
-        window.addEventListener('scroll', () => {
-            if (!ticking) {
-                window.requestAnimationFrame(updateParallax);
-                ticking = true;
-            }
         }, { passive: true });
-        updateParallax();
 
         hamburger.addEventListener('click', () => {
             hamburger.classList.toggle('active');
@@ -2205,16 +2175,194 @@
         }
         animateParticles();
 
-        // ============ INTERSECTION REVEAL OBSERVER ============
-        const revealElements = document.querySelectorAll('.reveal');
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
+        // ============ GSAP SCROLLTRIGGER BIDIRECTIONAL PARALLAX ENGINE ============
+        if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
+            gsap.registerPlugin(ScrollTrigger);
+
+            // 1. Ambient Background Orbs Parallax Scrub (Continuous Up/Down)
+            gsap.to("#orb1", {
+                yPercent: 40,
+                ease: "none",
+                scrollTrigger: {
+                    trigger: "body",
+                    start: "top top",
+                    end: "bottom bottom",
+                    scrub: 1.2
                 }
             });
-        }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
-        revealElements.forEach(el => observer.observe(el));
+
+            gsap.to("#orb2", {
+                yPercent: -35,
+                ease: "none",
+                scrollTrigger: {
+                    trigger: "body",
+                    start: "top top",
+                    end: "bottom bottom",
+                    scrub: 1.5
+                }
+            });
+
+            gsap.to("#orb3", {
+                yPercent: -45,
+                ease: "none",
+                scrollTrigger: {
+                    trigger: "body",
+                    start: "top top",
+                    end: "bottom bottom",
+                    scrub: 1.8
+                }
+            });
+
+            // 2. Hero Section Parallax Depth Scrub (Reactivates whenever scrolled up or down)
+            gsap.to(".hero-title", {
+                y: -70,
+                opacity: 0.85,
+                ease: "none",
+                scrollTrigger: {
+                    trigger: ".hero",
+                    start: "top top",
+                    end: "bottom top",
+                    scrub: 1
+                }
+            });
+
+            gsap.to(".hero-subtitle", {
+                y: -40,
+                ease: "none",
+                scrollTrigger: {
+                    trigger: ".hero",
+                    start: "top top",
+                    end: "bottom top",
+                    scrub: 1.2
+                }
+            });
+
+            gsap.to(".hero-buttons", {
+                y: -25,
+                ease: "none",
+                scrollTrigger: {
+                    trigger: ".hero",
+                    start: "top top",
+                    end: "bottom top",
+                    scrub: 1.4
+                }
+            });
+
+            // Floating Badges Individual Scrub Speeds
+            gsap.to("#heroBadge1", {
+                y: -110,
+                rotation: -3,
+                scrollTrigger: { trigger: ".hero", start: "top top", end: "bottom top", scrub: 1.5 }
+            });
+            gsap.to("#heroBadge2", {
+                y: -80,
+                rotation: 4,
+                scrollTrigger: { trigger: ".hero", start: "top top", end: "bottom top", scrub: 1.8 }
+            });
+            gsap.to("#heroBadge3", {
+                y: -130,
+                rotation: 2,
+                scrollTrigger: { trigger: ".hero", start: "top top", end: "bottom top", scrub: 1.3 }
+            });
+            gsap.to("#heroBadge4", {
+                y: -90,
+                rotation: -4,
+                scrollTrigger: { trigger: ".hero", start: "top top", end: "bottom top", scrub: 1.6 }
+            });
+
+            // 3. Bidirectional Section Reveals (Plays every time on scroll up & down)
+            gsap.utils.toArray('.reveal').forEach((elem) => {
+                gsap.fromTo(elem, 
+                    { opacity: 0, y: 50, scale: 0.97 },
+                    {
+                        opacity: 1,
+                        y: 0,
+                        scale: 1,
+                        duration: 0.85,
+                        ease: "power3.out",
+                        scrollTrigger: {
+                            trigger: elem,
+                            start: "top 88%",
+                            end: "bottom 12%",
+                            toggleActions: "play reverse play reverse"
+                        }
+                    }
+                );
+            });
+
+            // 4. Services Grid Multi-Layer 3D Depth Scrub
+            gsap.utils.toArray('.service-card').forEach((card, index) => {
+                const speed = index % 2 === 0 ? 30 : -30;
+                gsap.to(card, {
+                    y: speed,
+                    ease: "none",
+                    scrollTrigger: {
+                        trigger: ".services",
+                        start: "top bottom",
+                        end: "bottom top",
+                        scrub: 1.5
+                    }
+                });
+            });
+
+            // 5. Process Step Staggered Parallax Scrub
+            gsap.utils.toArray('.process-step').forEach((step, idx) => {
+                gsap.fromTo(step,
+                    { y: 30 * (idx % 2 === 0 ? 1 : -1) },
+                    {
+                        y: -30 * (idx % 2 === 0 ? 1 : -1),
+                        ease: "none",
+                        scrollTrigger: {
+                            trigger: "#process",
+                            start: "top bottom",
+                            end: "bottom top",
+                            scrub: 1.2
+                        }
+                    }
+                );
+            });
+
+            // 6. Testimonial Cards Parallax Floating Scrub
+            gsap.utils.toArray('.testimonials-grid .testimonial-card').forEach((card, idx) => {
+                gsap.to(card, {
+                    y: idx === 1 ? -40 : 25,
+                    ease: "none",
+                    scrollTrigger: {
+                        trigger: "#testimonials",
+                        start: "top bottom",
+                        end: "bottom top",
+                        scrub: 1.4
+                    }
+                });
+            });
+
+            // 7. About Glowing Orb 3D Rotation Parallax
+            gsap.to(".about-visual .orb", {
+                y: -50,
+                rotation: 20,
+                scale: 1.08,
+                ease: "none",
+                scrollTrigger: {
+                    trigger: "#about",
+                    start: "top bottom",
+                    end: "bottom top",
+                    scrub: 1.5
+                }
+            });
+
+            // 8. CTA Section Glow Zoom Scrub
+            gsap.to(".cta-section .cta-content", {
+                scale: 1.04,
+                y: -20,
+                ease: "none",
+                scrollTrigger: {
+                    trigger: ".cta-section",
+                    start: "top bottom",
+                    end: "bottom top",
+                    scrub: 1
+                }
+            });
+        }
 
         // ============ COUNTER ANIMATION ============
         const counters = document.querySelectorAll('.counter');
@@ -2239,10 +2387,9 @@
                         }
                     }
                     requestAnimationFrame(updateCounter);
-                    counterObserver.unobserve(counter);
                 }
             });
-        }, { threshold: 0.5 });
+        }, { threshold: 0.3 });
         counters.forEach(c => counterObserver.observe(c));
 
         // ============ 3D TILT EFFECT & SPOTLIGHT GLOW ============
