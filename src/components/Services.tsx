@@ -3,6 +3,7 @@
 import { motion, useScroll, useTransform } from "framer-motion";
 import { Layout, Cpu, TrendingUp, Check, ArrowRight } from "lucide-react";
 import { useRef } from "react";
+import TiltCard from "./TiltCard";
 
 export default function Services() {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -68,7 +69,7 @@ export default function Services() {
   return (
     <section ref={containerRef} id="services" className="py-24 bg-slate-50 relative overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Section Header */}
+        {/* Section Header with Stagger Animation */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -87,60 +88,57 @@ export default function Services() {
           </p>
         </motion.div>
 
-        {/* 3 Pillars Grid with Scroll-Linked Parallax */}
+        {/* 3 Pillars Grid with TiltCard and Scroll-Linked Parallax */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {pillars.map((p, idx) => {
             const Icon = p.icon;
             return (
-              <motion.div
-                key={idx}
-                style={{ y: p.yMotion }}
-                whileHover={{ scale: 1.02 }}
-                className="relative bg-white rounded-3xl p-8 border border-slate-200 shadow-xl shadow-slate-200/50 flex flex-col justify-between group transition-all"
-              >
-                <div>
-                  <div className="flex items-center justify-between mb-8">
-                    <div className="w-14 h-14 rounded-2xl bg-blue-50 text-blue-600 flex items-center justify-center group-hover:bg-blue-600 group-hover:text-white transition-colors duration-300">
-                      <Icon className="w-7 h-7" />
+              <motion.div key={idx} style={{ y: p.yMotion }}>
+                <TiltCard className="bg-white p-8 border border-slate-200 shadow-xl shadow-slate-200/50 flex flex-col justify-between h-full group">
+                  <div>
+                    <div className="flex items-center justify-between mb-8">
+                      <div className="w-14 h-14 rounded-2xl bg-blue-50 text-blue-600 flex items-center justify-center group-hover:bg-blue-600 group-hover:text-white transition-colors duration-300 shadow-sm">
+                        <Icon className="w-7 h-7" />
+                      </div>
+                      <span className="font-mono text-4xl font-black text-slate-200 group-hover:text-blue-200 transition-colors">
+                        {p.num}
+                      </span>
                     </div>
-                    <span className="font-mono text-4xl font-black text-slate-200 group-hover:text-blue-100 transition-colors">
-                      {p.num}
-                    </span>
+
+                    <div className="flex items-center gap-2 mb-2 text-xs font-mono font-bold text-blue-600">
+                      <span>{p.pillar}</span>
+                      <span className="text-slate-300">|</span>
+                      <span className="text-slate-400">{p.sub}</span>
+                    </div>
+
+                    <h3 className="font-heading font-bold text-2xl text-slate-900 mb-3">
+                      {p.title}
+                    </h3>
+
+                    <p className="text-slate-600 text-sm leading-relaxed mb-6">
+                      {p.desc}
+                    </p>
+
+                    <ul className="space-y-2.5 mb-8">
+                      {p.features.map((f, fIdx) => (
+                        <li key={fIdx} className="flex items-center gap-2.5 text-xs font-semibold text-slate-700">
+                          <div className="w-4 h-4 rounded-full bg-emerald-50 text-emerald-600 flex items-center justify-center shrink-0">
+                            <Check className="w-2.5 h-2.5 stroke-[3]" />
+                          </div>
+                          <span>{f}</span>
+                        </li>
+                      ))}
+                    </ul>
                   </div>
 
-                  <div className="flex items-center gap-2 mb-2 text-xs font-mono font-bold text-blue-600">
-                    <span>{p.pillar}</span>
-                    <span className="text-slate-300">|</span>
-                    <span className="text-slate-400">{p.sub}</span>
-                  </div>
-
-                  <h3 className="font-heading font-bold text-2xl text-slate-900 mb-3">
-                    {p.title}
-                  </h3>
-
-                  <p className="text-slate-600 text-sm leading-relaxed mb-6">
-                    {p.desc}
-                  </p>
-
-                  <ul className="space-y-2.5 mb-8">
-                    {p.features.map((f, fIdx) => (
-                      <li key={fIdx} className="flex items-center gap-2.5 text-xs font-semibold text-slate-700">
-                        <div className="w-4 h-4 rounded-full bg-emerald-50 text-emerald-600 flex items-center justify-center shrink-0">
-                          <Check className="w-2.5 h-2.5 stroke-[3]" />
-                        </div>
-                        <span>{f}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-
-                <a
-                  href="#contact"
-                  className="inline-flex items-center justify-between w-full pt-4 border-t border-slate-100 text-sm font-bold text-blue-600 group-hover:text-blue-700 transition-colors"
-                >
-                  <span>{p.linkText}</span>
-                  <ArrowRight className="w-4 h-4 group-hover:translate-x-1.5 transition-transform" />
-                </a>
+                  <a
+                    href="#contact"
+                    className="inline-flex items-center justify-between w-full pt-4 border-t border-slate-100 text-sm font-bold text-blue-600 group-hover:text-blue-700 transition-colors"
+                  >
+                    <span>{p.linkText}</span>
+                    <ArrowRight className="w-4 h-4 group-hover:translate-x-1.5 transition-transform" />
+                  </a>
+                </TiltCard>
               </motion.div>
             );
           })}
