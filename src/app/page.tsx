@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import SmoothScrollProvider from "@/components/SmoothScrollProvider";
+import ScrollProgress from "@/components/ScrollProgress";
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
 import Marquee from "@/components/Marquee";
@@ -60,6 +61,7 @@ export default function Home() {
 
   return (
     <SmoothScrollProvider>
+      <ScrollProgress />
       <main className="min-h-screen bg-white text-slate-800">
         <Navbar
           soundEnabled={soundEnabled}

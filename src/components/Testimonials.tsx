@@ -2,6 +2,7 @@
 
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
+import TiltCard from "./TiltCard";
 
 export default function Testimonials() {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -59,28 +60,25 @@ export default function Testimonials() {
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {testimonials.map((t, idx) => (
-            <motion.div
-              key={idx}
-              style={{ y: t.yMotion }}
-              whileHover={{ scale: 1.02 }}
-              className="p-8 rounded-3xl bg-white border border-slate-200 shadow-xl shadow-slate-200/50 flex flex-col justify-between"
-            >
-              <div>
-                <div className="text-blue-600 text-5xl font-serif mb-4 leading-none">“</div>
-                <p className="text-slate-700 text-base leading-relaxed mb-6 font-normal">
-                  {t.quote}
-                </p>
-              </div>
-
-              <div className="flex items-center gap-3 pt-4 border-t border-slate-100">
-                <div className="w-10 h-10 rounded-xl bg-blue-600 text-white font-bold flex items-center justify-center text-sm shadow-md">
-                  {t.avatar}
-                </div>
+            <motion.div key={idx} style={{ y: t.yMotion }}>
+              <TiltCard className="p-8 bg-white border border-slate-200 shadow-xl shadow-slate-200/50 flex flex-col justify-between h-full group">
                 <div>
-                  <div className="font-bold text-sm text-slate-900">{t.author}</div>
-                  <div className="text-xs text-slate-500">{t.role}</div>
+                  <div className="text-blue-600 text-5xl font-serif mb-4 leading-none">“</div>
+                  <p className="text-slate-700 text-base leading-relaxed mb-6 font-normal">
+                    {t.quote}
+                  </p>
                 </div>
-              </div>
+
+                <div className="flex items-center gap-3 pt-4 border-t border-slate-100">
+                  <div className="w-10 h-10 rounded-xl bg-blue-600 text-white font-bold flex items-center justify-center text-sm shadow-md">
+                    {t.avatar}
+                  </div>
+                  <div>
+                    <div className="font-bold text-sm text-slate-900">{t.author}</div>
+                    <div className="text-xs text-slate-500">{t.role}</div>
+                  </div>
+                </div>
+              </TiltCard>
             </motion.div>
           ))}
         </div>
