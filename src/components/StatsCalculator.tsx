@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { Clock, DollarSign, TrendingUp, Sparkles } from "lucide-react";
+import AnimatedCounter from "./AnimatedCounter";
 
 export default function StatsCalculator() {
   const [teamSize, setTeamSize] = useState(12);
@@ -16,16 +17,16 @@ export default function StatsCalculator() {
   const estimatedRevenueLift = Math.round(annualPayrollSaved * 2.4);
 
   const stats = [
-    { target: "99.8%", label: "Process Automation Accuracy" },
-    { target: "3.8x", label: "Average Conversion Jump" },
-    { target: "420k+", label: "Manual Hours Eliminated" },
-    { target: "$14M+", label: "Client Revenue Generated" },
+    { value: 99.8, decimals: 1, suffix: "%", label: "Process Automation Accuracy" },
+    { value: 3.8, decimals: 1, suffix: "x", label: "Average Conversion Jump" },
+    { value: 420, decimals: 0, suffix: "k+", label: "Manual Hours Eliminated" },
+    { value: 14, decimals: 0, prefix: "$", suffix: "M+", label: "Client Revenue Generated" },
   ];
 
   return (
     <section id="calculator" className="py-24 bg-white relative overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Stats Row */}
+        {/* Animated Counting Stats Row */}
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 mb-24">
           {stats.map((s, idx) => (
             <motion.div
@@ -34,10 +35,16 @@ export default function StatsCalculator() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: idx * 0.1 }}
-              className="p-8 rounded-3xl bg-slate-50 border border-slate-200 text-center"
+              whileHover={{ y: -6 }}
+              className="p-8 rounded-3xl bg-slate-50 border border-slate-200 text-center shadow-sm hover:shadow-lg hover:border-blue-300 transition-all"
             >
               <div className="font-heading font-black text-4xl sm:text-5xl text-blue-600 mb-2">
-                {s.target}
+                <AnimatedCounter
+                  value={s.value}
+                  decimals={s.decimals}
+                  prefix={s.prefix}
+                  suffix={s.suffix}
+                />
               </div>
               <div className="text-xs sm:text-sm font-semibold text-slate-600">
                 {s.label}
@@ -147,7 +154,7 @@ export default function StatsCalculator() {
               </div>
             </div>
 
-            {/* Results Card (5 cols) */}
+            {/* Results Card (5 cols) with Spring Interpolated Counters */}
             <div className="lg:col-span-5 bg-gradient-to-b from-blue-900/40 to-slate-900/90 border border-blue-500/40 rounded-3xl p-6 sm:p-8 space-y-6 shadow-xl">
               <div className="flex items-center gap-2 text-cyan-400 font-mono text-xs font-bold uppercase tracking-wider">
                 <Sparkles className="w-4 h-4" />
@@ -159,7 +166,7 @@ export default function StatsCalculator() {
                   <div className="text-xs text-slate-400 font-mono mb-1">Time Reclaimed / Year</div>
                   <div className="font-heading font-black text-3xl text-white flex items-center gap-2">
                     <Clock className="w-6 h-6 text-blue-400" />
-                    <span>{annualHoursSaved.toLocaleString()} hrs</span>
+                    <AnimatedCounter value={annualHoursSaved} suffix=" hrs" />
                   </div>
                 </div>
 
@@ -167,7 +174,7 @@ export default function StatsCalculator() {
                   <div className="text-xs text-slate-400 font-mono mb-1">Direct Payroll Leakage Saved</div>
                   <div className="font-heading font-black text-3xl text-emerald-400 flex items-center gap-2">
                     <DollarSign className="w-6 h-6 text-emerald-400" />
-                    <span>${annualPayrollSaved.toLocaleString()}</span>
+                    <AnimatedCounter value={annualPayrollSaved} prefix="$" />
                   </div>
                 </div>
 
@@ -175,7 +182,7 @@ export default function StatsCalculator() {
                   <div className="text-xs text-cyan-300 font-mono mb-1">Estimated Growth Multiplier Lift</div>
                   <div className="font-heading font-black text-3xl text-cyan-300 flex items-center gap-2">
                     <TrendingUp className="w-6 h-6 text-cyan-400" />
-                    <span>+${estimatedRevenueLift.toLocaleString()} / yr</span>
+                    <AnimatedCounter value={estimatedRevenueLift} prefix="+$" suffix=" / yr" />
                   </div>
                 </div>
               </div>
