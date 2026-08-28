@@ -11,7 +11,6 @@ import {
   Cpu,
   Calculator,
   Shield,
-  GitMerge,
   MessageSquare,
   ArrowUpRight,
   Zap,
@@ -39,10 +38,9 @@ export default function Navbar({ soundEnabled, onToggleSound }: NavbarProps) {
 
   const navLinks = [
     { href: "#services", label: "Services", icon: Layers },
-    { href: "#studio", label: "Workflow Studio", icon: Cpu },
+    { href: "#studio", label: "Studio", icon: Cpu },
     { href: "#calculator", label: "ROI Matrix", icon: Calculator },
     { href: "#about", label: "About", icon: Shield },
-    { href: "#process", label: "Process", icon: GitMerge },
     { href: "#testimonials", label: "Testimonials", icon: MessageSquare },
   ];
 

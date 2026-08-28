@@ -11,7 +11,6 @@ import Services from "@/components/Services";
 import WorkflowStudio from "@/components/WorkflowStudio";
 import StatsCalculator from "@/components/StatsCalculator";
 import About from "@/components/About";
-import Process from "@/components/Process";
 import Testimonials from "@/components/Testimonials";
 import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
@@ -75,7 +74,6 @@ export default function Home() {
         <WorkflowStudio />
         <StatsCalculator />
         <About />
-        <Process />
         <Testimonials />
         <Contact onPlaySound={playSound} />
         <Footer />
