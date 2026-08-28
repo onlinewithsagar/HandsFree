@@ -1,9 +1,22 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
 import { Layout, Cpu, TrendingUp, Check, ArrowRight } from "lucide-react";
+import { useRef } from "react";
 
 export default function Services() {
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start end", "end start"],
+  });
+
+  // Continuous bidirectional multi-layer parallax scrubbing
+  const yCard1 = useTransform(scrollYProgress, [0, 1], [40, -40]);
+  const yCard2 = useTransform(scrollYProgress, [0, 1], [-30, 30]);
+  const yCard3 = useTransform(scrollYProgress, [0, 1], [40, -40]);
+
   const pillars = [
     {
       num: "01",
@@ -12,6 +25,7 @@ export default function Services() {
       title: "Web Development",
       desc: "Custom, ultra-fast web applications built with Next.js and modern React. Designed to captivate visitors and maximize conversions.",
       icon: Layout,
+      yMotion: yCard1,
       features: [
         "Sub-Second Google Lighthouse 100",
         "Bespoke 3D & Micro-Interactions",
@@ -26,6 +40,7 @@ export default function Services() {
       title: "Automation Tools",
       desc: "Eliminate manual busywork with custom AI pipelines, automated lead routing, CRM enrichment, and zero-friction invoicing systems.",
       icon: Cpu,
+      yMotion: yCard2,
       features: [
         "GPT-4o Agent Customer Triage",
         "HubSpot, Stripe & n8n Plumbing",
@@ -40,6 +55,7 @@ export default function Services() {
       title: "Growth Systems",
       desc: "Data-driven growth infrastructure that accelerates client acquisition, customer retention, and compounding enterprise revenue.",
       icon: TrendingUp,
+      yMotion: yCard3,
       features: [
         "Dynamic Viral Referral Loops",
         "Full-Funnel Telemetry & Analytics",
@@ -50,13 +66,13 @@ export default function Services() {
   ];
 
   return (
-    <section id="services" className="py-24 bg-slate-50 relative overflow-hidden">
+    <section ref={containerRef} id="services" className="py-24 bg-slate-50 relative overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-100px" }}
+          viewport={{ once: true }}
           transition={{ duration: 0.7 }}
           className="text-center max-w-3xl mx-auto mb-16"
         >
@@ -71,18 +87,15 @@ export default function Services() {
           </p>
         </motion.div>
 
-        {/* 3 Pillars Grid */}
+        {/* 3 Pillars Grid with Scroll-Linked Parallax */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {pillars.map((p, idx) => {
             const Icon = p.icon;
             return (
               <motion.div
                 key={idx}
-                initial={{ opacity: 0, y: 40 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-50px" }}
-                transition={{ duration: 0.6, delay: idx * 0.15 }}
-                whileHover={{ y: -8, scale: 1.01 }}
+                style={{ y: p.yMotion }}
+                whileHover={{ scale: 1.02 }}
                 className="relative bg-white rounded-3xl p-8 border border-slate-200 shadow-xl shadow-slate-200/50 flex flex-col justify-between group transition-all"
               >
                 <div>

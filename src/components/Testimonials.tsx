@@ -1,8 +1,20 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
+import { useRef } from "react";
 
 export default function Testimonials() {
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start end", "end start"],
+  });
+
+  const yCard1 = useTransform(scrollYProgress, [0, 1], [30, -30]);
+  const yCard2 = useTransform(scrollYProgress, [0, 1], [-40, 40]);
+  const yCard3 = useTransform(scrollYProgress, [0, 1], [30, -30]);
+
   const testimonials = [
     {
       quote:
@@ -10,6 +22,7 @@ export default function Testimonials() {
       author: "Sarah Kim",
       role: "CEO, TechNova Solutions",
       avatar: "SK",
+      yMotion: yCard1,
     },
     {
       quote:
@@ -17,6 +30,7 @@ export default function Testimonials() {
       author: "Marcus Johnson",
       role: "COO, BrightPath Analytics",
       avatar: "MJ",
+      yMotion: yCard2,
     },
     {
       quote:
@@ -24,11 +38,12 @@ export default function Testimonials() {
       author: "Aisha Laurent",
       role: "Founder, Velocity Commerce",
       avatar: "AL",
+      yMotion: yCard3,
     },
   ];
 
   return (
-    <section id="testimonials" className="py-24 bg-slate-50 relative overflow-hidden">
+    <section ref={containerRef} id="testimonials" className="py-24 bg-slate-50 relative overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center max-w-3xl mx-auto mb-16">
           <div className="inline-block px-3 py-1 rounded-full bg-blue-100 text-blue-700 font-mono text-xs font-bold uppercase mb-3">
@@ -46,11 +61,8 @@ export default function Testimonials() {
           {testimonials.map((t, idx) => (
             <motion.div
               key={idx}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: idx * 0.15 }}
-              whileHover={{ y: -8 }}
+              style={{ y: t.yMotion }}
+              whileHover={{ scale: 1.02 }}
               className="p-8 rounded-3xl bg-white border border-slate-200 shadow-xl shadow-slate-200/50 flex flex-col justify-between"
             >
               <div>
