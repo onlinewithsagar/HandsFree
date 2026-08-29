@@ -1,21 +1,9 @@
 "use client";
 
-import Link from "next/link";
-import Image from "next/image";
-import {
-  ArrowLeft,
-  Briefcase,
-  Zap,
-  Sparkles,
-  CheckCircle2,
-  Send,
-  Code,
-  Layers,
-  Cpu,
-  Flame,
-  Clock,
-  ShieldCheck,
-} from "lucide-react";
+import HiringPage from "../hiring/page";
+
+export default HiringPage;
+
 
 const SPOT_ROLES = [
   {
