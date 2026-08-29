@@ -75,25 +75,32 @@ export default function Contact({ onPlaySound }: { onPlaySound: (type: "click" |
             </div>
 
             <div>
-              <label className="block text-xs font-mono font-bold text-neutral-300 uppercase mb-2">
+              <label className="block text-xs font-mono font-bold text-neutral-400 uppercase tracking-wider mb-2">
                 Primary Need
               </label>
-              <select className="w-full px-4 py-3.5 rounded-xl bg-neutral-900 border border-white/10 text-white focus:outline-none focus:border-[#B8FF00] text-sm transition-colors">
-                <option className="bg-neutral-900 text-white">Full Trifecta (Website + Automation + Growth)</option>
-                <option className="bg-neutral-900 text-white">Web Application Development</option>
-                <option className="bg-neutral-900 text-white">AI Automation Plumbing</option>
-              </select>
+              <div className="relative">
+                <select className="w-full px-4 py-3.5 rounded-xl bg-neutral-900/90 border border-white/10 text-white focus:outline-none focus:border-[#B8FF00]/60 hover:border-white/20 text-sm transition-all appearance-none cursor-pointer">
+                  <option className="bg-neutral-950 text-white">Full Trifecta (Website + Automation + Growth)</option>
+                  <option className="bg-neutral-950 text-white">Web Application Development</option>
+                  <option className="bg-neutral-950 text-white">AI Automation Plumbing</option>
+                </select>
+                <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-neutral-400">
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
+                  </svg>
+                </div>
+              </div>
             </div>
 
             <div>
-              <label className="block text-xs font-mono font-bold text-neutral-300 uppercase mb-2">
+              <label className="block text-xs font-mono font-bold text-neutral-400 uppercase tracking-wider mb-2">
                 Project Scope & Goals
               </label>
               <textarea
                 rows={3}
                 required
                 placeholder="What manual workflows or website redesign goals are you targeting?"
-                className="w-full px-4 py-3.5 rounded-xl bg-neutral-900 border border-white/10 text-white placeholder-neutral-500 focus:outline-none focus:border-[#B8FF00] focus:shadow-[0_0_15px_rgba(184,255,0,0.2)] text-sm transition-all"
+                className="w-full px-4 py-3.5 rounded-xl bg-neutral-900/90 border border-white/10 text-white placeholder-neutral-500 focus:outline-none focus:border-[#B8FF00]/60 hover:border-white/20 text-sm transition-all resize-none"
               ></textarea>
             </div>
 
