@@ -638,12 +638,12 @@ export default function Home() {
                     </motion.a>
                   ))}
                   <Link
-                    href="/careers"
+                    href="/hiring"
                     onClick={() => setMobileNavOpen(false)}
                     className="flex items-center justify-between px-4 py-3.5 rounded-2xl text-neutral-200 hover:text-white hover:bg-neutral-900 border border-transparent hover:border-neutral-800 font-semibold text-base transition-all group"
                   >
                     <div className="flex items-center gap-2">
-                      <span>Careers</span>
+                      <span>Hiring</span>
                       <span className="text-[9px] bg-[#B8FF00]/10 text-[#B8FF00] px-1.5 py-0.5 rounded font-mono font-bold">SPOT INSTANCES</span>
                     </div>
                     <ChevronRight className="w-4 h-4 text-neutral-500 group-hover:text-[#B8FF00]" />
