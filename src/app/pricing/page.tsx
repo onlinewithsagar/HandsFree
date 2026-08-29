@@ -39,7 +39,7 @@ export default function PricingPage() {
   const [modalForm, setModalForm] = useState({
     name: "",
     business: "",
-    preferredTime: "Tomorrow Morning (10 AM - 1 PM)",
+    preferredTime: "",
     requirements: "",
   });
 
@@ -723,20 +723,14 @@ export default function PricingPage() {
 
               <div>
                 <label className="text-[11px] sm:text-xs font-mono font-bold text-neutral-400 uppercase tracking-wider block mb-1">
-                  When are you free for a talk?
+                  Select Date & Time for a Talk
                 </label>
-                <select
+                <input
+                  type="datetime-local"
                   value={modalForm.preferredTime}
                   onChange={(e) => setModalForm({ ...modalForm, preferredTime: e.target.value })}
-                  className="w-full bg-neutral-900 border border-white/10 rounded-xl px-3.5 py-2.5 text-white text-xs sm:text-sm focus:outline-none focus:border-[#B8FF00] transition-colors cursor-pointer"
-                >
-                  <option value="Today / ASAP (Next 2 Hours)">Today / ASAP (Next 2 Hours)</option>
-                  <option value="Tomorrow Morning (10 AM - 1 PM)">Tomorrow Morning (10 AM - 1 PM)</option>
-                  <option value="Tomorrow Afternoon (2 PM - 6 PM)">Tomorrow Afternoon (2 PM - 6 PM)</option>
-                  <option value="Evening Talk (7 PM - 9 PM)">Evening Talk (7 PM - 9 PM)</option>
-                  <option value="Weekend Preferred (Saturday / Sunday)">Weekend Preferred (Saturday / Sunday)</option>
-                  <option value="Async via WhatsApp / Any Time">Async via WhatsApp / Any Time</option>
-                </select>
+                  className="w-full bg-neutral-900 border border-white/10 rounded-xl px-3.5 py-2.5 text-white text-xs sm:text-sm focus:outline-none focus:border-[#B8FF00] transition-colors cursor-pointer scheme-dark"
+                />
               </div>
 
               <div>
