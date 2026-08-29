@@ -78,7 +78,7 @@ const KNOWLEDGE_GRAPH: Record<string, ChatStep> = {
     id: "q_book_sprint",
     question: "How do we get started and book a discovery sprint?",
     answer:
-      "You can submit your requirements in the contact form at the bottom of the page or email us at hello@handsfree.co. Our engineering team reviews specifications and responds within 4 hours with an actionable roadmap.",
+      "You can submit your requirements in the contact form at the bottom of the page or email us at handsfree.in@gmail.com. Our engineering team reviews specifications and responds within 4 hours with an actionable roadmap.",
     followUps: ["root_timeline", "root_services"],
   },
   q_support: {

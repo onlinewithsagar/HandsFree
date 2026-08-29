@@ -123,7 +123,7 @@ export default function PrivacyPolicy() {
               If you have any questions regarding this Privacy Policy or wish to request data modification/deletion, please contact our team directly:
             </p>
             <div className="p-4 rounded-xl bg-neutral-900 border border-white/10 font-mono text-xs text-[#B8FF00] inline-block">
-              legal@handsfree.build
+              handsfree.in@gmail.com
             </div>
           </section>
         </div>

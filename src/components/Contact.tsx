@@ -181,7 +181,7 @@ export default function Contact({ onPlaySound }: { onPlaySound: (type: "click" |
           <div className="flex flex-wrap items-center justify-between gap-4 pt-6 mt-6 border-t border-neutral-900 text-xs text-neutral-400">
             <div className="flex items-center gap-2">
               <Mail className="w-4 h-4 text-[#B8FF00]" />
-              <span>hello@handsfree.co</span>
+              <span>handsfree.in@gmail.com</span>
             </div>
             <div className="flex items-center gap-2">
               <ShieldCheck className="w-4 h-4 text-[#B8FF00]" />

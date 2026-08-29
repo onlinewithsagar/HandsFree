@@ -118,7 +118,7 @@ export default function RootLayout({
         sameAs: ["https://twitter.com/handsfree", "https://linkedin.com/company/handsfree"],
         contactPoint: {
           "@type": "ContactPoint",
-          email: "hello@handsfree.co",
+          email: "handsfree.in@gmail.com",
           contactType: "Customer Support",
         },
       },
