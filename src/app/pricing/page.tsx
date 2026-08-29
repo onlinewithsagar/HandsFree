@@ -16,6 +16,8 @@ import {
   Sparkles,
   Bot,
   HelpCircle,
+  X,
+  Send,
 } from "lucide-react";
 import TiltCard from "@/components/TiltCard";
 import AnimatedCounter from "@/components/AnimatedCounter";
@@ -26,15 +28,47 @@ export default function PricingPage() {
   const [billingCycle, setBillingCycle] = useState<"sprint" | "retainer">("sprint");
   const [activeTab, setActiveTab] = useState<"basic-web" | "fullstack" | "automation">("basic-web");
 
-  // ROI Calculator State
-  const [teamSize, setTeamSize] = useState(12);
-  const [hourlyRate, setHourlyRate] = useState(2500);
-  const [wastedHours, setWastedHours] = useState(14);
+  // Modal State for instant Plan Booking / Custom Inquiries
+  const [isBookingModalOpen, setIsBookingModalOpen] = useState(false);
+  const [selectedPlan, setSelectedPlan] = useState({
+    title: "Business Landing Page",
+    category: "Websites",
+    price: "₹2,499",
+    cycle: "One-Time Sprint",
+  });
+  const [modalForm, setModalForm] = useState({
+    name: "",
+    business: "",
+    requirements: "",
+  });
 
-  const weeklyHoursSaved = teamSize * wastedHours * 0.85;
+  const handleOpenBooking = (title: string, category: string, price: string) => {
+    setSelectedPlan({
+      title,
+      category,
+      price,
+      cycle: billingCycle === "sprint" ? "One-Time Sprint" : "Monthly Retainer",
+    });
+    setIsBookingModalOpen(true);
+  };
+
+  const handleModalWhatsAppSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    const phone = "919489365108";
+    const text = `*New HandsFree Sprint Inquiry*%0A%0A*Selected Plan:* ${selectedPlan.title}%0A*Category:* ${selectedPlan.category}%0A*Price / Cycle:* ${selectedPlan.price} (${selectedPlan.cycle})%0A%0A*Name:* ${modalForm.name || "Founder"}%0A*Business / Project:* ${modalForm.business || "Not specified"}%0A*Project Notes:* ${modalForm.requirements || "Standard Scope"}`;
+    window.open(`https://wa.me/${phone}?text=${text}`, "_blank");
+    setIsBookingModalOpen(false);
+  };
+
+  // ROI Calculator State - Realistic Small Business & Startup Defaults
+  const [teamSize, setTeamSize] = useState(2);
+  const [hourlyRate, setHourlyRate] = useState(400);
+  const [wastedHours, setWastedHours] = useState(6);
+
+  const weeklyHoursSaved = teamSize * wastedHours * 0.75;
   const annualHoursSaved = Math.round(weeklyHoursSaved * 48);
   const annualPayrollSaved = Math.round(annualHoursSaved * hourlyRate);
-  const estimatedRevenueLift = Math.round(annualPayrollSaved * 2.4);
+  const estimatedRevenueLift = Math.round(annualPayrollSaved * 1.5);
 
   const formatMoney = (amount: number) => {
     return new Intl.NumberFormat("en-IN", { style: "currency", currency: "INR", maximumFractionDigits: 0 }).format(amount);
@@ -67,22 +101,23 @@ export default function PricingPage() {
         </p>
 
         {/* Primary Service Selector Tabs at the Top */}
-        <div className="max-w-xl mx-auto p-1 bg-neutral-900 border border-white/10 rounded-2xl flex items-center justify-center mb-6 shadow-xl gap-1">
+        <div className="max-w-md mx-auto p-1.5 bg-neutral-900 border border-white/10 rounded-2xl flex items-center justify-between mb-6 shadow-xl gap-1">
           {[
-            { id: "basic-web", label: "Websites" },
-            { id: "fullstack", label: "Custom Apps" },
-            { id: "automation", label: "AI Automations" },
+            { id: "basic-web", label: "Websites", shortLabel: "Websites" },
+            { id: "fullstack", label: "Custom Apps", shortLabel: "Apps" },
+            { id: "automation", label: "AI Automations", shortLabel: "Automation" },
           ].map((tab) => (
             <button
               key={tab.id}
               onClick={() => setActiveTab(tab.id as "basic-web" | "fullstack" | "automation")}
-              className={`flex-1 py-2.5 px-3 sm:px-5 rounded-xl text-xs font-mono font-bold transition-all cursor-pointer text-center truncate ${
+              className={`flex-1 py-2.5 px-2 sm:px-4 rounded-xl text-xs sm:text-xs font-mono font-bold transition-all cursor-pointer text-center whitespace-nowrap ${
                 activeTab === tab.id
                   ? "bg-[#B8FF00] text-black shadow-md shadow-[#B8FF00]/25"
                   : "text-neutral-400 hover:text-white"
               }`}
             >
-              {tab.label}
+              <span className="sm:inline hidden">{tab.label}</span>
+              <span className="inline sm:hidden">{tab.shortLabel}</span>
             </button>
           ))}
         </div>
@@ -165,13 +200,13 @@ export default function PricingPage() {
                   </div>
                 </div>
 
-                <Link
-                  href="/#book"
-                  className="w-full py-3.5 rounded-xl font-bold text-xs sm:text-sm flex items-center justify-center gap-2 bg-neutral-900 hover:bg-neutral-800 text-white border border-white/10 transition-all"
+                <button
+                  onClick={() => handleOpenBooking("Business Landing Page", "Websites", billingCycle === "sprint" ? "₹2,499" : "₹1,199")}
+                  className="w-full py-3.5 rounded-xl font-bold text-xs sm:text-sm flex items-center justify-center gap-2 bg-neutral-900 hover:bg-neutral-800 text-white border border-white/10 transition-all cursor-pointer"
                 >
                   <span>Book Business Landing Page</span>
                   <ArrowRight className="w-4 h-4" />
-                </Link>
+                </button>
               </TiltCard>
 
               <TiltCard className="p-7 sm:p-8 flex flex-col justify-between bg-neutral-950/95 border-2 border-[#B8FF00]/40 shadow-lg shadow-[#B8FF00]/5">
@@ -216,13 +251,13 @@ export default function PricingPage() {
                   </div>
                 </div>
 
-                <Link
-                  href="/#book"
-                  className="w-full py-3.5 rounded-xl font-bold text-xs sm:text-sm flex items-center justify-center gap-2 bg-[#B8FF00] hover:bg-[#A3E600] text-black shadow-lg shadow-[#B8FF00]/25 transition-all"
+                <button
+                  onClick={() => handleOpenBooking("Full Business Website", "Websites", billingCycle === "sprint" ? "₹4,499" : "₹1,999")}
+                  className="w-full py-3.5 rounded-xl font-bold text-xs sm:text-sm flex items-center justify-center gap-2 bg-[#B8FF00] hover:bg-[#A3E600] text-black shadow-lg shadow-[#B8FF00]/25 transition-all cursor-pointer"
                 >
                   <span>Book Full Business Site</span>
                   <ArrowRight className="w-4 h-4" />
-                </Link>
+                </button>
               </TiltCard>
             </div>
           </div>
@@ -282,13 +317,13 @@ export default function PricingPage() {
                   </div>
                 </div>
 
-                <Link
-                  href="/#book"
-                  className="w-full py-3.5 rounded-xl font-bold text-xs sm:text-sm flex items-center justify-center gap-2 bg-neutral-900 hover:bg-neutral-800 text-white border border-white/10 transition-all"
+                <button
+                  onClick={() => handleOpenBooking("Tailor-Made Web App", "Custom Apps", billingCycle === "sprint" ? "₹7,999" : "₹3,999")}
+                  className="w-full py-3.5 rounded-xl font-bold text-xs sm:text-sm flex items-center justify-center gap-2 bg-neutral-900 hover:bg-neutral-800 text-white border border-white/10 transition-all cursor-pointer"
                 >
                   <span>Book Tailor-Made App</span>
                   <ArrowRight className="w-4 h-4" />
-                </Link>
+                </button>
               </TiltCard>
 
               <TiltCard className="p-7 sm:p-8 flex flex-col justify-between bg-neutral-950/95 border-2 border-[#B8FF00]/60 shadow-[0_0_40px_rgba(184,255,0,0.15)] ring-1 ring-[#B8FF00]/20">
@@ -334,13 +369,13 @@ export default function PricingPage() {
                   </div>
                 </div>
 
-                <Link
-                  href="/#book"
-                  className="w-full py-3.5 rounded-xl font-bold text-xs sm:text-sm flex items-center justify-center gap-2 bg-[#B8FF00] hover:bg-[#A3E600] text-black shadow-lg shadow-[#B8FF00]/25 transition-all"
+                <button
+                  onClick={() => handleOpenBooking("Full-Stack SaaS Platform", "Custom Apps", billingCycle === "sprint" ? "₹14,999" : "₹6,999")}
+                  className="w-full py-3.5 rounded-xl font-bold text-xs sm:text-sm flex items-center justify-center gap-2 bg-[#B8FF00] hover:bg-[#A3E600] text-black shadow-lg shadow-[#B8FF00]/25 transition-all cursor-pointer"
                 >
                   <span>Build SaaS Platform</span>
                   <ArrowRight className="w-4 h-4" />
-                </Link>
+                </button>
               </TiltCard>
             </div>
           </div>
@@ -399,13 +434,13 @@ export default function PricingPage() {
                   </div>
                 </div>
 
-                <Link
-                  href="/#book"
-                  className="w-full py-3.5 rounded-xl font-bold text-xs sm:text-sm flex items-center justify-center gap-2 bg-neutral-900 hover:bg-neutral-800 text-white border border-white/10 transition-all"
+                <button
+                  onClick={() => handleOpenBooking("Auto-Responder Pipeline", "AI Automations", billingCycle === "sprint" ? "₹3,499" : "₹1,499")}
+                  className="w-full py-3.5 rounded-xl font-bold text-xs sm:text-sm flex items-center justify-center gap-2 bg-neutral-900 hover:bg-neutral-800 text-white border border-white/10 transition-all cursor-pointer"
                 >
                   <span>Automate Leads</span>
                   <ArrowRight className="w-4 h-4" />
-                </Link>
+                </button>
               </TiltCard>
 
               <TiltCard className="p-7 sm:p-8 flex flex-col justify-between bg-neutral-950/95 border-2 border-[#B8FF00]/40 shadow-lg shadow-[#B8FF00]/5">
@@ -450,13 +485,13 @@ export default function PricingPage() {
                   </div>
                 </div>
 
-                <Link
-                  href="/#book"
-                  className="w-full py-3.5 rounded-xl font-bold text-xs sm:text-sm flex items-center justify-center gap-2 bg-[#B8FF00] hover:bg-[#A3E600] text-black shadow-lg shadow-[#B8FF00]/25 transition-all"
+                <button
+                  onClick={() => handleOpenBooking("Multi-Step AI Agent Orchestration", "AI Automations", billingCycle === "sprint" ? "₹5,999" : "₹2,999")}
+                  className="w-full py-3.5 rounded-xl font-bold text-xs sm:text-sm flex items-center justify-center gap-2 bg-[#B8FF00] hover:bg-[#A3E600] text-black shadow-lg shadow-[#B8FF00]/25 transition-all cursor-pointer"
                 >
                   <span>Build AI Agent</span>
                   <ArrowRight className="w-4 h-4" />
-                </Link>
+                </button>
               </TiltCard>
             </div>
           </div>
@@ -613,6 +648,101 @@ export default function PricingPage() {
           </div>
         </div>
       </div>
+
+      {/* Instant Plan Booking & Custom Inquiry Popup Modal */}
+      {isBookingModalOpen && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md animate-in fade-in duration-200">
+          <div className="w-full max-w-lg bg-neutral-950 border border-[#B8FF00]/40 rounded-3xl p-6 sm:p-8 shadow-[0_0_50px_rgba(184,255,0,0.15)] relative overflow-hidden">
+            {/* Ambient Background Glow */}
+            <div className="absolute top-0 right-0 w-48 h-48 bg-[#B8FF00]/10 rounded-full blur-3xl pointer-events-none" />
+
+            {/* Modal Header */}
+            <div className="flex items-center justify-between pb-4 border-b border-white/10 mb-5">
+              <div>
+                <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-[#B8FF00] bg-[#B8FF00]/10 px-2.5 py-0.5 rounded-full border border-[#B8FF00]/20">
+                  {selectedPlan.category}
+                </span>
+                <h3 className="text-xl font-heading font-black text-white mt-1">
+                  {selectedPlan.title}
+                </h3>
+              </div>
+              <button
+                onClick={() => setIsBookingModalOpen(false)}
+                className="w-8 h-8 rounded-full bg-neutral-900 border border-white/10 flex items-center justify-center text-neutral-400 hover:text-white hover:border-white/20 transition-all cursor-pointer"
+              >
+                <X className="w-4 h-4" />
+              </button>
+            </div>
+
+            {/* Selected Package Badge & Price */}
+            <div className="p-3.5 rounded-2xl bg-neutral-900/80 border border-white/10 flex items-center justify-between mb-5">
+              <div>
+                <div className="text-[11px] font-mono text-neutral-400">Selected Plan Rate:</div>
+                <div className="text-base font-bold text-white font-mono">
+                  {selectedPlan.price} <span className="text-xs text-neutral-500 font-normal">({selectedPlan.cycle})</span>
+                </div>
+              </div>
+              <div className="text-right">
+                <span className="text-[11px] text-[#B8FF00] font-mono flex items-center gap-1">
+                  <CheckCircle2 className="w-3.5 h-3.5" /> Fast WhatsApp Dispatch
+                </span>
+              </div>
+            </div>
+
+            {/* Form */}
+            <form onSubmit={handleModalWhatsAppSubmit} className="space-y-4">
+              <div>
+                <label className="text-xs font-mono font-bold text-neutral-400 uppercase tracking-wider block mb-1.5">
+                  Your Name *
+                </label>
+                <input
+                  required
+                  type="text"
+                  placeholder="e.g. Alex Rivera"
+                  value={modalForm.name}
+                  onChange={(e) => setModalForm({ ...modalForm, name: e.target.value })}
+                  className="w-full bg-neutral-900 border border-white/10 rounded-xl px-4 py-2.5 text-white text-sm focus:outline-none focus:border-[#B8FF00] transition-colors"
+                />
+              </div>
+
+              <div>
+                <label className="text-xs font-mono font-bold text-neutral-400 uppercase tracking-wider block mb-1.5">
+                  Business / Project Name
+                </label>
+                <input
+                  type="text"
+                  placeholder="e.g. Apex Health or New Startup"
+                  value={modalForm.business}
+                  onChange={(e) => setModalForm({ ...modalForm, business: e.target.value })}
+                  className="w-full bg-neutral-900 border border-white/10 rounded-xl px-4 py-2.5 text-white text-sm focus:outline-none focus:border-[#B8FF00] transition-colors"
+                />
+              </div>
+
+              <div>
+                <label className="text-xs font-mono font-bold text-neutral-400 uppercase tracking-wider block mb-1.5">
+                  Custom Requirements / Notes
+                </label>
+                <textarea
+                  rows={2}
+                  placeholder="Any specific features, reference links, or custom integrations needed..."
+                  value={modalForm.requirements}
+                  onChange={(e) => setModalForm({ ...modalForm, requirements: e.target.value })}
+                  className="w-full bg-neutral-900 border border-white/10 rounded-xl px-4 py-2.5 text-white text-sm focus:outline-none focus:border-[#B8FF00] transition-colors resize-none"
+                />
+              </div>
+
+              {/* Submit to WhatsApp */}
+              <button
+                type="submit"
+                className="w-full py-3.5 rounded-xl bg-[#B8FF00] hover:bg-[#A3E600] text-black font-heading font-black text-xs sm:text-sm uppercase tracking-wider flex items-center justify-center gap-2 shadow-lg shadow-[#B8FF00]/25 transition-all hover:scale-[1.01] cursor-pointer mt-2"
+              >
+                <Send className="w-4 h-4 stroke-[2.5]" />
+                <span>Send to WhatsApp with Plan Details</span>
+              </button>
+            </form>
+          </div>
+        </div>
+      )}
 
       <Footer />
     </div>
