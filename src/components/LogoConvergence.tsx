@@ -35,14 +35,14 @@ export default function LogoConvergence() {
       ref={containerRef}
       className="py-24 sm:py-32 bg-black relative overflow-hidden flex flex-col items-center justify-center select-none"
     >
-      {/* Background Radial Glow Lights */}
+      {/* Background Subtle Ambient Glow */}
       <motion.div
-        style={{ opacity: glowOpacity, scale: energyScale }}
-        className="absolute w-[500px] h-[500px] sm:w-[700px] sm:h-[700px] rounded-full bg-[#B8FF00]/10 blur-[140px] pointer-events-none transition-opacity"
+        style={{ opacity: glowOpacity }}
+        className="absolute w-[400px] h-[400px] rounded-full bg-[#B8FF00]/4 blur-[120px] pointer-events-none transition-opacity"
       />
 
       {/* Grid Pattern in dark */}
-      <div className="absolute inset-0 bg-[linear-gradient(to_right,#111_1px,transparent_1px),linear-gradient(to_bottom,#111_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_50%,#000_70%,transparent_100%)] opacity-40 pointer-events-none" />
+      <div className="absolute inset-0 bg-[linear-gradient(to_right,#111_1px,transparent_1px),linear-gradient(to_bottom,#111_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_50%,#000_70%,transparent_100%)] opacity-30 pointer-events-none" />
 
       <div className="relative z-10 max-w-5xl mx-auto px-4 text-center">
         {/* Header Tag */}
@@ -50,7 +50,7 @@ export default function LogoConvergence() {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-[#B8FF00]/30 bg-[#B8FF00]/10 text-[#B8FF00] font-mono text-xs font-bold uppercase mb-6 shadow-[0_0_20px_rgba(184,255,0,0.15)]"
+          className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-[#B8FF00]/20 bg-[#B8FF00]/5 text-[#B8FF00] font-mono text-xs font-bold uppercase mb-6"
         >
           <Sparkles className="w-3.5 h-3.5" />
           <span>The Human + AI Convergence</span>
@@ -58,7 +58,7 @@ export default function LogoConvergence() {
 
         <h2 className="font-heading font-black text-3xl sm:text-5xl lg:text-6xl text-white tracking-tight mb-4">
           Where Human Vision Meets{" "}
-          <span className="text-[#B8FF00] drop-shadow-[0_0_30px_rgba(184,255,0,0.4)]">
+          <span className="text-[#B8FF00]">
             Autonomous Speed.
           </span>
         </h2>
@@ -67,19 +67,7 @@ export default function LogoConvergence() {
         </p>
 
         {/* Parallax Hands Convergence Stage - Sleek, Compact and Centered */}
-        <div className="relative w-52 h-52 sm:w-64 sm:h-64 mx-auto mb-10 flex items-center justify-center">
-          {/* Energy shockwave aura when fully connected */}
-          <motion.div
-            style={{ opacity: glowOpacity }}
-            className="absolute inset-0 rounded-full border border-[#B8FF00]/40 shadow-[0_0_50px_rgba(184,255,0,0.3)] animate-pulse pointer-events-none"
-          />
-
-          {/* Connection Central Spark Pulse */}
-          <motion.div
-            style={{ opacity: glowOpacity, scale: energyScale }}
-            className="absolute w-12 h-12 rounded-full bg-[#B8FF00] blur-xl z-20 pointer-events-none"
-          />
-
+        <div className="relative w-48 h-48 sm:w-56 sm:h-56 mx-auto mb-10 flex items-center justify-center">
           {/* Left Pillar & Reaching Hand (Transparent Clean PNG) */}
           <motion.div
             style={{
@@ -93,8 +81,8 @@ export default function LogoConvergence() {
               src="/hand-left-clean.png"
               alt="HandsFree Left Hand"
               fill
-              sizes="(max-width: 640px) 208px, 256px"
-              className="object-contain drop-shadow-[0_0_20px_rgba(184,255,0,0.2)]"
+              sizes="(max-width: 640px) 192px, 224px"
+              className="object-contain"
             />
           </motion.div>
 
@@ -111,8 +99,8 @@ export default function LogoConvergence() {
               src="/hand-right-clean.png"
               alt="HandsFree Right Hand"
               fill
-              sizes="(max-width: 640px) 208px, 256px"
-              className="object-contain drop-shadow-[0_0_20px_rgba(184,255,0,0.2)]"
+              sizes="(max-width: 640px) 192px, 224px"
+              className="object-contain"
             />
           </motion.div>
         </div>
