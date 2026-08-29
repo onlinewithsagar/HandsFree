@@ -3,7 +3,7 @@
 import { useState, useRef, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion";
 import {
   Zap,
   Globe,
@@ -39,6 +39,9 @@ import {
   RotateCcw,
 } from "lucide-react";
 import LogoConvergence from "@/components/LogoConvergence";
+import TiltCard from "@/components/TiltCard";
+import Marquee from "@/components/Marquee";
+import AnimatedCounter from "@/components/AnimatedCounter";
 
 const SCENARIOS = {
   inbound: {
@@ -239,8 +242,21 @@ export default function Home() {
     "Autonomous Growth Funnels",
   ];
 
-  // Interactive Guided Chatbot State (Questions & Follow-ups)
+  // Interactive Guided Chatbot State
   const [isChatOpen, setIsChatOpen] = useState(false);
+
+  const heroContainerRef = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: heroContainerRef,
+    offset: ["start start", "end start"],
+  });
+
+  const heroY = useTransform(scrollYProgress, [0, 1], [0, 80]);
+  const heroOpacity = useTransform(scrollYProgress, [0, 0.8], [1, 0]);
+  const orb1Y = useTransform(scrollYProgress, [0, 1], [-40, 120]);
+  const orb2Y = useTransform(scrollYProgress, [0, 1], [30, -100]);
+  const orbScale = useTransform(scrollYProgress, [0, 0.5, 1], [1, 1.25, 0.9]);
+
   const [history, setHistory] = useState<MessageHistoryItem[]>([
     {
       id: "init",
@@ -501,7 +517,7 @@ export default function Home() {
     { href: "#services", label: "Infrastructure" },
     { href: "#studio", label: "Studio" },
     { href: "#calculator", label: "ROI Calculator" },
-    { href: "#book", label: "Book Sprint" },
+    { href: "#book", label: "Contact Us" },
   ];
 
   return (
@@ -529,7 +545,7 @@ export default function Home() {
 
       {/* Floating Header with SideNav Hamburger */}
       <div className="fixed top-5 inset-x-0 z-40 px-4 pointer-events-none flex justify-center">
-        <nav className={`pointer-events-auto flex items-center justify-between px-5 sm:px-6 py-3.5 rounded-full transition-all duration-500 max-w-6xl w-full ${isScrolled ? 'bg-black/90 backdrop-blur-xl border border-white/15 shadow-2xl shadow-black/80' : 'bg-black/60 backdrop-blur-md border border-white/10'}`}>
+        <nav className={`pointer-events-auto flex items-center justify-between px-5 sm:px-6 py-3.5 rounded-full transition-all duration-500 max-w-6xl w-full ${isScrolled ? 'bg-black/60 backdrop-blur-2xl border border-white/20 shadow-2xl shadow-black/90 ring-1 ring-white/10' : 'bg-neutral-950/40 backdrop-blur-xl border border-white/15 shadow-lg shadow-black/40'}`}>
           <a href="#" className="flex items-center gap-2.5 group">
             <div className="w-8 h-8 flex items-center justify-center transition-transform group-hover:scale-105">
               <Image
@@ -563,7 +579,7 @@ export default function Home() {
           <div className="flex items-center gap-3">
             <a
               href="#book"
-              className="px-5 py-2.5 bg-[#B8FF00] hover:bg-[#A3E600] text-black text-sm font-bold rounded-full transition-all flex items-center gap-1.5 shadow-lg shadow-[#B8FF00]/25 hover:scale-105"
+              className="hidden md:inline-flex px-5 py-2.5 bg-[#B8FF00] hover:bg-[#A3E600] text-black text-sm font-bold rounded-full transition-all items-center gap-1.5 shadow-lg shadow-[#B8FF00]/25 hover:scale-105 whitespace-nowrap"
             >
               Contact Us <ArrowRightIcon className="w-4 h-4 stroke-[2.5]" />
             </a>
@@ -637,6 +653,7 @@ export default function Home() {
                       <ChevronRight className="w-4 h-4 text-neutral-500 group-hover:text-[#B8FF00]" />
                     </motion.a>
                   ))}
+
                   <Link
                     href="/hiring"
                     onClick={() => setMobileNavOpen(false)}
@@ -669,10 +686,11 @@ export default function Home() {
                 <a
                   href="#book"
                   onClick={() => setMobileNavOpen(false)}
-                  className="w-full py-3.5 rounded-xl bg-[#B8FF00] hover:bg-[#A3E600] text-black font-bold text-sm flex items-center justify-center gap-2 shadow-lg shadow-[#B8FF00]/25"
+                  className="w-full py-3.5 rounded-xl bg-[#B8FF00] hover:bg-[#A3E600] text-black font-bold text-sm flex items-center justify-center gap-2 shadow-lg shadow-[#B8FF00]/25 transition-all hover:scale-[1.02]"
                 >
                   <Zap className="w-4 h-4 fill-black text-black" />
-                  <span>Start Your Project</span>
+                  <span>Contact Us</span>
+                  <ArrowRightIcon className="w-4 h-4 stroke-[2.5]" />
                 </a>
               </div>
             </motion.div>
@@ -681,8 +699,22 @@ export default function Home() {
       </AnimatePresence>
 
       <main className="max-w-[85rem] mx-auto px-4 sm:px-6 lg:px-8 pt-36 sm:pt-40 space-y-28 sm:space-y-32 relative z-10">
-        {/* Hero Section */}
-        <section className="text-center pt-8 pb-14 sm:pb-20 reveal-target opacity-0 scale-95">
+        {/* Parallax Background Glowing Ambient Orbs */}
+        <motion.div
+          style={{ y: orb1Y, scale: orbScale }}
+          className="pointer-events-none absolute -top-10 left-1/4 w-[550px] h-[550px] bg-[#B8FF00]/5 rounded-full blur-[160px] z-0"
+        />
+        <motion.div
+          style={{ y: orb2Y, scale: orbScale }}
+          className="pointer-events-none absolute top-1/3 right-1/4 w-[500px] h-[500px] bg-[#B8FF00]/4 rounded-full blur-[140px] z-0"
+        />
+
+        {/* Hero Section with Parallax Depth */}
+        <motion.section
+          ref={heroContainerRef}
+          style={{ y: heroY, opacity: heroOpacity }}
+          className="text-center pt-8 pb-14 sm:pb-20 relative z-10"
+        >
           <div className="inline-flex items-center gap-2.5 px-4 py-2 rounded-full border border-[#B8FF00]/25 bg-[#B8FF00]/10 text-[#B8FF00] text-xs font-mono font-bold tracking-wider uppercase mb-8 shadow-[0_0_20px_rgba(184,255,0,0.15)]">
             <span className="relative flex h-2 w-2">
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#B8FF00] opacity-75"></span>
@@ -708,7 +740,12 @@ export default function Home() {
               <PlayCircle className="w-5 h-5 text-[#B8FF00]" /> Watch It Work
             </a>
           </div>
-        </section>
+        </motion.section>
+
+        {/* Live Features Marquee */}
+        <div className="reveal-target opacity-0 scale-95">
+          <Marquee />
+        </div>
 
         {/* Three Pillars of Digital Scale */}
         <section id="pillars" className="reveal-target opacity-0 translate-y-12">
@@ -726,7 +763,7 @@ export default function Home() {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {/* Pillar 01 */}
-            <div className="bento-card p-8 group flex flex-col justify-between relative overflow-hidden">
+            <TiltCard className="bg-neutral-950/80 border border-white/10 hover:border-[#B8FF00]/40 transition-all p-8 flex flex-col justify-between relative overflow-hidden group shadow-xl">
               <div className="absolute top-6 right-8 font-heading font-black text-4xl text-neutral-800/60 select-none">
                 01
               </div>
@@ -751,10 +788,10 @@ export default function Home() {
                 <span>Explore Builds</span>
                 <ArrowRightIcon className="w-3.5 h-3.5" />
               </a>
-            </div>
+            </TiltCard>
 
             {/* Pillar 02 */}
-            <div className="bento-card p-8 group flex flex-col justify-between relative overflow-hidden">
+            <TiltCard className="bg-neutral-950/80 border border-white/10 hover:border-[#B8FF00]/40 transition-all p-8 flex flex-col justify-between relative overflow-hidden group shadow-xl">
               <div className="absolute top-6 right-8 font-heading font-black text-4xl text-neutral-800/60 select-none">
                 02
               </div>
@@ -779,10 +816,10 @@ export default function Home() {
                 <span>Explore AI</span>
                 <ArrowRightIcon className="w-3.5 h-3.5" />
               </a>
-            </div>
+            </TiltCard>
 
             {/* Pillar 03 */}
-            <div className="bento-card p-8 group flex flex-col justify-between relative overflow-hidden">
+            <TiltCard className="bg-neutral-950/80 border border-white/10 hover:border-[#B8FF00]/40 transition-all p-8 flex flex-col justify-between relative overflow-hidden group shadow-xl">
               <div className="absolute top-6 right-8 font-heading font-black text-4xl text-neutral-800/60 select-none">
                 03
               </div>
@@ -807,7 +844,7 @@ export default function Home() {
                 <span>Explore Growth</span>
                 <ArrowRightIcon className="w-3.5 h-3.5" />
               </a>
-            </div>
+            </TiltCard>
           </div>
         </section>
 
@@ -1069,7 +1106,7 @@ export default function Home() {
                   <div>
                     <div className="text-xs text-neutral-500 font-mono mb-1">Annual Hours Saved</div>
                     <div className="text-3xl sm:text-4xl font-heading font-black text-white tracking-tight">
-                      {annualHoursSaved.toLocaleString()} <span className="text-lg text-neutral-500 font-normal">hrs</span>
+                      <AnimatedCounter value={annualHoursSaved} suffix=" hrs" />
                     </div>
                   </div>
 
@@ -1078,7 +1115,7 @@ export default function Home() {
                   <div>
                     <div className="text-xs text-neutral-500 font-mono mb-1">Payroll Recovered</div>
                     <div className="text-3xl sm:text-4xl font-heading font-black text-white tracking-tight">
-                      {formatMoney(annualPayrollSaved)}
+                      <AnimatedCounter value={annualPayrollSaved} prefix="₹" />
                     </div>
                   </div>
                 </div>
@@ -1086,7 +1123,7 @@ export default function Home() {
                 <div className="p-5 rounded-2xl border border-[#B8FF00]/25 bg-[#B8FF00]/5 relative z-10">
                   <div className="text-xs text-[#B8FF00] font-mono font-bold mb-1">Estimated Revenue Lift</div>
                   <div className="text-3xl sm:text-4xl font-heading font-black text-[#B8FF00] tracking-tight">
-                    {formatMoney(estimatedRevenueLift)}
+                    <AnimatedCounter value={estimatedRevenueLift} prefix="₹" />
                   </div>
                   <p className="text-xs text-neutral-400 mt-2">Based on compounding speed & automated nurture systems.</p>
                 </div>

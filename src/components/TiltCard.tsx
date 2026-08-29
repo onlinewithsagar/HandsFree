@@ -61,7 +61,7 @@ export default function TiltCard({ children, className = "" }: TiltCardProps) {
         <div
           className="pointer-events-none absolute -inset-px opacity-100 transition-opacity duration-300 z-10"
           style={{
-            background: `radial-gradient(450px circle at ${mousePosition.x}px ${mousePosition.y}px, rgba(0, 87, 255, 0.12), transparent 80%)`,
+            background: `radial-gradient(450px circle at ${mousePosition.x}px ${mousePosition.y}px, rgba(184, 255, 0, 0.12), transparent 80%)`,
           }}
         />
       )}

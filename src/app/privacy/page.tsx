@@ -11,7 +11,7 @@ export default function PrivacyPolicy() {
   return (
     <div className="min-h-screen bg-black text-neutral-200 font-sans selection:bg-[#B8FF00] selection:text-black">
       {/* Top Header */}
-      <header className="border-b border-white/10 bg-black/80 backdrop-blur-md sticky top-0 z-40">
+      <header className="border-b border-white/10 bg-black/40 backdrop-blur-2xl sticky top-0 z-40">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 py-4 flex items-center justify-between">
           <Link href="/" className="flex items-center gap-2.5 group">
             <div className="w-8 h-8 flex items-center justify-center transition-transform group-hover:scale-105">
