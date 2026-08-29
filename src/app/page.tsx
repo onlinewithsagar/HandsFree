@@ -536,8 +536,6 @@ export default function Home() {
     { href: "#pillars", label: "Core Pillars" },
     { href: "#services", label: "Infrastructure" },
     { href: "#studio", label: "Studio" },
-    { href: "/pricing", label: "Pricing & ROI" },
-    { href: "#book", label: "Contact Us" },
   ];
 
   return (
@@ -658,7 +656,7 @@ export default function Home() {
                   </button>
                 </div>
 
-                <div className="py-8 space-y-3">
+                <div className="py-6 space-y-2.5 overflow-y-auto max-h-[calc(100vh-220px)] pr-1">
                   {navLinks.map((item, idx) => (
                     <motion.a
                       key={item.href}
@@ -667,7 +665,7 @@ export default function Home() {
                       animate={{ opacity: 1, x: 0 }}
                       transition={{ delay: idx * 0.05 }}
                       onClick={() => setMobileNavOpen(false)}
-                      className="flex items-center justify-between px-4 py-3.5 rounded-2xl text-neutral-200 hover:text-white hover:bg-neutral-900 border border-transparent hover:border-neutral-800 font-semibold text-base transition-all group"
+                      className="flex items-center justify-between px-4 py-3 rounded-2xl text-neutral-200 hover:text-white hover:bg-neutral-900 border border-transparent hover:border-neutral-800 font-semibold text-sm transition-all group"
                     >
                       <span>{item.label}</span>
                       <ChevronRight className="w-4 h-4 text-neutral-500 group-hover:text-[#B8FF00]" />
@@ -677,7 +675,7 @@ export default function Home() {
                   <Link
                     href="/pricing"
                     onClick={() => setMobileNavOpen(false)}
-                    className="flex items-center justify-between px-4 py-3.5 rounded-2xl text-neutral-200 hover:text-white hover:bg-neutral-900 border border-transparent hover:border-neutral-800 font-semibold text-base transition-all group"
+                    className="flex items-center justify-between px-4 py-3 rounded-2xl text-neutral-200 hover:text-white hover:bg-neutral-900 border border-transparent hover:border-neutral-800 font-semibold text-sm transition-all group"
                   >
                     <div className="flex items-center gap-2">
                       <span>Pricing</span>
@@ -689,7 +687,7 @@ export default function Home() {
                   <Link
                     href="/hiring"
                     onClick={() => setMobileNavOpen(false)}
-                    className="flex items-center justify-between px-4 py-3.5 rounded-2xl text-neutral-200 hover:text-white hover:bg-neutral-900 border border-transparent hover:border-neutral-800 font-semibold text-base transition-all group"
+                    className="flex items-center justify-between px-4 py-3 rounded-2xl text-neutral-200 hover:text-white hover:bg-neutral-900 border border-transparent hover:border-neutral-800 font-semibold text-sm transition-all group"
                   >
                     <div className="flex items-center gap-2">
                       <span>Hiring</span>
@@ -703,7 +701,7 @@ export default function Home() {
                       setMobileNavOpen(false);
                       setIsChatOpen(true);
                     }}
-                    className="w-full flex items-center justify-between px-4 py-3.5 rounded-2xl text-[#B8FF00] hover:text-white hover:bg-neutral-900 border border-[#B8FF00]/20 hover:border-neutral-800 font-semibold text-base transition-all group cursor-pointer"
+                    className="w-full flex items-center justify-between px-4 py-3 rounded-2xl text-[#B8FF00] hover:text-white hover:bg-neutral-900 border border-[#B8FF00]/20 hover:border-neutral-800 font-semibold text-sm transition-all group cursor-pointer"
                   >
                     <div className="flex items-center gap-2.5">
                       <Bot className="w-4 h-4 text-[#B8FF00]" />
@@ -714,11 +712,11 @@ export default function Home() {
                 </div>
               </div>
 
-              <div className="pt-6 border-t border-neutral-800 space-y-4">
+              <div className="pt-4 pb-6 border-t border-neutral-800">
                 <a
                   href="#book"
                   onClick={() => setMobileNavOpen(false)}
-                  className="w-full py-3.5 rounded-xl bg-[#B8FF00] hover:bg-[#A3E600] text-black font-bold text-sm flex items-center justify-center gap-2 shadow-lg shadow-[#B8FF00]/25 transition-all hover:scale-[1.02]"
+                  className="w-full py-3 rounded-xl bg-[#B8FF00] hover:bg-[#A3E600] text-black font-bold text-xs uppercase tracking-wider flex items-center justify-center gap-2 shadow-lg shadow-[#B8FF00]/25 transition-all"
                 >
                   <Zap className="w-4 h-4 fill-black text-black" />
                   <span>Contact Us</span>
