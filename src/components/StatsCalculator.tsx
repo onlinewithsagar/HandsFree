@@ -54,13 +54,13 @@ export default function StatsCalculator() {
             </div>
 
             {/* Currency Pill */}
-            <div className="flex items-center gap-1.5 bg-neutral-900 p-1.5 rounded-xl border border-white/10 self-start sm:self-auto">
-              <Coins className="w-3.5 h-3.5 text-[#B8FF00] ml-1.5" />
+            <div className="flex flex-wrap items-center gap-1.5 bg-neutral-900 p-1.5 rounded-xl border border-white/10 w-full sm:w-auto justify-start">
+              <Coins className="w-3.5 h-3.5 text-[#B8FF00] ml-1.5 hidden xs:inline-block" />
               {(Object.keys(currencies) as CurrencyKey[]).map((cKey) => (
                 <button
                   key={cKey}
                   onClick={() => setSelectedCurrency(cKey)}
-                  className={`px-2.5 py-1 rounded-lg font-mono text-xs font-bold transition-all ${
+                  className={`flex-1 sm:flex-none px-2.5 py-1 rounded-lg font-mono text-xs font-bold transition-all text-center ${
                     selectedCurrency === cKey
                       ? "bg-[#B8FF00] text-black shadow-sm"
                       : "text-neutral-400 hover:text-white"

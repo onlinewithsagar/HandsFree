@@ -77,7 +77,7 @@ export default function WorkflowStudio() {
             </h2>
           </div>
 
-          <div className="flex items-center gap-2 bg-neutral-950 p-1.5 rounded-2xl border border-white/10">
+          <div className="flex flex-wrap items-center gap-2 bg-neutral-950 p-1.5 rounded-2xl border border-white/10 w-full sm:w-auto">
             {(["inbound", "ecom", "client"] as const).map((key) => (
               <button
                 key={key}
@@ -87,7 +87,7 @@ export default function WorkflowStudio() {
                   setIsRunning(false);
                   setHudTime("0.00s");
                 }}
-                className={`px-3.5 py-1.5 rounded-xl font-mono text-xs font-bold transition-all ${
+                className={`flex-1 sm:flex-none px-3.5 py-1.5 rounded-xl font-mono text-xs font-bold transition-all text-center ${
                   activeScenario === key
                     ? "bg-[#B8FF00] text-black shadow-md shadow-[#B8FF00]/25"
                     : "text-neutral-400 hover:text-white"
