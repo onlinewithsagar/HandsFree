@@ -91,11 +91,11 @@ export default function WorkflowStudio() {
   const [activeScenario, setActiveScenario] = useState<"inbound" | "ecom" | "client">("inbound");
   const [isPipelineRunning, setIsPipelineRunning] = useState(false);
   const [executionStep, setExecutionStep] = useState(0);
-  const terminalEndRef = useRef<HTMLDivElement>(null);
+  const terminalBodyRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (isPipelineRunning && terminalEndRef.current) {
-      terminalEndRef.current.scrollIntoView({ behavior: "smooth", block: "nearest" });
+    if (isPipelineRunning && terminalBodyRef.current) {
+      terminalBodyRef.current.scrollTop = terminalBodyRef.current.scrollHeight;
     }
   }, [executionStep, isPipelineRunning]);
 
@@ -249,7 +249,7 @@ export default function WorkflowStudio() {
               </div>
 
               {/* Terminal Console Logs */}
-              <div className="p-5 flex-1 font-mono text-xs text-neutral-300 flex flex-col justify-between overflow-y-auto space-y-2.5 bg-black/95">
+              <div ref={terminalBodyRef} className="p-5 flex-1 font-mono text-xs text-neutral-300 flex flex-col justify-between overflow-y-auto space-y-2.5 bg-black/95">
                 <div className="space-y-2">
                   <div className="text-neutral-500 pb-2 border-b border-white/5">
                     <div># Target Pipeline: {scenario.title}</div>
@@ -273,8 +273,6 @@ export default function WorkflowStudio() {
                       &gt; SEQUENCE COMPLETED IN {scenario.nodes[scenario.nodes.length - 1].time} (100% HANDS-FREE)
                     </div>
                   )}
-
-                  <div ref={terminalEndRef} />
                 </div>
 
                 <div className="pt-3 border-t border-white/5 flex items-center justify-between text-[10px] text-neutral-500">

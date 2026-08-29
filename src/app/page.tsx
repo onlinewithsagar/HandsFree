@@ -444,9 +444,11 @@ export default function Home() {
     };
   }, []);
 
+  const terminalBodyRef = useRef<HTMLDivElement>(null);
+
   useEffect(() => {
-    if (isPipelineRunning && terminalEndRef.current) {
-      terminalEndRef.current.scrollIntoView({ behavior: "smooth", block: "nearest" });
+    if (isPipelineRunning && terminalBodyRef.current) {
+      terminalBodyRef.current.scrollTop = terminalBodyRef.current.scrollHeight;
     }
   }, [executionStep, isPipelineRunning]);
 
@@ -1022,7 +1024,7 @@ export default function Home() {
                   </button>
                 </div>
 
-                <div className="p-5 flex-1 font-mono text-xs text-neutral-300 flex flex-col justify-between overflow-y-auto space-y-2.5 bg-black/95">
+                <div ref={terminalBodyRef} className="p-5 flex-1 font-mono text-xs text-neutral-300 flex flex-col justify-between overflow-y-auto space-y-2.5 bg-black/95">
                   <div className="space-y-2">
                     <div className="text-neutral-500 pb-2 border-b border-white/5">
                       <div># Target: {SCENARIOS[activeScenario].title}</div>
@@ -1046,7 +1048,6 @@ export default function Home() {
                         </div>
                       </div>
                     )}
-                    <div ref={terminalEndRef} />
                   </div>
 
                   <div className="pt-3 border-t border-white/5 flex items-center justify-between text-[10px] text-neutral-500">
