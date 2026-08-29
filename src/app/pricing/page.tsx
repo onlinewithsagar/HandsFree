@@ -67,25 +67,22 @@ export default function PricingPage() {
         </p>
 
         {/* Primary Service Selector Tabs at the Top */}
-        <div className="max-w-2xl mx-auto p-1 bg-neutral-900/90 border border-white/10 rounded-2xl flex flex-col sm:flex-row items-stretch sm:items-center justify-between mb-6 shadow-xl gap-1">
+        <div className="max-w-xl mx-auto p-1 bg-neutral-900 border border-white/10 rounded-2xl flex items-center justify-center mb-6 shadow-xl gap-1">
           {[
-            { id: "basic-web", label: "Basic Websites", desc: "Landing Pages & Portfolios" },
-            { id: "fullstack", label: "Full-Stack Custom Apps", desc: "Portals, Databases & SaaS" },
-            { id: "automation", label: "AI Automations", desc: "Smart Agents & Workflows" },
+            { id: "basic-web", label: "Websites" },
+            { id: "fullstack", label: "Custom Apps" },
+            { id: "automation", label: "AI Automations" },
           ].map((tab) => (
             <button
               key={tab.id}
               onClick={() => setActiveTab(tab.id as "basic-web" | "fullstack" | "automation")}
-              className={`flex-1 py-3 px-4 rounded-xl transition-all cursor-pointer text-center flex sm:flex-col items-center sm:items-center justify-between sm:justify-center gap-1 ${
+              className={`flex-1 py-2.5 px-3 sm:px-5 rounded-xl text-xs font-mono font-bold transition-all cursor-pointer text-center truncate ${
                 activeTab === tab.id
-                  ? "bg-[#B8FF00] text-black shadow-lg shadow-[#B8FF00]/25"
-                  : "text-neutral-400 hover:text-white hover:bg-neutral-800/60"
+                  ? "bg-[#B8FF00] text-black shadow-md shadow-[#B8FF00]/25"
+                  : "text-neutral-400 hover:text-white"
               }`}
             >
-              <span className="text-xs sm:text-xs font-mono font-bold tracking-tight">{tab.label}</span>
-              <span className={`text-[10px] font-sans ${activeTab === tab.id ? 'text-black/80 font-medium' : 'text-neutral-500'}`}>
-                {tab.desc}
-              </span>
+              {tab.label}
             </button>
           ))}
         </div>
@@ -119,9 +116,9 @@ export default function PricingPage() {
           <div className="text-left mb-24 animate-in fade-in duration-300">
             <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-3 mb-6 pb-3 border-b border-white/10">
               <span className="inline-flex items-center self-start text-xs font-mono font-bold text-[#B8FF00] tracking-wider uppercase bg-[#B8FF00]/10 px-3 py-1 rounded-full border border-[#B8FF00]/20">
-                Basic Website Sprints
+                Business Showcase Websites
               </span>
-              <span className="text-xs text-neutral-400 font-mono">Fast Landing Pages & Modern Brand Showcase</span>
+              <span className="text-xs text-neutral-400 font-mono">Showcase your business, services, portfolio & capture direct client inquiries</span>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -132,8 +129,8 @@ export default function PricingPage() {
                       Single-Page
                     </span>
                   </div>
-                  <h3 className="text-2xl font-bold text-white mb-2 leading-snug">Landing Page Sprint</h3>
-                  <p className="text-xs text-neutral-400 leading-relaxed mb-6">High-converting landing page with smooth motion, hero showcase, and direct WhatsApp lead capture.</p>
+                  <h3 className="text-2xl font-bold text-white mb-2 leading-snug">Business Landing Page</h3>
+                  <p className="text-xs text-neutral-400 leading-relaxed mb-6">Clean, modern single-page website to show what your business does, customer proof, and direct WhatsApp contact.</p>
 
                   <div className="pb-6 border-b border-white/10 mb-6">
                     <div className="flex items-baseline gap-2">
@@ -153,12 +150,12 @@ export default function PricingPage() {
                   <div className="space-y-3 mb-8">
                     <div className="text-[11px] font-mono font-bold text-neutral-400 uppercase tracking-wider">Features:</div>
                     {[
-                      "Next.js 15 Fast Single-Page Landing",
-                      "Smooth Motion & Modern Glassmorphic UI",
-                      "Direct WhatsApp & Email Lead Action",
-                      "Free SSL & Custom Domain Setup",
-                      "Google Search & SEO Meta Config",
-                      "7 Days Dedicated Launch Support",
+                      "Single-Page Fast Business Showcase",
+                      "Services, About, Pricing & Reviews Sections",
+                      "Direct WhatsApp & Phone Call Action",
+                      "Free SSL & Custom Domain Connection",
+                      "Google Search & SEO Meta Tags",
+                      "7 Days Launch Hypercare Support",
                     ].map((feat, i) => (
                       <div key={i} className="flex items-start gap-2.5 text-xs text-neutral-300">
                         <CheckCircle2 className="w-4 h-4 text-[#B8FF00] shrink-0 stroke-[2.5] mt-0.5" />
@@ -172,7 +169,7 @@ export default function PricingPage() {
                   href="/#book"
                   className="w-full py-3.5 rounded-xl font-bold text-xs sm:text-sm flex items-center justify-center gap-2 bg-neutral-900 hover:bg-neutral-800 text-white border border-white/10 transition-all"
                 >
-                  <span>Book Landing Page</span>
+                  <span>Book Business Landing Page</span>
                   <ArrowRight className="w-4 h-4" />
                 </Link>
               </TiltCard>
@@ -184,8 +181,8 @@ export default function PricingPage() {
                       Multi-Section
                     </span>
                   </div>
-                  <h3 className="text-2xl font-bold text-white mb-2 leading-snug">Multi-Page Business Site</h3>
-                  <p className="text-xs text-neutral-400 leading-relaxed mb-6">Complete business website with multiple sub-pages (About, Services, Pricing, Contact).</p>
+                  <h3 className="text-2xl font-bold text-white mb-2 leading-snug">Full Business Website</h3>
+                  <p className="text-xs text-neutral-400 leading-relaxed mb-6">Complete multi-page business website to showcase your full catalogue, portfolio, team, and contact forms.</p>
 
                   <div className="pb-6 border-b border-white/10 mb-6">
                     <div className="flex items-baseline gap-2">
@@ -205,11 +202,11 @@ export default function PricingPage() {
                   <div className="space-y-3 mb-8">
                     <div className="text-[11px] font-mono font-bold text-neutral-400 uppercase tracking-wider">Features:</div>
                     {[
-                      "Up to 5 Dedicated Sub-Pages & Routes",
-                      "Subpage Navigation & Mobile Responsive Menu",
-                      "Contact Form with Instant Email & Sheets Sync",
-                      "High-Speed Edge Caching (99+ Lighthouse)",
-                      "14 Days Dedicated Hypercare",
+                      "Up to 5 Dedicated Pages (Home, About, Services, Work, Contact)",
+                      "Smooth Page Transitions & Mobile Menu",
+                      "Direct Inquiries to WhatsApp & Email",
+                      "Fast CDN Caching & Google Speed Optimization",
+                      "14 Days Dedicated Hypercare Support",
                     ].map((feat, i) => (
                       <div key={i} className="flex items-start gap-2.5 text-xs text-neutral-300">
                         <CheckCircle2 className="w-4 h-4 text-[#B8FF00] shrink-0 stroke-[2.5] mt-0.5" />
@@ -223,7 +220,7 @@ export default function PricingPage() {
                   href="/#book"
                   className="w-full py-3.5 rounded-xl font-bold text-xs sm:text-sm flex items-center justify-center gap-2 bg-[#B8FF00] hover:bg-[#A3E600] text-black shadow-lg shadow-[#B8FF00]/25 transition-all"
                 >
-                  <span>Book Business Website</span>
+                  <span>Book Full Business Site</span>
                   <ArrowRight className="w-4 h-4" />
                 </Link>
               </TiltCard>
@@ -236,9 +233,9 @@ export default function PricingPage() {
           <div className="text-left mb-24 animate-in fade-in duration-300">
             <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-3 mb-6 pb-3 border-b border-white/10">
               <span className="inline-flex items-center self-start text-xs font-mono font-bold text-[#B8FF00] tracking-wider uppercase bg-[#B8FF00]/10 px-3 py-1 rounded-full border border-[#B8FF00]/20">
-                Full-Stack Custom App Sprints
+                Tailor-Made Custom Web Applications
               </span>
-              <span className="text-xs text-neutral-400 font-mono">Databases, User Authentication, Admin Dashboards & APIs</span>
+              <span className="text-xs text-neutral-400 font-mono">Custom client portals, SaaS tools, internal dashboards, and database applications</span>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -246,11 +243,11 @@ export default function PricingPage() {
                 <div>
                   <div className="flex items-center justify-between mb-4">
                     <span className="text-[10px] font-mono font-bold tracking-widest text-[#B8FF00] uppercase bg-[#B8FF00]/10 px-2.5 py-1 rounded-full border border-[#B8FF00]/20">
-                      MVP & Portal
+                      Tailor-Made MVP
                     </span>
                   </div>
-                  <h3 className="text-2xl font-bold text-white mb-2 leading-snug">Custom Web Application</h3>
-                  <p className="text-xs text-neutral-400 leading-relaxed mb-6">Full-stack web application with user accounts, database, API routes, and client dashboard.</p>
+                  <h3 className="text-2xl font-bold text-white mb-2 leading-snug">Tailor-Made Web App</h3>
+                  <p className="text-xs text-neutral-400 leading-relaxed mb-6">Custom-built web application with secure logins, database storage, and client dashboard built precisely to your requirements.</p>
 
                   <div className="pb-6 border-b border-white/10 mb-6">
                     <div className="flex items-baseline gap-2">
@@ -270,12 +267,12 @@ export default function PricingPage() {
                   <div className="space-y-3 mb-8">
                     <div className="text-[11px] font-mono font-bold text-neutral-400 uppercase tracking-wider">Features:</div>
                     {[
-                      "Full-Stack Next.js 15 App Router Architecture",
+                      "Tailored Next.js 15 Full-Stack Architecture",
                       "Database Integration (Supabase / PostgreSQL)",
-                      "User Authentication & Role-Based Access",
-                      "Payment Gateway (Stripe / Razorpay / UPI)",
-                      "Admin Control Panel & Data Tables",
-                      "14 Days Full Architecture Support",
+                      "User Authentication & Account Management",
+                      "Online Payments (Stripe / Razorpay / UPI)",
+                      "Admin Management Control Dashboard",
+                      "14 Days Dedicated Architecture Support",
                     ].map((feat, i) => (
                       <div key={i} className="flex items-start gap-2.5 text-xs text-neutral-300">
                         <CheckCircle2 className="w-4 h-4 text-[#B8FF00] shrink-0 stroke-[2.5] mt-0.5" />
@@ -289,7 +286,7 @@ export default function PricingPage() {
                   href="/#book"
                   className="w-full py-3.5 rounded-xl font-bold text-xs sm:text-sm flex items-center justify-center gap-2 bg-neutral-900 hover:bg-neutral-800 text-white border border-white/10 transition-all"
                 >
-                  <span>Book Custom App</span>
+                  <span>Book Tailor-Made App</span>
                   <ArrowRight className="w-4 h-4" />
                 </Link>
               </TiltCard>
