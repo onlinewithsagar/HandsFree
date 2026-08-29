@@ -694,6 +694,18 @@ export default function Home() {
                   ))}
 
                   <Link
+                    href="/pricing"
+                    onClick={() => setMobileNavOpen(false)}
+                    className="flex items-center justify-between px-4 py-3.5 rounded-2xl text-neutral-200 hover:text-white hover:bg-neutral-900 border border-transparent hover:border-neutral-800 font-semibold text-base transition-all group"
+                  >
+                    <div className="flex items-center gap-2">
+                      <span>Pricing</span>
+                      <span className="text-[9px] bg-[#B8FF00]/10 text-[#B8FF00] px-1.5 py-0.5 rounded font-mono font-bold">SPRINTS</span>
+                    </div>
+                    <ChevronRight className="w-4 h-4 text-neutral-500 group-hover:text-[#B8FF00]" />
+                  </Link>
+
+                  <Link
                     href="/hiring"
                     onClick={() => setMobileNavOpen(false)}
                     className="flex items-center justify-between px-4 py-3.5 rounded-2xl text-neutral-200 hover:text-white hover:bg-neutral-900 border border-transparent hover:border-neutral-800 font-semibold text-base transition-all group"
@@ -1444,6 +1456,7 @@ export default function Home() {
             <div>
               <h4 className="text-white font-bold text-sm mb-4">Company</h4>
               <ul className="space-y-2.5 text-xs text-neutral-400 font-medium">
+                <li><Link href="/pricing" className="hover:text-[#B8FF00] transition-colors">Pricing & Sprints</Link></li>
                 <li><Link href="/hiring" className="hover:text-[#B8FF00] transition-colors flex items-center gap-1.5">Hiring <span className="text-[9px] bg-[#B8FF00]/10 text-[#B8FF00] px-1.5 py-0.5 rounded font-mono font-bold">SPOT HIRING</span></Link></li>
                 <li><Link href="/privacy" className="hover:text-[#B8FF00] transition-colors">Privacy Policy</Link></li>
                 <li><Link href="/terms" className="hover:text-[#B8FF00] transition-colors">Terms of Service</Link></li>
