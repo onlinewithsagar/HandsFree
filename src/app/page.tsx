@@ -314,8 +314,12 @@ export default function Home() {
     };
   }, [mobileNavOpen]);
 
-  // High-Performance Ambient Particle Physics (Lightweight & Low-RAM)
+  // High-Performance Ambient Particle Physics (Lightweight & Zero-Waste RAM)
   useEffect(() => {
+    // Disable particle simulation on low-power or small screens to preserve RAM & battery
+    const isMobile = window.matchMedia("(max-width: 768px)").matches;
+    if (isMobile) return;
+
     const canvas = canvasRef.current;
     if (!canvas) return;
     const ctx = canvas.getContext("2d", { alpha: true });
@@ -330,10 +334,8 @@ export default function Home() {
     }> = [];
     let animationFrameId: number;
     let isVisible = true;
-    const mouse: { x: number | null; y: number | null; radius: number } = { x: null, y: null, radius: 120 };
-
-    const isMobile = window.matchMedia("(max-width: 768px)").matches;
-    const maxParticles = isMobile ? 22 : 48; // Highly optimized particle count
+    const mouse: { x: number | null; y: number | null } = { x: null, y: null };
+    const maxParticles = 28; // Ultralight count
 
     const resize = () => {
       if (!canvas) return;
@@ -354,7 +356,10 @@ export default function Home() {
     const handleVisibility = () => {
       isVisible = !document.hidden;
       if (isVisible) {
+        cancelAnimationFrame(animationFrameId);
         animationFrameId = requestAnimationFrame(animate);
+      } else {
+        cancelAnimationFrame(animationFrameId);
       }
     };
 
@@ -370,9 +375,9 @@ export default function Home() {
         particles.push({
           x: Math.random() * canvas.width,
           y: Math.random() * canvas.height,
-          size: Math.random() * 1.8 + 0.6,
-          speedX: (Math.random() - 0.5) * 0.3,
-          speedY: (Math.random() - 0.5) * 0.3,
+          size: Math.random() * 1.5 + 0.5,
+          speedX: (Math.random() - 0.5) * 0.25,
+          speedY: (Math.random() - 0.5) * 0.25,
         });
       }
     };
@@ -396,29 +401,29 @@ export default function Home() {
           const dx = mouse.x - p.x;
           const dy = mouse.y - p.y;
           const distSq = dx * dx + dy * dy;
-          if (distSq < 14400) { // 120^2 avoids Math.sqrt in loop
+          if (distSq < 10000) { // 100^2
             const distance = Math.sqrt(distSq);
-            const force = (120 - distance) / 120;
-            p.x -= (dx / distance) * force * 1.2;
-            p.y -= (dy / distance) * force * 1.2;
+            const force = (100 - distance) / 100;
+            p.x -= (dx / distance) * force * 0.8;
+            p.y -= (dy / distance) * force * 0.8;
           }
         }
 
-        ctx.fillStyle = "rgba(184, 255, 0, 0.4)";
+        ctx.fillStyle = "rgba(184, 255, 0, 0.35)";
         ctx.beginPath();
         ctx.arc(p.x, p.y, p.size, 0, 6.283);
         ctx.fill();
       }
 
-      // Constellation lines with distance squared optimization
+      // Constellation lines with distance threshold
       for (let a = 0; a < pLen; a++) {
         for (let b = a + 1; b < pLen; b++) {
           const dx = particles[a].x - particles[b].x;
           const dy = particles[a].y - particles[b].y;
           const distSq = dx * dx + dy * dy;
-          if (distSq < 6400) { // 80^2
+          if (distSq < 4900) { // 70^2
             const distance = Math.sqrt(distSq);
-            ctx.strokeStyle = `rgba(184, 255, 0, ${(1 - distance / 80) * 0.12})`;
+            ctx.strokeStyle = `rgba(184, 255, 0, ${(1 - distance / 70) * 0.08})`;
             ctx.lineWidth = 0.5;
             ctx.beginPath();
             ctx.moveTo(particles[a].x, particles[a].y);
@@ -432,14 +437,14 @@ export default function Home() {
     };
 
     resize();
-    animate();
+    animationFrameId = requestAnimationFrame(animate);
 
     return () => {
+      cancelAnimationFrame(animationFrameId);
       window.removeEventListener("resize", resize);
       window.removeEventListener("mousemove", onMouseMove);
       window.removeEventListener("mouseout", onMouseOut);
       document.removeEventListener("visibilitychange", handleVisibility);
-      cancelAnimationFrame(animationFrameId);
     };
   }, []);
 
@@ -617,7 +622,7 @@ export default function Home() {
       {/* Full-Screen Slide-Over Mobile SideNav */}
       <AnimatePresence>
         {mobileNavOpen && (
-          <div className="fixed inset-0 z-50 md:hidden">
+          <div className="fixed inset-0 z-[70] md:hidden">
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
