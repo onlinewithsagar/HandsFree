@@ -11,6 +11,7 @@ import Services from "@/components/Services";
 import WorkflowStudio from "@/components/WorkflowStudio";
 import StatsCalculator from "@/components/StatsCalculator";
 import About from "@/components/About";
+import LogoConvergence from "@/components/LogoConvergence";
 import Testimonials from "@/components/Testimonials";
 import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
