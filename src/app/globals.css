@@ -23,13 +23,13 @@
 
   html {
     scroll-behavior: smooth;
-    scroll-padding-top: 120px;
+    scroll-padding-top: 75px;
     color-scheme: dark;
     background-color: #000000;
   }
 
   section, [id] {
-    scroll-margin-top: 120px;
+    scroll-margin-top: 75px;
   }
 
   body {
