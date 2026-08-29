@@ -24,7 +24,7 @@ import SubpageHeader from "@/components/SubpageHeader";
 
 export default function PricingPage() {
   const [billingCycle, setBillingCycle] = useState<"sprint" | "retainer">("sprint");
-  const [activeTab, setActiveTab] = useState<"web" | "automation" | "combo">("web");
+  const [activeTab, setActiveTab] = useState<"basic-web" | "fullstack" | "automation">("basic-web");
 
   // ROI Calculator State
   const [teamSize, setTeamSize] = useState(12);
@@ -67,31 +67,34 @@ export default function PricingPage() {
         </p>
 
         {/* Primary Service Selector Tabs at the Top */}
-        <div className="max-w-md mx-auto p-1.5 bg-neutral-900/90 border border-white/10 rounded-2xl flex items-center justify-between mb-6 shadow-xl">
+        <div className="max-w-2xl mx-auto p-1 bg-neutral-900/90 border border-white/10 rounded-2xl flex flex-col sm:flex-row items-stretch sm:items-center justify-between mb-6 shadow-xl gap-1">
           {[
-            { id: "web", label: "Websites" },
-            { id: "automation", label: "Automations" },
-            { id: "combo", label: "Both (All-in-One)" },
+            { id: "basic-web", label: "Basic Websites", desc: "Landing Pages & Portfolios" },
+            { id: "fullstack", label: "Full-Stack Custom Apps", desc: "Portals, Databases & SaaS" },
+            { id: "automation", label: "AI Automations", desc: "Smart Agents & Workflows" },
           ].map((tab) => (
             <button
               key={tab.id}
-              onClick={() => setActiveTab(tab.id as "web" | "automation" | "combo")}
-              className={`flex-1 py-2.5 px-3 rounded-xl text-xs font-mono font-bold transition-all cursor-pointer text-center ${
+              onClick={() => setActiveTab(tab.id as "basic-web" | "fullstack" | "automation")}
+              className={`flex-1 py-3 px-4 rounded-xl transition-all cursor-pointer text-center flex sm:flex-col items-center sm:items-center justify-between sm:justify-center gap-1 ${
                 activeTab === tab.id
-                  ? "bg-[#B8FF00] text-black shadow-md shadow-[#B8FF00]/25"
-                  : "text-neutral-400 hover:text-white"
+                  ? "bg-[#B8FF00] text-black shadow-lg shadow-[#B8FF00]/25"
+                  : "text-neutral-400 hover:text-white hover:bg-neutral-800/60"
               }`}
             >
-              {tab.label}
+              <span className="text-xs sm:text-xs font-mono font-bold tracking-tight">{tab.label}</span>
+              <span className={`text-[10px] font-sans ${activeTab === tab.id ? 'text-black/80 font-medium' : 'text-neutral-500'}`}>
+                {tab.desc}
+              </span>
             </button>
           ))}
         </div>
 
         {/* Billing Cycle Toggle */}
-        <div className="inline-flex items-center p-1 bg-neutral-950 border border-white/10 rounded-xl mb-14 shadow-lg text-[11px] font-mono">
+        <div className="inline-flex items-center p-1 bg-neutral-950 border border-white/10 rounded-xl mb-12 shadow-lg text-xs font-mono">
           <button
             onClick={() => setBillingCycle("sprint")}
-            className={`px-4 py-1.5 rounded-lg transition-all cursor-pointer ${
+            className={`px-4 py-2 rounded-lg transition-all cursor-pointer ${
               billingCycle === "sprint"
                 ? "bg-white text-black font-bold shadow"
                 : "text-neutral-400 hover:text-white"
@@ -101,294 +104,366 @@ export default function PricingPage() {
           </button>
           <button
             onClick={() => setBillingCycle("retainer")}
-            className={`px-4 py-1.5 rounded-lg transition-all cursor-pointer ${
+            className={`px-4 py-2 rounded-lg transition-all cursor-pointer ${
               billingCycle === "retainer"
-            <span className="text-xs font-mono font-bold text-[#B8FF00] tracking-wider uppercase bg-[#B8FF00]/10 px-3 py-1 rounded-full border border-[#B8FF00]/20">
-              01. Website Development
-            </span>
-            <span className="text-xs text-neutral-400 font-mono">High-Speed Landing Pages & Web Apps</span>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <TiltCard className="p-7 sm:p-8 flex flex-col justify-between bg-neutral-950/80 border border-white/10">
-              <div>
-                <div className="flex items-center justify-between mb-4">
-                  <span className="text-[10px] font-mono font-bold tracking-widest text-[#B8FF00] uppercase bg-[#B8FF00]/10 px-2.5 py-1 rounded-full border border-[#B8FF00]/20">
-                    Starter Website
-                  </span>
-                </div>
-                <h3 className="text-2xl font-bold text-white mb-2 leading-snug">Landing Page Sprint</h3>
-                <p className="text-xs text-neutral-400 leading-relaxed mb-6">High-converting landing page with 3D micro-interactions and WhatsApp capture.</p>
-
-                <div className="pb-6 border-b border-white/10 mb-6">
-                  <div className="flex items-baseline gap-2">
-                    <span className="text-3xl sm:text-4xl font-heading font-black text-white tracking-tight">
-                      {billingCycle === "sprint" ? "₹2,999" : "₹1,499"}
-                    </span>
-                    <span className="text-xs text-neutral-400 font-mono">
-                      / {billingCycle === "sprint" ? "one-time sprint" : "per month"}
-                    </span>
-                  </div>
-                  <div className="text-[11px] text-[#B8FF00] font-mono mt-2 flex items-center gap-1.5">
-                    <Clock className="w-3.5 h-3.5" />
-                    <span>Delivered in 2–3 Business Days</span>
-                  </div>
-                </div>
-
-                <div className="space-y-3 mb-8">
-                  <div className="text-[11px] font-mono font-bold text-neutral-400 uppercase tracking-wider">Features:</div>
-                  {[
-                    "Next.js 15 Fast Landing Page",
-                    "Smooth Motion & Glassmorphism",
-                    "Direct WhatsApp Contact Flow",
-                    "Free SSL & Domain Setup",
-                    "SEO Meta Optimization",
-                  ].map((feat, i) => (
-                    <div key={i} className="flex items-start gap-2.5 text-xs text-neutral-300">
-                      <CheckCircle2 className="w-4 h-4 text-[#B8FF00] shrink-0 stroke-[2.5] mt-0.5" />
-                      <span>{feat}</span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              <Link
-                href="/#book"
-                className="w-full py-3.5 rounded-xl font-bold text-xs sm:text-sm flex items-center justify-center gap-2 bg-neutral-900 hover:bg-neutral-800 text-white border border-white/10 transition-all"
-              >
-                <span>Book Website Sprint</span>
-                <ArrowRight className="w-4 h-4" />
-              </Link>
-            </TiltCard>
-
-            <TiltCard className="p-7 sm:p-8 flex flex-col justify-between bg-neutral-950/95 border-2 border-[#B8FF00]/40 shadow-lg shadow-[#B8FF00]/5">
-              <div>
-                <div className="flex items-center justify-between mb-4">
-                  <span className="text-[10px] font-mono font-bold tracking-widest text-[#B8FF00] uppercase bg-[#B8FF00]/10 px-2.5 py-1 rounded-full border border-[#B8FF00]/20">
-                    Full Web App
-                  </span>
-                </div>
-                <h3 className="text-2xl font-bold text-white mb-2 leading-snug">Multi-Page Web Platform</h3>
-                <p className="text-xs text-neutral-400 leading-relaxed mb-6">Complete responsive website with multi-route navigation, custom CMS or subpages.</p>
-
-                <div className="pb-6 border-b border-white/10 mb-6">
-                  <div className="flex items-baseline gap-2">
-                    <span className="text-3xl sm:text-4xl font-heading font-black text-white tracking-tight">
-                      {billingCycle === "sprint" ? "₹5,999" : "₹2,999"}
-                    </span>
-                    <span className="text-xs text-neutral-400 font-mono">
-                      / {billingCycle === "sprint" ? "one-time sprint" : "per month"}
-                    </span>
-                  </div>
-                  <div className="text-[11px] text-[#B8FF00] font-mono mt-2 flex items-center gap-1.5">
-                    <Clock className="w-3.5 h-3.5" />
-                    <span>Delivered in 4–6 Business Days</span>
-                  </div>
-                </div>
-
-                <div className="space-y-3 mb-8">
-                  <div className="text-[11px] font-mono font-bold text-neutral-400 uppercase tracking-wider">Features:</div>
-                  {[
-                    "Multi-Page Responsive Architecture",
-                    "Custom 3D Animations & Sub-Pages",
-                    "Lead Dashboard / Sheets Capture",
-                    "Edge Caching & 99+ Performance Score",
-                    "14 Days Dedicated Hypercare",
-                  ].map((feat, i) => (
-                    <div key={i} className="flex items-start gap-2.5 text-xs text-neutral-300">
-                      <CheckCircle2 className="w-4 h-4 text-[#B8FF00] shrink-0 stroke-[2.5] mt-0.5" />
-                      <span>{feat}</span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              <Link
-                href="/#book"
-                className="w-full py-3.5 rounded-xl font-bold text-xs sm:text-sm flex items-center justify-center gap-2 bg-[#B8FF00] hover:bg-[#A3E600] text-black shadow-lg shadow-[#B8FF00]/25 transition-all"
-              >
-                <span>Book Full Website</span>
-                <ArrowRight className="w-4 h-4" />
-              </Link>
-            </TiltCard>
-          </div>
+                ? "bg-white text-black font-bold shadow"
+                : "text-neutral-400 hover:text-white"
+            }`}
+          >
+            Monthly Retainer
+          </button>
         </div>
 
-        {/* 2. AI Automation Pipelines Section */}
-        <div className="text-left mb-16">
-          <div className="flex items-center gap-3 mb-6 pb-3 border-b border-white/10">
-            <span className="text-xs font-mono font-bold text-[#B8FF00] tracking-wider uppercase bg-[#B8FF00]/10 px-3 py-1 rounded-full border border-[#B8FF00]/20">
-              02. AI & Workflow Automation
-            </span>
-            <span className="text-xs text-neutral-400 font-mono">Zero-Touch Autonomous Lead & CRM Pipelines</span>
-          </div>
+        {/* 1. Basic Websites Section */}
+        {activeTab === "basic-web" && (
+          <div className="text-left mb-24 animate-in fade-in duration-300">
+            <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-3 mb-6 pb-3 border-b border-white/10">
+              <span className="inline-flex items-center self-start text-xs font-mono font-bold text-[#B8FF00] tracking-wider uppercase bg-[#B8FF00]/10 px-3 py-1 rounded-full border border-[#B8FF00]/20">
+                Basic Website Sprints
+              </span>
+              <span className="text-xs text-neutral-400 font-mono">Fast Landing Pages & Modern Brand Showcase</span>
+            </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <TiltCard className="p-7 sm:p-8 flex flex-col justify-between bg-neutral-950/80 border border-white/10">
-              <div>
-                <div className="flex items-center justify-between mb-4">
-                  <span className="text-[10px] font-mono font-bold tracking-widest text-[#B8FF00] uppercase bg-[#B8FF00]/10 px-2.5 py-1 rounded-full border border-[#B8FF00]/20">
-                    Lead Automation
-                  </span>
-                </div>
-                <h3 className="text-2xl font-bold text-white mb-2 leading-snug">Auto-Responder Pipeline</h3>
-                <p className="text-xs text-neutral-400 leading-relaxed mb-6">Instant WhatsApp/Email response triggers & Google Sheets/Airtable auto-logging.</p>
-
-                <div className="pb-6 border-b border-white/10 mb-6">
-                  <div className="flex items-baseline gap-2">
-                    <span className="text-3xl sm:text-4xl font-heading font-black text-white tracking-tight">
-                      {billingCycle === "sprint" ? "₹3,999" : "₹1,999"}
-                    </span>
-                    <span className="text-xs text-neutral-400 font-mono">
-                      / {billingCycle === "sprint" ? "one-time sprint" : "per month"}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <TiltCard className="p-7 sm:p-8 flex flex-col justify-between bg-neutral-950/80 border border-white/10">
+                <div>
+                  <div className="flex items-center justify-between mb-4">
+                    <span className="text-[10px] font-mono font-bold tracking-widest text-[#B8FF00] uppercase bg-[#B8FF00]/10 px-2.5 py-1 rounded-full border border-[#B8FF00]/20">
+                      Single-Page
                     </span>
                   </div>
-                  <div className="text-[11px] text-[#B8FF00] font-mono mt-2 flex items-center gap-1.5">
-                    <Clock className="w-3.5 h-3.5" />
-                    <span>Delivered in 3–4 Business Days</span>
-                  </div>
-                </div>
+                  <h3 className="text-2xl font-bold text-white mb-2 leading-snug">Landing Page Sprint</h3>
+                  <p className="text-xs text-neutral-400 leading-relaxed mb-6">High-converting landing page with smooth motion, hero showcase, and direct WhatsApp lead capture.</p>
 
-                <div className="space-y-3 mb-8">
-                  <div className="text-[11px] font-mono font-bold text-neutral-400 uppercase tracking-wider">Features:</div>
-                  {[
-                    "Instant WhatsApp/Email Alerts",
-                    "Google Sheets / Airtable Two-Way Sync",
-                    "Webhook Integration & Trigger Setup",
-                    "Lead Qualification Filter",
-                    "7 Days Telemetry Monitoring",
-                  ].map((feat, i) => (
-                    <div key={i} className="flex items-start gap-2.5 text-xs text-neutral-300">
-                      <CheckCircle2 className="w-4 h-4 text-[#B8FF00] shrink-0 stroke-[2.5] mt-0.5" />
-                      <span>{feat}</span>
+                  <div className="pb-6 border-b border-white/10 mb-6">
+                    <div className="flex items-baseline gap-2">
+                      <span className="text-3xl sm:text-4xl font-heading font-black text-white tracking-tight">
+                        {billingCycle === "sprint" ? "₹2,499" : "₹1,199"}
+                      </span>
+                      <span className="text-xs text-neutral-400 font-mono">
+                        / {billingCycle === "sprint" ? "one-time sprint" : "per month"}
+                      </span>
                     </div>
-                  ))}
-                </div>
-              </div>
-
-              <Link
-                href="/#book"
-                className="w-full py-3.5 rounded-xl font-bold text-xs sm:text-sm flex items-center justify-center gap-2 bg-neutral-900 hover:bg-neutral-800 text-white border border-white/10 transition-all"
-              >
-                <span>Automate Leads</span>
-                <ArrowRight className="w-4 h-4" />
-              </Link>
-            </TiltCard>
-
-            <TiltCard className="p-7 sm:p-8 flex flex-col justify-between bg-neutral-950/95 border-2 border-[#B8FF00]/40 shadow-lg shadow-[#B8FF00]/5">
-              <div>
-                <div className="flex items-center justify-between mb-4">
-                  <span className="text-[10px] font-mono font-bold tracking-widest text-[#B8FF00] uppercase bg-[#B8FF00]/10 px-2.5 py-1 rounded-full border border-[#B8FF00]/20">
-                    Smart AI Agent
-                  </span>
-                </div>
-                <h3 className="text-2xl font-bold text-white mb-2 leading-snug">Multi-Step AI Orchestration</h3>
-                <p className="text-xs text-neutral-400 leading-relaxed mb-6">Autonomous AI agents that classify, route, and auto-reply based on custom knowledge bases.</p>
-
-                <div className="pb-6 border-b border-white/10 mb-6">
-                  <div className="flex items-baseline gap-2">
-                    <span className="text-3xl sm:text-4xl font-heading font-black text-white tracking-tight">
-                      {billingCycle === "sprint" ? "₹6,999" : "₹3,499"}
-                    </span>
-                    <span className="text-xs text-neutral-400 font-mono">
-                      / {billingCycle === "sprint" ? "one-time sprint" : "per month"}
-                    </span>
-                  </div>
-                  <div className="text-[11px] text-[#B8FF00] font-mono mt-2 flex items-center gap-1.5">
-                    <Clock className="w-3.5 h-3.5" />
-                    <span>Delivered in 5–7 Business Days</span>
-                  </div>
-                </div>
-
-                <div className="space-y-3 mb-8">
-                  <div className="text-[11px] font-mono font-bold text-neutral-400 uppercase tracking-wider">Features:</div>
-                  {[
-                    "Custom LLM Agent Knowledge Base",
-                    "CRM Sync (HubSpot / Salesforce / Notion)",
-                    "Automated Invoicing & Stripe / UPI Links",
-                    "Multi-Channel Support (WhatsApp, Slack)",
-                    "14 Days Dedicated Model Tuning",
-                  ].map((feat, i) => (
-                    <div key={i} className="flex items-start gap-2.5 text-xs text-neutral-300">
-                      <CheckCircle2 className="w-4 h-4 text-[#B8FF00] shrink-0 stroke-[2.5] mt-0.5" />
-                      <span>{feat}</span>
+                    <div className="text-[11px] text-[#B8FF00] font-mono mt-2 flex items-center gap-1.5">
+                      <Clock className="w-3.5 h-3.5" />
+                      <span>Delivered in 2–3 Business Days</span>
                     </div>
-                  ))}
-                </div>
-              </div>
+                  </div>
 
-              <Link
-                href="/#book"
-                className="w-full py-3.5 rounded-xl font-bold text-xs sm:text-sm flex items-center justify-center gap-2 bg-[#B8FF00] hover:bg-[#A3E600] text-black shadow-lg shadow-[#B8FF00]/25 transition-all"
-              >
-                <span>Build AI Agent</span>
-                <ArrowRight className="w-4 h-4" />
-              </Link>
-            </TiltCard>
-          </div>
-        </div>
-
-        {/* 3. All-In-One Full Engine Section */}
-        <div className="text-left mb-24">
-          <div className="flex items-center gap-3 mb-6 pb-3 border-b border-white/10">
-            <span className="text-xs font-mono font-bold text-[#B8FF00] tracking-wider uppercase bg-[#B8FF00]/10 px-3 py-1 rounded-full border border-[#B8FF00]/20">
-              03. Complete Growth Engine (Website + AI)
-            </span>
-            <span className="text-xs text-neutral-400 font-mono">Full-Stack Solution for Zero-Touch Scale</span>
-          </div>
-
-          <TiltCard className="p-8 sm:p-10 bg-neutral-950/95 border-2 border-[#B8FF00]/60 shadow-[0_0_50px_rgba(184,255,0,0.15)] ring-1 ring-[#B8FF00]/20 relative overflow-hidden">
-            <div className="grid md:grid-cols-3 gap-8 items-center">
-              <div className="md:col-span-2">
-                <div className="inline-flex items-center gap-2 px-2.5 py-1 rounded-full bg-[#B8FF00]/10 border border-[#B8FF00]/30 text-[#B8FF00] text-[10px] font-mono font-bold uppercase mb-3">
-                  Recommended Combo
-                </div>
-                <h3 className="text-3xl font-bold text-white mb-3">HandsFree Complete Suite</h3>
-                <p className="text-sm text-neutral-400 mb-6 leading-relaxed">
-                  We build your high-converting modern web platform AND connect the entire autonomous AI lead capture & follow-up pipeline. 100% hands-free from first click to customer conversion.
-                </p>
-
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs text-neutral-300">
-                  <div className="flex items-center gap-2">
-                    <CheckCircle2 className="w-4 h-4 text-[#B8FF00]" /> Full Next.js Web App / Client Portal
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <CheckCircle2 className="w-4 h-4 text-[#B8FF00]" /> Autonomous AI Lead Qualification
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <CheckCircle2 className="w-4 h-4 text-[#B8FF00]" /> Two-Way CRM & Sheets Sync
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <CheckCircle2 className="w-4 h-4 text-[#B8FF00]" /> WhatsApp Automated Follow-Ups
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <CheckCircle2 className="w-4 h-4 text-[#B8FF00]" /> Payment Gateway (Stripe/UPI)
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <CheckCircle2 className="w-4 h-4 text-[#B8FF00]" /> 30 Days Dedicated Hypercare Support
+                  <div className="space-y-3 mb-8">
+                    <div className="text-[11px] font-mono font-bold text-neutral-400 uppercase tracking-wider">Features:</div>
+                    {[
+                      "Next.js 15 Fast Single-Page Landing",
+                      "Smooth Motion & Modern Glassmorphic UI",
+                      "Direct WhatsApp & Email Lead Action",
+                      "Free SSL & Custom Domain Setup",
+                      "Google Search & SEO Meta Config",
+                      "7 Days Dedicated Launch Support",
+                    ].map((feat, i) => (
+                      <div key={i} className="flex items-start gap-2.5 text-xs text-neutral-300">
+                        <CheckCircle2 className="w-4 h-4 text-[#B8FF00] shrink-0 stroke-[2.5] mt-0.5" />
+                        <span>{feat}</span>
+                      </div>
+                    ))}
                   </div>
                 </div>
-              </div>
 
-              <div className="flex flex-col justify-between p-6 bg-black/80 rounded-2xl border border-white/10 text-center">
-                <div className="text-xs text-neutral-500 font-mono mb-1">ALL-IN-ONE BUNDLE</div>
-                <div className="text-4xl font-heading font-black text-white mb-1">
-                  {billingCycle === "sprint" ? "₹8,999" : "₹4,499"}
-                </div>
-                <div className="text-xs text-neutral-400 font-mono mb-4">
-                  / {billingCycle === "sprint" ? "one-time sprint" : "per month"}
-                </div>
-                <div className="text-xs text-[#B8FF00] font-mono mb-6">Delivered in 7–10 Days</div>
                 <Link
                   href="/#book"
-                  className="w-full py-3.5 px-4 bg-[#B8FF00] hover:bg-[#A3E600] text-black font-bold text-sm rounded-xl transition-all shadow-lg shadow-[#B8FF00]/25"
+                  className="w-full py-3.5 rounded-xl font-bold text-xs sm:text-sm flex items-center justify-center gap-2 bg-neutral-900 hover:bg-neutral-800 text-white border border-white/10 transition-all"
                 >
-                  Get Complete Suite
+                  <span>Book Landing Page</span>
+                  <ArrowRight className="w-4 h-4" />
                 </Link>
-              </div>
+              </TiltCard>
+
+              <TiltCard className="p-7 sm:p-8 flex flex-col justify-between bg-neutral-950/95 border-2 border-[#B8FF00]/40 shadow-lg shadow-[#B8FF00]/5">
+                <div>
+                  <div className="flex items-center justify-between mb-4">
+                    <span className="text-[10px] font-mono font-bold tracking-widest text-[#B8FF00] uppercase bg-[#B8FF00]/10 px-2.5 py-1 rounded-full border border-[#B8FF00]/20">
+                      Multi-Section
+                    </span>
+                  </div>
+                  <h3 className="text-2xl font-bold text-white mb-2 leading-snug">Multi-Page Business Site</h3>
+                  <p className="text-xs text-neutral-400 leading-relaxed mb-6">Complete business website with multiple sub-pages (About, Services, Pricing, Contact).</p>
+
+                  <div className="pb-6 border-b border-white/10 mb-6">
+                    <div className="flex items-baseline gap-2">
+                      <span className="text-3xl sm:text-4xl font-heading font-black text-white tracking-tight">
+                        {billingCycle === "sprint" ? "₹4,499" : "₹1,999"}
+                      </span>
+                      <span className="text-xs text-neutral-400 font-mono">
+                        / {billingCycle === "sprint" ? "one-time sprint" : "per month"}
+                      </span>
+                    </div>
+                    <div className="text-[11px] text-[#B8FF00] font-mono mt-2 flex items-center gap-1.5">
+                      <Clock className="w-3.5 h-3.5" />
+                      <span>Delivered in 4–5 Business Days</span>
+                    </div>
+                  </div>
+
+                  <div className="space-y-3 mb-8">
+                    <div className="text-[11px] font-mono font-bold text-neutral-400 uppercase tracking-wider">Features:</div>
+                    {[
+                      "Up to 5 Dedicated Sub-Pages & Routes",
+                      "Subpage Navigation & Mobile Responsive Menu",
+                      "Contact Form with Instant Email & Sheets Sync",
+                      "High-Speed Edge Caching (99+ Lighthouse)",
+                      "14 Days Dedicated Hypercare",
+                    ].map((feat, i) => (
+                      <div key={i} className="flex items-start gap-2.5 text-xs text-neutral-300">
+                        <CheckCircle2 className="w-4 h-4 text-[#B8FF00] shrink-0 stroke-[2.5] mt-0.5" />
+                        <span>{feat}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                <Link
+                  href="/#book"
+                  className="w-full py-3.5 rounded-xl font-bold text-xs sm:text-sm flex items-center justify-center gap-2 bg-[#B8FF00] hover:bg-[#A3E600] text-black shadow-lg shadow-[#B8FF00]/25 transition-all"
+                >
+                  <span>Book Business Website</span>
+                  <ArrowRight className="w-4 h-4" />
+                </Link>
+              </TiltCard>
             </div>
-          </TiltCard>
-        </div>
+          </div>
+        )}
+
+        {/* 2. Full-Stack Custom Apps Section */}
+        {activeTab === "fullstack" && (
+          <div className="text-left mb-24 animate-in fade-in duration-300">
+            <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-3 mb-6 pb-3 border-b border-white/10">
+              <span className="inline-flex items-center self-start text-xs font-mono font-bold text-[#B8FF00] tracking-wider uppercase bg-[#B8FF00]/10 px-3 py-1 rounded-full border border-[#B8FF00]/20">
+                Full-Stack Custom App Sprints
+              </span>
+              <span className="text-xs text-neutral-400 font-mono">Databases, User Authentication, Admin Dashboards & APIs</span>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <TiltCard className="p-7 sm:p-8 flex flex-col justify-between bg-neutral-950/80 border border-white/10">
+                <div>
+                  <div className="flex items-center justify-between mb-4">
+                    <span className="text-[10px] font-mono font-bold tracking-widest text-[#B8FF00] uppercase bg-[#B8FF00]/10 px-2.5 py-1 rounded-full border border-[#B8FF00]/20">
+                      MVP & Portal
+                    </span>
+                  </div>
+                  <h3 className="text-2xl font-bold text-white mb-2 leading-snug">Custom Web Application</h3>
+                  <p className="text-xs text-neutral-400 leading-relaxed mb-6">Full-stack web application with user accounts, database, API routes, and client dashboard.</p>
+
+                  <div className="pb-6 border-b border-white/10 mb-6">
+                    <div className="flex items-baseline gap-2">
+                      <span className="text-3xl sm:text-4xl font-heading font-black text-white tracking-tight">
+                        {billingCycle === "sprint" ? "₹7,999" : "₹3,999"}
+                      </span>
+                      <span className="text-xs text-neutral-400 font-mono">
+                        / {billingCycle === "sprint" ? "one-time sprint" : "per month"}
+                      </span>
+                    </div>
+                    <div className="text-[11px] text-[#B8FF00] font-mono mt-2 flex items-center gap-1.5">
+                      <Clock className="w-3.5 h-3.5" />
+                      <span>Delivered in 7–10 Business Days</span>
+                    </div>
+                  </div>
+
+                  <div className="space-y-3 mb-8">
+                    <div className="text-[11px] font-mono font-bold text-neutral-400 uppercase tracking-wider">Features:</div>
+                    {[
+                      "Full-Stack Next.js 15 App Router Architecture",
+                      "Database Integration (Supabase / PostgreSQL)",
+                      "User Authentication & Role-Based Access",
+                      "Payment Gateway (Stripe / Razorpay / UPI)",
+                      "Admin Control Panel & Data Tables",
+                      "14 Days Full Architecture Support",
+                    ].map((feat, i) => (
+                      <div key={i} className="flex items-start gap-2.5 text-xs text-neutral-300">
+                        <CheckCircle2 className="w-4 h-4 text-[#B8FF00] shrink-0 stroke-[2.5] mt-0.5" />
+                        <span>{feat}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                <Link
+                  href="/#book"
+                  className="w-full py-3.5 rounded-xl font-bold text-xs sm:text-sm flex items-center justify-center gap-2 bg-neutral-900 hover:bg-neutral-800 text-white border border-white/10 transition-all"
+                >
+                  <span>Book Custom App</span>
+                  <ArrowRight className="w-4 h-4" />
+                </Link>
+              </TiltCard>
+
+              <TiltCard className="p-7 sm:p-8 flex flex-col justify-between bg-neutral-950/95 border-2 border-[#B8FF00]/60 shadow-[0_0_40px_rgba(184,255,0,0.15)] ring-1 ring-[#B8FF00]/20">
+                <div>
+                  <div className="flex items-center justify-between mb-4">
+                    <span className="text-[10px] font-mono font-bold tracking-widest text-[#B8FF00] uppercase bg-[#B8FF00]/10 px-2.5 py-1 rounded-full border border-[#B8FF00]/20">
+                      SaaS & Scale
+                    </span>
+                  </div>
+                  <h3 className="text-2xl font-bold text-white mb-2 leading-snug">Full-Stack SaaS Platform</h3>
+                  <p className="text-xs text-neutral-400 leading-relaxed mb-6">Production-ready SaaS boilerplate with recurring subscriptions, tenant isolation, and custom backend APIs.</p>
+
+                  <div className="pb-6 border-b border-white/10 mb-6">
+                    <div className="flex items-baseline gap-2">
+                      <span className="text-3xl sm:text-4xl font-heading font-black text-white tracking-tight">
+                        {billingCycle === "sprint" ? "₹14,999" : "₹6,999"}
+                      </span>
+                      <span className="text-xs text-neutral-400 font-mono">
+                        / {billingCycle === "sprint" ? "one-time sprint" : "per month"}
+                      </span>
+                    </div>
+                    <div className="text-[11px] text-[#B8FF00] font-mono mt-2 flex items-center gap-1.5">
+                      <Clock className="w-3.5 h-3.5" />
+                      <span>Delivered in 10–14 Business Days</span>
+                    </div>
+                  </div>
+
+                  <div className="space-y-3 mb-8">
+                    <div className="text-[11px] font-mono font-bold text-neutral-400 uppercase tracking-wider">Features:</div>
+                    {[
+                      "Complete SaaS Platform with Subscription Billing",
+                      "Automated Email Transactions & Webhooks",
+                      "Custom API Routes & Third-Party Integrations",
+                      "Database Security & Multi-Tenant Support",
+                      "Live Telemetry & Performance Monitoring",
+                      "30 Days Dedicated Hypercare Support",
+                    ].map((feat, i) => (
+                      <div key={i} className="flex items-start gap-2.5 text-xs text-neutral-300">
+                        <CheckCircle2 className="w-4 h-4 text-[#B8FF00] shrink-0 stroke-[2.5] mt-0.5" />
+                        <span>{feat}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                <Link
+                  href="/#book"
+                  className="w-full py-3.5 rounded-xl font-bold text-xs sm:text-sm flex items-center justify-center gap-2 bg-[#B8FF00] hover:bg-[#A3E600] text-black shadow-lg shadow-[#B8FF00]/25 transition-all"
+                >
+                  <span>Build SaaS Platform</span>
+                  <ArrowRight className="w-4 h-4" />
+                </Link>
+              </TiltCard>
+            </div>
+          </div>
+        )}
+
+        {/* 3. AI Automation Pipelines Section */}
+        {activeTab === "automation" && (
+          <div className="text-left mb-24 animate-in fade-in duration-300">
+            <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-3 mb-6 pb-3 border-b border-white/10">
+              <span className="inline-flex items-center self-start text-xs font-mono font-bold text-[#B8FF00] tracking-wider uppercase bg-[#B8FF00]/10 px-3 py-1 rounded-full border border-[#B8FF00]/20">
+                AI & Workflow Automation Sprints
+              </span>
+              <span className="text-xs text-neutral-400 font-mono">Zero-Touch Autonomous Lead & CRM Pipelines</span>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <TiltCard className="p-7 sm:p-8 flex flex-col justify-between bg-neutral-950/80 border border-white/10">
+                <div>
+                  <div className="flex items-center justify-between mb-4">
+                    <span className="text-[10px] font-mono font-bold tracking-widest text-[#B8FF00] uppercase bg-[#B8FF00]/10 px-2.5 py-1 rounded-full border border-[#B8FF00]/20">
+                      Lead Automation
+                    </span>
+                  </div>
+                  <h3 className="text-2xl font-bold text-white mb-2 leading-snug">Auto-Responder Pipeline</h3>
+                  <p className="text-xs text-neutral-400 leading-relaxed mb-6">Instant WhatsApp/Email response triggers & Google Sheets/Airtable auto-logging.</p>
+
+                  <div className="pb-6 border-b border-white/10 mb-6">
+                    <div className="flex items-baseline gap-2">
+                      <span className="text-3xl sm:text-4xl font-heading font-black text-white tracking-tight">
+                        {billingCycle === "sprint" ? "₹3,499" : "₹1,499"}
+                      </span>
+                      <span className="text-xs text-neutral-400 font-mono">
+                        / {billingCycle === "sprint" ? "one-time sprint" : "per month"}
+                      </span>
+                    </div>
+                    <div className="text-[11px] text-[#B8FF00] font-mono mt-2 flex items-center gap-1.5">
+                      <Clock className="w-3.5 h-3.5" />
+                      <span>Delivered in 2–3 Business Days</span>
+                    </div>
+                  </div>
+
+                  <div className="space-y-3 mb-8">
+                    <div className="text-[11px] font-mono font-bold text-neutral-400 uppercase tracking-wider">Features:</div>
+                    {[
+                      "Instant WhatsApp & Email Alert Triggers",
+                      "Google Sheets / Airtable Two-Way Sync",
+                      "Webhook Integration & Custom Plumbings",
+                      "Lead Qualification & Auto-Routing",
+                      "7 Days Telemetry Monitoring",
+                    ].map((feat, i) => (
+                      <div key={i} className="flex items-start gap-2.5 text-xs text-neutral-300">
+                        <CheckCircle2 className="w-4 h-4 text-[#B8FF00] shrink-0 stroke-[2.5] mt-0.5" />
+                        <span>{feat}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                <Link
+                  href="/#book"
+                  className="w-full py-3.5 rounded-xl font-bold text-xs sm:text-sm flex items-center justify-center gap-2 bg-neutral-900 hover:bg-neutral-800 text-white border border-white/10 transition-all"
+                >
+                  <span>Automate Leads</span>
+                  <ArrowRight className="w-4 h-4" />
+                </Link>
+              </TiltCard>
+
+              <TiltCard className="p-7 sm:p-8 flex flex-col justify-between bg-neutral-950/95 border-2 border-[#B8FF00]/40 shadow-lg shadow-[#B8FF00]/5">
+                <div>
+                  <div className="flex items-center justify-between mb-4">
+                    <span className="text-[10px] font-mono font-bold tracking-widest text-[#B8FF00] uppercase bg-[#B8FF00]/10 px-2.5 py-1 rounded-full border border-[#B8FF00]/20">
+                      Smart AI Agent
+                    </span>
+                  </div>
+                  <h3 className="text-2xl font-bold text-white mb-2 leading-snug">Multi-Step AI Agent Orchestration</h3>
+                  <p className="text-xs text-neutral-400 leading-relaxed mb-6">Autonomous AI agents that classify, route, and auto-reply based on custom company knowledge bases.</p>
+
+                  <div className="pb-6 border-b border-white/10 mb-6">
+                    <div className="flex items-baseline gap-2">
+                      <span className="text-3xl sm:text-4xl font-heading font-black text-white tracking-tight">
+                        {billingCycle === "sprint" ? "₹5,999" : "₹2,999"}
+                      </span>
+                      <span className="text-xs text-neutral-400 font-mono">
+                        / {billingCycle === "sprint" ? "one-time sprint" : "per month"}
+                      </span>
+                    </div>
+                    <div className="text-[11px] text-[#B8FF00] font-mono mt-2 flex items-center gap-1.5">
+                      <Clock className="w-3.5 h-3.5" />
+                      <span>Delivered in 4–6 Business Days</span>
+                    </div>
+                  </div>
+
+                  <div className="space-y-3 mb-8">
+                    <div className="text-[11px] font-mono font-bold text-neutral-400 uppercase tracking-wider">Features:</div>
+                    {[
+                      "Custom LLM Agent Knowledge Base",
+                      "CRM Sync (HubSpot / Salesforce / Notion)",
+                      "Automated Invoicing & Stripe / UPI Links",
+                      "Multi-Channel Support (WhatsApp, Slack)",
+                      "14 Days Dedicated Model Tuning",
+                    ].map((feat, i) => (
+                      <div key={i} className="flex items-start gap-2.5 text-xs text-neutral-300">
+                        <CheckCircle2 className="w-4 h-4 text-[#B8FF00] shrink-0 stroke-[2.5] mt-0.5" />
+                        <span>{feat}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                <Link
+                  href="/#book"
+                  className="w-full py-3.5 rounded-xl font-bold text-xs sm:text-sm flex items-center justify-center gap-2 bg-[#B8FF00] hover:bg-[#A3E600] text-black shadow-lg shadow-[#B8FF00]/25 transition-all"
+                >
+                  <span>Build AI Agent</span>
+                  <ArrowRight className="w-4 h-4" />
+                </Link>
+              </TiltCard>
+            </div>
+          </div>
+        )}
 
         {/* Embedded ROI Calculator on Pricing Page */}
         <section id="calculator" className="text-left mb-24">

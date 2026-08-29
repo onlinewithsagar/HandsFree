@@ -225,7 +225,7 @@ export default function Home() {
     name: "",
     business: "",
     phone: "",
-    service: "Modern Website / Web App (from ₹3,999)",
+    service: "Basic Website / Landing Page (from ₹2,499)",
     timeline: "Immediate (< 2 weeks)",
     details: "",
   });
@@ -234,10 +234,10 @@ export default function Home() {
   const [isTimelineDropdownOpen, setIsTimelineDropdownOpen] = useState(false);
 
   const serviceOptions = [
-    "Modern Website / Web App (from ₹3,999)",
-    "AI Workflow & CRM Automation (from ₹5,999)",
-    "Complete Growth Engine (Website + AI from ₹8,999)",
-    "Custom Sprint / Specialized Pod",
+    "Basic Website / Landing Page (from ₹2,499)",
+    "Full-Stack Custom App / Portal (from ₹7,999)",
+    "AI Workflow & CRM Automation (from ₹3,499)",
+    "Custom Engineering Sprint / Specialized Pod",
   ];
 
   const timelineOptions = [
