@@ -959,7 +959,14 @@ export default function Home() {
                       const isComplete = executionStep > idx;
                       const isActive = executionStep === idx + 1 && isPipelineRunning;
                       return (
-                        <div key={n.id} className="relative flex items-start gap-4">
+                        <motion.div
+                          key={n.id}
+                          initial={{ opacity: 0, x: -20 }}
+                          whileInView={{ opacity: 1, x: 0 }}
+                          viewport={{ once: true }}
+                          transition={{ delay: idx * 0.1, duration: 0.5 }}
+                          className="relative flex items-start gap-4"
+                        >
                           {idx !== SCENARIOS[activeScenario].nodes.length - 1 && (
                             <div
                               className={`absolute top-9 left-[1.15rem] w-[2px] h-[calc(100%+0.25rem)] transition-colors duration-500 ${
@@ -989,7 +996,7 @@ export default function Home() {
                             </div>
                             <p className="text-xs text-neutral-400">{n.desc}</p>
                           </div>
-                        </div>
+                        </motion.div>
                       );
                     })}
                   </div>
