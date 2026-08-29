@@ -127,6 +127,7 @@ export default function PrivacyPolicy() {
               handsfree.in@gmail.com
             </div>
           </section>
+        </div>
       </main>
 
       <Footer />

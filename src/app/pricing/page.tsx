@@ -19,6 +19,7 @@ import {
 } from "lucide-react";
 import TiltCard from "@/components/TiltCard";
 import AnimatedCounter from "@/components/AnimatedCounter";
+import Footer from "@/components/Footer";
 
 export default function PricingPage() {
   const [billingCycle, setBillingCycle] = useState<"sprint" | "retainer">("sprint");
@@ -411,6 +412,8 @@ export default function PricingPage() {
           </div>
         </div>
       </div>
+
+      <Footer />
     </div>
   );
 }

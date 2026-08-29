@@ -1,6 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { ArrowLeft, Shield, CheckCircle2, Scale, Zap } from "lucide-react";
+import Footer from "@/components/Footer";
 
 export const metadata = {
   title: "Terms of Service | HandsFree",
@@ -116,19 +117,9 @@ export default function TermsOfService() {
               handsfree.in@gmail.com
             </div>
           </section>
-        </div>
       </main>
 
-      {/* Simple Footer */}
-      <footer className="border-t border-white/10 py-8 bg-black">
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-neutral-500 font-mono">
-          <div>&copy; {new Date().getFullYear()} HandsFree Systems Inc.</div>
-          <div className="flex items-center gap-4">
-            <Link href="/privacy" className="hover:text-[#B8FF00] transition-colors">Privacy Policy</Link>
-            <Link href="/" className="hover:text-[#B8FF00] transition-colors">Home</Link>
-          </div>
-        </div>
-      </footer>
+      <Footer />
     </div>
   );
 }
