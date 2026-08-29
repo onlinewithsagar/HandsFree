@@ -30,7 +30,7 @@ export default function SubpageHeader({ showContactButton = false }: SubpageHead
         <div className="flex items-center gap-3">
           <Link
             href="/"
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-neutral-900 border border-white/10 text-xs font-semibold text-neutral-300 hover:text-white hover:border-[#B8FF00] transition-colors"
+            className="inline-flex items-center gap-2 text-xs font-mono font-bold text-neutral-300 hover:text-white transition-colors py-1"
           >
             <ArrowLeft className="w-3.5 h-3.5" />
             <span>Back to Home</span>
