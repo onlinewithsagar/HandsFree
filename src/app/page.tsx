@@ -1185,9 +1185,10 @@ export default function Home() {
 
                   <button
                     type="submit"
-                    className="w-full py-4 bg-[#B8FF00] hover:bg-[#A3E600] text-black font-black rounded-xl transition-all flex items-center justify-center gap-2 shadow-lg shadow-[#B8FF00]/25 hover:scale-[1.01] mt-2"
+                    className="w-full py-4 px-6 bg-[#B8FF00] hover:bg-[#A3E600] text-black font-black rounded-xl transition-all flex items-center justify-center gap-3 shadow-lg shadow-[#B8FF00]/25 hover:scale-[1.01] mt-2 group"
                   >
-                    <Send className="w-4 h-4 stroke-[2.5]" /> Send Request via WhatsApp
+                    <Send className="w-5 h-5 shrink-0 stroke-[2.5] text-black group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+                    <span className="text-sm sm:text-base tracking-tight whitespace-nowrap">Send Request via WhatsApp</span>
                   </button>
                 </form>
               </div>
