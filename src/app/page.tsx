@@ -231,15 +231,24 @@ export default function Home() {
     business: "",
     phone: "",
     service: "Complete HandsFree Solution",
+    timeline: "Immediate (< 2 weeks)",
     details: "",
   });
 
   const [isServiceDropdownOpen, setIsServiceDropdownOpen] = useState(false);
+  const [isTimelineDropdownOpen, setIsTimelineDropdownOpen] = useState(false);
+
   const serviceOptions = [
     "Complete HandsFree Solution",
-    "Web Apps & Interfaces",
-    "AI Agent Automations",
-    "Autonomous Growth Funnels",
+    "Web Apps & High-Converting Interfaces",
+    "AI Agent Automations & Tool Loops",
+    "Autonomous Growth Funnels & CRM Sync",
+  ];
+
+  const timelineOptions = [
+    "Immediate (< 2 weeks)",
+    "Standard Sprint (2 - 4 weeks)",
+    "Flexible / Exploring Solutions",
   ];
 
   // Interactive Guided Chatbot State
@@ -283,6 +292,15 @@ export default function Home() {
   };
 
   useEffect(() => {
+    if (typeof window !== "undefined") {
+      if ("scrollRestoration" in history) {
+        history.scrollRestoration = "manual";
+      }
+      if (!window.location.hash) {
+        window.scrollTo(0, 0);
+      }
+    }
+
     const handleScroll = () => setIsScrolled(window.scrollY > 20);
     window.addEventListener("scroll", handleScroll);
 
@@ -487,12 +505,14 @@ export default function Home() {
 
   const handleFormSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    const waText = `🚀 *Direct Booking via HandsFree*\n\n` +
-      `*Name:* ${formData.name}\n` +
-      `*Business:* ${formData.business}\n` +
-      `*Phone:* ${formData.phone}\n` +
-      `*Interested In:* ${formData.service}\n` +
-      `*Details:* ${formData.details}`;
+    const waText =
+      `⚡ *HandsFree Project Request*\n\n` +
+      `👤 *Name:* ${formData.name}\n` +
+      `🏢 *Company / Business:* ${formData.business}\n` +
+      `📱 *WhatsApp:* ${formData.phone}\n` +
+      `🎯 *Scope:* ${formData.service}\n` +
+      `⏳ *Timeline:* ${formData.timeline}\n` +
+      `📝 *Project Overview:* ${formData.details || "None specified"}`;
     submitToWhatsApp(waText);
   };
 
@@ -1242,60 +1262,103 @@ export default function Home() {
                     />
                   </div>
 
-                  {/* Custom Styled Dropdown */}
-                  <div className="space-y-1.5 relative">
-                    <label className="text-xs font-mono font-bold text-neutral-400 uppercase tracking-wider">Core Interest</label>
-                    <button
-                      type="button"
-                      onClick={() => setIsServiceDropdownOpen(!isServiceDropdownOpen)}
-                      className="w-full bg-neutral-900 border border-white/10 hover:border-white/20 rounded-xl px-4 py-3 text-white text-sm flex items-center justify-between transition-all text-left"
-                    >
-                      <span>{formData.service}</span>
-                      <ChevronDown className={`w-4 h-4 text-[#B8FF00] transition-transform ${isServiceDropdownOpen ? 'rotate-180' : ''}`} />
-                    </button>
+                  {/* Custom Styled Dropdowns for Scope and Timeline */}
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div className="space-y-1.5 relative">
+                      <label className="text-xs font-mono font-bold text-neutral-400 uppercase tracking-wider">Scope / Focus</label>
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setIsServiceDropdownOpen(!isServiceDropdownOpen);
+                          setIsTimelineDropdownOpen(false);
+                        }}
+                        className="w-full bg-neutral-900 border border-white/10 hover:border-white/20 rounded-xl px-4 py-3 text-white text-sm flex items-center justify-between transition-all text-left truncate"
+                      >
+                        <span className="truncate pr-2">{formData.service}</span>
+                        <ChevronDown className={`w-4 h-4 text-[#B8FF00] shrink-0 transition-transform ${isServiceDropdownOpen ? 'rotate-180' : ''}`} />
+                      </button>
 
-                    {isServiceDropdownOpen && (
-                      <div className="absolute top-full left-0 right-0 mt-1.5 z-30 bg-neutral-950 border border-white/15 rounded-2xl p-1.5 shadow-2xl shadow-black overflow-hidden">
-                        {serviceOptions.map((opt) => (
-                          <button
-                            key={opt}
-                            type="button"
-                            onClick={() => {
-                              setFormData({ ...formData, service: opt });
-                              setIsServiceDropdownOpen(false);
-                            }}
-                            className={`w-full text-left px-3.5 py-2.5 rounded-xl text-xs font-medium flex items-center justify-between transition-all ${
-                              formData.service === opt
-                                ? "bg-[#B8FF00]/10 text-[#B8FF00] font-bold"
-                                : "text-neutral-300 hover:bg-neutral-900 hover:text-white"
-                            }`}
-                          >
-                            <span>{opt}</span>
-                            {formData.service === opt && <span className="w-1.5 h-1.5 rounded-full bg-[#B8FF00]" />}
-                          </button>
-                        ))}
-                      </div>
-                    )}
+                      {isServiceDropdownOpen && (
+                        <div className="absolute top-full left-0 right-0 mt-1.5 z-30 bg-neutral-950 border border-white/15 rounded-2xl p-1.5 shadow-2xl shadow-black overflow-hidden">
+                          {serviceOptions.map((opt) => (
+                            <button
+                              key={opt}
+                              type="button"
+                              onClick={() => {
+                                setFormData({ ...formData, service: opt });
+                                setIsServiceDropdownOpen(false);
+                              }}
+                              className={`w-full text-left px-3 py-2 rounded-xl text-xs font-medium flex items-center justify-between transition-all ${
+                                formData.service === opt
+                                  ? "bg-[#B8FF00]/10 text-[#B8FF00] font-bold"
+                                  : "text-neutral-300 hover:bg-neutral-900 hover:text-white"
+                              }`}
+                            >
+                              <span className="truncate pr-2">{opt}</span>
+                              {formData.service === opt && <span className="w-1.5 h-1.5 rounded-full bg-[#B8FF00] shrink-0" />}
+                            </button>
+                          ))}
+                        </div>
+                      )}
+                    </div>
+
+                    <div className="space-y-1.5 relative">
+                      <label className="text-xs font-mono font-bold text-neutral-400 uppercase tracking-wider">Target Timeline</label>
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setIsTimelineDropdownOpen(!isTimelineDropdownOpen);
+                          setIsServiceDropdownOpen(false);
+                        }}
+                        className="w-full bg-neutral-900 border border-white/10 hover:border-white/20 rounded-xl px-4 py-3 text-white text-sm flex items-center justify-between transition-all text-left truncate"
+                      >
+                        <span className="truncate pr-2">{formData.timeline}</span>
+                        <ChevronDown className={`w-4 h-4 text-[#B8FF00] shrink-0 transition-transform ${isTimelineDropdownOpen ? 'rotate-180' : ''}`} />
+                      </button>
+
+                      {isTimelineDropdownOpen && (
+                        <div className="absolute top-full left-0 right-0 mt-1.5 z-30 bg-neutral-950 border border-white/15 rounded-2xl p-1.5 shadow-2xl shadow-black overflow-hidden">
+                          {timelineOptions.map((opt) => (
+                            <button
+                              key={opt}
+                              type="button"
+                              onClick={() => {
+                                setFormData({ ...formData, timeline: opt });
+                                setIsTimelineDropdownOpen(false);
+                              }}
+                              className={`w-full text-left px-3 py-2 rounded-xl text-xs font-medium flex items-center justify-between transition-all ${
+                                formData.timeline === opt
+                                  ? "bg-[#B8FF00]/10 text-[#B8FF00] font-bold"
+                                  : "text-neutral-300 hover:bg-neutral-900 hover:text-white"
+                              }`}
+                            >
+                              <span>{opt}</span>
+                              {formData.timeline === opt && <span className="w-1.5 h-1.5 rounded-full bg-[#B8FF00]" />}
+                            </button>
+                          ))}
+                        </div>
+                      )}
+                    </div>
                   </div>
 
                   <div className="space-y-1.5">
-                    <label className="text-xs font-mono font-bold text-neutral-400 uppercase tracking-wider">Project Details</label>
+                    <label className="text-xs font-mono font-bold text-neutral-400 uppercase tracking-wider">Project Overview</label>
                     <textarea
                       required
                       value={formData.details}
                       onChange={(e) => setFormData({ ...formData, details: e.target.value })}
                       rows={3}
                       className="w-full bg-neutral-900 border border-white/10 rounded-xl px-4 py-3 text-white text-sm focus:outline-none focus:border-[#B8FF00] transition-colors resize-none"
-                      placeholder="Briefly describe your bottlenecks or goals..."
+                      placeholder="Briefly describe your goals, existing stack, or bottlenecks..."
                     />
                   </div>
 
                   <button
                     type="submit"
-                    className="w-full py-4 px-6 bg-[#B8FF00] hover:bg-[#A3E600] text-black font-black rounded-xl transition-all flex items-center justify-center gap-3 shadow-lg shadow-[#B8FF00]/25 hover:scale-[1.01] mt-2 group"
+                    className="w-full py-4 px-6 bg-[#B8FF00] hover:bg-[#A3E600] text-black font-black rounded-xl transition-all flex items-center justify-center gap-3 shadow-lg shadow-[#B8FF00]/25 hover:scale-[1.01] mt-2 group cursor-pointer"
                   >
                     <Send className="w-5 h-5 shrink-0 stroke-[2.5] text-black group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
-                    <span className="text-sm sm:text-base tracking-tight whitespace-nowrap">Send Request via WhatsApp</span>
+                    <span className="text-sm sm:text-base tracking-tight whitespace-nowrap">Connect via WhatsApp</span>
                   </button>
                 </form>
               </div>
