@@ -24,6 +24,7 @@ export const metadata: Metadata = {
     "HandsFree engineers high-converting Next.js web applications, autonomous AI agent workflows, CRM synchronization, and automated billing to eliminate operational drag.",
   keywords: [
     "HandsFree",
+    "HandsFree AI",
     "Next.js web development",
     "AI automation agency",
     "AI agents",
@@ -32,6 +33,8 @@ export const metadata: Metadata = {
     "HubSpot CRM automation",
     "conversion web apps",
     "enterprise AI automation",
+    "workflow automation",
+    "handsfree systems",
   ],
   authors: [{ name: "HandsFree Systems Inc." }],
   creator: "HandsFree Systems Inc.",
@@ -47,7 +50,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "HandsFree — High-Speed Web Apps & Autonomous AI Systems",
     description:
-      "Eliminate manual drag. We engineer high-converting web applications, intelligent AI automations, and autonomous growth funnels.",
+      "Stop manual drag. We engineer high-converting web applications, intelligent AI automations, and autonomous growth funnels.",
     url: "https://handsfree.co",
     siteName: "HandsFree",
     images: [
@@ -66,7 +69,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "HandsFree — High-Speed Web Apps & Autonomous AI Systems",
     description:
-      "Eliminate manual drag. We build ultra-fast Next.js web apps and 24/7 autonomous AI systems.",
+      "Stop manual drag. We engineer high-converting Next.js web apps and 24/7 autonomous AI systems.",
     images: ["/og-image.png"],
     creator: "@handsfree",
   },
@@ -103,7 +106,7 @@ export default function RootLayout({
         "@id": "https://handsfree.co/#organization",
         name: "HandsFree",
         url: "https://handsfree.co",
-        logo: "https://handsfree.co/logo.png",
+        logo: "https://handsfree.co/favicon-32x32.png",
         image: "https://handsfree.co/og-image.png",
         description:
           "HandsFree builds high-converting Next.js web apps and autonomous AI workflows to eliminate operational drag.",
@@ -119,7 +122,7 @@ export default function RootLayout({
         "@id": "https://handsfree.co/#website",
         url: "https://handsfree.co",
         name: "HandsFree",
-        description: "Autonomous Web Development and AI Operations",
+        description: "High-Speed Web Applications & Autonomous AI Workflows",
         publisher: {
           "@id": "https://handsfree.co/#organization",
         },
@@ -134,6 +137,27 @@ export default function RootLayout({
           price: "0",
           priceCurrency: "USD",
         },
+      },
+      {
+        "@type": "FAQPage",
+        mainEntity: [
+          {
+            "@type": "Question",
+            name: "What solutions does HandsFree build?",
+            acceptedAnswer: {
+              "@type": "Answer",
+              text: "HandsFree builds sub-second Next.js web applications, multi-model AI agent automation pipelines, CRM integrations, and automated Stripe billing systems.",
+            },
+          },
+          {
+            "@type": "Question",
+            name: "How fast can HandsFree deploy a project?",
+            acceptedAnswer: {
+              "@type": "Answer",
+              text: "Standard rapid web app sprints deploy within 7 to 14 days, while AI automation pipelines can be integrated live in 3 to 7 days.",
+            },
+          },
+        ],
       },
     ],
   };
