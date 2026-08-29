@@ -33,7 +33,7 @@ export default function SmoothScrollProvider({
         const elem = document.querySelector(target.hash);
         if (elem) {
           e.preventDefault();
-          lenis.scrollTo(elem as HTMLElement, { offset: -90, duration: 1.2 });
+          lenis.scrollTo(elem as HTMLElement, { offset: -120, duration: 1.0 });
         }
       }
     };
