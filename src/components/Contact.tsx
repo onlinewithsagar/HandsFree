@@ -51,25 +51,25 @@ export default function Contact({ onPlaySound }: { onPlaySound: (type: "click" |
           <form onSubmit={handleSubmit} className="space-y-5">
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
-                <label className="block text-xs font-mono font-bold text-neutral-300 uppercase mb-2">
+                <label className="block text-xs font-mono font-bold text-neutral-400 uppercase tracking-wider mb-2">
                   Your Name
                 </label>
                 <input
                   type="text"
                   required
                   placeholder="Alex Vance"
-                  className="w-full px-4 py-3.5 rounded-xl bg-neutral-900 border border-white/10 text-white placeholder-neutral-500 focus:outline-none focus:border-[#B8FF00] focus:shadow-[0_0_15px_rgba(184,255,0,0.2)] text-sm transition-all"
+                  className="w-full px-4 py-3.5 rounded-xl bg-neutral-900/90 border border-white/10 text-white placeholder-neutral-500 focus:outline-none focus:border-[#B8FF00]/60 hover:border-white/20 text-sm transition-all"
                 />
               </div>
               <div>
-                <label className="block text-xs font-mono font-bold text-neutral-300 uppercase mb-2">
+                <label className="block text-xs font-mono font-bold text-neutral-400 uppercase tracking-wider mb-2">
                   Work Email
                 </label>
                 <input
                   type="email"
                   required
                   placeholder="alex@company.com"
-                  className="w-full px-4 py-3.5 rounded-xl bg-neutral-900 border border-white/10 text-white placeholder-neutral-500 focus:outline-none focus:border-[#B8FF00] focus:shadow-[0_0_15px_rgba(184,255,0,0.2)] text-sm transition-all"
+                  className="w-full px-4 py-3.5 rounded-xl bg-neutral-900/90 border border-white/10 text-white placeholder-neutral-500 focus:outline-none focus:border-[#B8FF00]/60 hover:border-white/20 text-sm transition-all"
                 />
               </div>
             </div>
