@@ -117,6 +117,7 @@ export default function TermsOfService() {
               handsfree.in@gmail.com
             </div>
           </section>
+        </div>
       </main>
 
       <Footer />
