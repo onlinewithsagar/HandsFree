@@ -30,6 +30,16 @@ export default function TiltCard({ children, className = "" }: TiltCardProps) {
   const glowY = useTransform(my, (v) => `${v * 100}%`);
   const sheenAngle = useTransform(rotateY, (v) => `${v * 8 + 120}deg`);
 
+  const radialGlowBackground = useTransform(
+    [glowX, glowY] as [MotionValue<string>, MotionValue<string>],
+    (latest: string[]) => `radial-gradient(500px circle at ${latest[0]} ${latest[1]}, rgba(184, 255, 0, 0.18), transparent 75%)`
+  );
+
+  const sheenBackground = useTransform(
+    sheenAngle,
+    (a) => `linear-gradient(${a}, rgba(255, 255, 255, 0.15) 0%, transparent 60%)`
+  );
+
   function handlePointerMove(e: PointerEvent<HTMLDivElement>) {
     if (!tiltEnabled || !ref.current) return;
     const rect = ref.current.getBoundingClientRect();
@@ -65,10 +75,7 @@ export default function TiltCard({ children, className = "" }: TiltCardProps) {
             className="pointer-events-none absolute -inset-px z-10"
             style={{
               opacity: isHovered ? 1 : 0,
-              background: useTransform(
-                [glowX, glowY] as [MotionValue<string>, MotionValue<string>],
-                (latest: string[]) => `radial-gradient(500px circle at ${latest[0]} ${latest[1]}, rgba(184, 255, 0, 0.18), transparent 75%)`
-              ),
+              background: radialGlowBackground,
               transition: "opacity 0.3s",
             }}
           />
@@ -76,7 +83,7 @@ export default function TiltCard({ children, className = "" }: TiltCardProps) {
             className="pointer-events-none absolute inset-0 z-20 mix-blend-overlay"
             style={{
               opacity: isHovered ? 0.6 : 0,
-              background: useTransform(sheenAngle, (a) => `linear-gradient(${a}, rgba(255, 255, 255, 0.15) 0%, transparent 60%)`),
+              background: sheenBackground,
               transition: "opacity 0.3s",
             }}
           />
