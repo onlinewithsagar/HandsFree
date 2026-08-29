@@ -1311,7 +1311,7 @@ export default function Home() {
             <div>
               <h4 className="text-white font-bold text-sm mb-4">Company</h4>
               <ul className="space-y-2.5 text-xs text-neutral-400 font-medium">
-                <li><Link href="/careers" className="hover:text-[#B8FF00] transition-colors flex items-center gap-1.5">Careers <span className="text-[9px] bg-[#B8FF00]/10 text-[#B8FF00] px-1.5 py-0.5 rounded font-mono font-bold">SPOT HIRING</span></Link></li>
+                <li><Link href="/hiring" className="hover:text-[#B8FF00] transition-colors flex items-center gap-1.5">Hiring <span className="text-[9px] bg-[#B8FF00]/10 text-[#B8FF00] px-1.5 py-0.5 rounded font-mono font-bold">SPOT HIRING</span></Link></li>
                 <li><Link href="/privacy" className="hover:text-[#B8FF00] transition-colors">Privacy Policy</Link></li>
                 <li><Link href="/terms" className="hover:text-[#B8FF00] transition-colors">Terms of Service</Link></li>
               </ul>
