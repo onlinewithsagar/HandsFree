@@ -315,12 +315,13 @@ export default function Home() {
     };
   }, [mobileNavOpen]);
 
-  // Particle Physics
+  // High-Performance Ambient Particle Physics (Lightweight & Low-RAM)
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
-    const ctx = canvas.getContext("2d");
+    const ctx = canvas.getContext("2d", { alpha: true });
     if (!ctx) return;
+
     let particles: Array<{
       x: number;
       y: number;
@@ -329,7 +330,11 @@ export default function Home() {
       speedY: number;
     }> = [];
     let animationFrameId: number;
-    const mouse: { x: number | null; y: number | null; radius: number } = { x: null, y: null, radius: 140 };
+    let isVisible = true;
+    const mouse: { x: number | null; y: number | null; radius: number } = { x: null, y: null, radius: 120 };
+
+    const isMobile = window.matchMedia("(max-width: 768px)").matches;
+    const maxParticles = isMobile ? 22 : 48; // Highly optimized particle count
 
     const resize = () => {
       if (!canvas) return;
@@ -338,73 +343,83 @@ export default function Home() {
       initParticles();
     };
 
-    window.addEventListener("resize", resize);
     const onMouseMove = (e: MouseEvent) => {
-      mouse.x = e.x;
-      mouse.y = e.y;
+      mouse.x = e.clientX;
+      mouse.y = e.clientY;
     };
     const onMouseOut = () => {
       mouse.x = null;
       mouse.y = null;
     };
-    window.addEventListener("mousemove", onMouseMove);
-    window.addEventListener("mouseout", onMouseOut);
+
+    const handleVisibility = () => {
+      isVisible = !document.hidden;
+      if (isVisible) {
+        animationFrameId = requestAnimationFrame(animate);
+      }
+    };
+
+    window.addEventListener("resize", resize);
+    window.addEventListener("mousemove", onMouseMove, { passive: true });
+    window.addEventListener("mouseout", onMouseOut, { passive: true });
+    document.addEventListener("visibilitychange", handleVisibility);
 
     const initParticles = () => {
       if (!canvas) return;
       particles = [];
-      const numParticles = Math.min(80, (canvas.width * canvas.height) / 16000);
-      for (let i = 0; i < numParticles; i++) {
+      for (let i = 0; i < maxParticles; i++) {
         particles.push({
           x: Math.random() * canvas.width,
           y: Math.random() * canvas.height,
-          size: Math.random() * 2 + 0.8,
-          speedX: (Math.random() - 0.5) * 0.4,
-          speedY: (Math.random() - 0.5) * 0.4,
+          size: Math.random() * 1.8 + 0.6,
+          speedX: (Math.random() - 0.5) * 0.3,
+          speedY: (Math.random() - 0.5) * 0.3,
         });
       }
     };
 
     const animate = () => {
-      if (!canvas || !ctx) return;
+      if (!isVisible || !canvas || !ctx) return;
       ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-      for (let i = 0; i < particles.length; i++) {
+      const pLen = particles.length;
+      for (let i = 0; i < pLen; i++) {
         const p = particles[i];
         p.x += p.speedX;
         p.y += p.speedY;
 
         if (p.x > canvas.width) p.x = 0;
-        if (p.x < 0) p.x = canvas.width;
+        else if (p.x < 0) p.x = canvas.width;
         if (p.y > canvas.height) p.y = 0;
-        if (p.y < 0) p.y = canvas.height;
+        else if (p.y < 0) p.y = canvas.height;
 
         if (mouse.x !== null && mouse.y !== null) {
           const dx = mouse.x - p.x;
           const dy = mouse.y - p.y;
-          const distance = Math.sqrt(dx * dx + dy * dy);
-          if (distance < mouse.radius) {
-            const forceDirectionX = dx / distance;
-            const forceDirectionY = dy / distance;
-            const force = (mouse.radius - distance) / mouse.radius;
-            p.x -= forceDirectionX * force * 1.5;
-            p.y -= forceDirectionY * force * 1.5;
+          const distSq = dx * dx + dy * dy;
+          if (distSq < 14400) { // 120^2 avoids Math.sqrt in loop
+            const distance = Math.sqrt(distSq);
+            const force = (120 - distance) / 120;
+            p.x -= (dx / distance) * force * 1.2;
+            p.y -= (dy / distance) * force * 1.2;
           }
         }
 
-        ctx.fillStyle = "rgba(184, 255, 0, 0.45)";
+        ctx.fillStyle = "rgba(184, 255, 0, 0.4)";
         ctx.beginPath();
-        ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+        ctx.arc(p.x, p.y, p.size, 0, 6.283);
         ctx.fill();
       }
 
-      for (let a = 0; a < particles.length; a++) {
-        for (let b = a + 1; b < particles.length; b++) {
+      // Constellation lines with distance squared optimization
+      for (let a = 0; a < pLen; a++) {
+        for (let b = a + 1; b < pLen; b++) {
           const dx = particles[a].x - particles[b].x;
           const dy = particles[a].y - particles[b].y;
-          const distance = Math.sqrt(dx * dx + dy * dy);
-          if (distance < 95) {
-            ctx.strokeStyle = `rgba(184, 255, 0, ${(1 - distance / 95) * 0.15})`;
+          const distSq = dx * dx + dy * dy;
+          if (distSq < 6400) { // 80^2
+            const distance = Math.sqrt(distSq);
+            ctx.strokeStyle = `rgba(184, 255, 0, ${(1 - distance / 80) * 0.12})`;
             ctx.lineWidth = 0.5;
             ctx.beginPath();
             ctx.moveTo(particles[a].x, particles[a].y);
@@ -424,6 +439,7 @@ export default function Home() {
       window.removeEventListener("resize", resize);
       window.removeEventListener("mousemove", onMouseMove);
       window.removeEventListener("mouseout", onMouseOut);
+      document.removeEventListener("visibilitychange", handleVisibility);
       cancelAnimationFrame(animationFrameId);
     };
   }, []);

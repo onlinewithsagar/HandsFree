@@ -106,46 +106,57 @@ html.lenis, html.lenis body {
   animation-play-state: paused;
 }
 
-/* Zero-Gravity Floating Keyframes */
+/* Zero-Gravity Floating Keyframes (GPU Hardware-Accelerated) */
 @keyframes floatSlow {
   0%, 100% {
-    transform: translateY(0px) rotate(0deg);
+    transform: translate3d(0px, 0px, 0px) rotate(0deg);
   }
   50% {
-    transform: translateY(-12px) rotate(0.5deg);
+    transform: translate3d(0px, -10px, 0px) rotate(0.4deg);
   }
 }
 
 @keyframes floatDelayed {
   0%, 100% {
-    transform: translateY(0px) rotate(0deg);
+    transform: translate3d(0px, 0px, 0px) rotate(0deg);
   }
   50% {
-    transform: translateY(14px) rotate(-0.5deg);
+    transform: translate3d(0px, 12px, 0px) rotate(-0.4deg);
   }
 }
 
 @keyframes floatReverse {
   0%, 100% {
-    transform: translateY(0px) scale(1);
+    transform: translate3d(0px, 0px, 0px) scale(1);
   }
   50% {
-    transform: translateY(-16px) scale(1.01);
+    transform: translate3d(0px, -12px, 0px) scale(1.008);
   }
 }
 
 .animate-float {
-  animation: floatSlow 7s ease-in-out infinite;
+  animation: floatSlow 6.5s ease-in-out infinite;
+  will-change: transform;
 }
 
 .animate-float-delayed {
-  animation: floatDelayed 9s ease-in-out infinite;
-  animation-delay: 2s;
+  animation: floatDelayed 8.5s ease-in-out infinite;
+  animation-delay: 1.8s;
+  will-change: transform;
 }
 
 .animate-float-reverse {
-  animation: floatReverse 8s ease-in-out infinite;
-  animation-delay: 1s;
+  animation: floatReverse 7.5s ease-in-out infinite;
+  animation-delay: 0.9s;
+  will-change: transform;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-float,
+  .animate-float-delayed,
+  .animate-float-reverse {
+    animation: none !important;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
