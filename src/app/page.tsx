@@ -217,12 +217,6 @@ export default function Home() {
   const [activeScenario, setActiveScenario] = useState<"inbound" | "ecom" | "client">("inbound");
   const [isPipelineRunning, setIsPipelineRunning] = useState(false);
   const [executionStep, setExecutionStep] = useState(0);
-  const terminalEndRef = useRef<HTMLDivElement>(null);
-
-  // ROI Calculator State
-  const [teamSize, setTeamSize] = useState(12);
-  const [hourlyRate, setHourlyRate] = useState(2500);
-  const [wastedHours, setWastedHours] = useState(14);
   const [quoteIdx, setQuoteIdx] = useState(0);
 
   // Direct Book Form State
@@ -275,21 +269,6 @@ export default function Home() {
     },
   ]);
   const chatContainerRef = useRef<HTMLDivElement>(null);
-
-  const weeklyHoursSaved = teamSize * wastedHours * 0.85;
-  const annualHoursSaved = Math.round(weeklyHoursSaved * 48);
-  const annualPayrollSaved = Math.round(annualHoursSaved * hourlyRate);
-  const estimatedRevenueLift = Math.round(annualPayrollSaved * 2.4);
-
-  const formatMoney = (amount: number) => {
-    return new Intl.NumberFormat("en-IN", { style: "currency", currency: "INR", maximumFractionDigits: 0 }).format(amount);
-  };
-
-  const setPreset = (team: number, rate: number, hours: number) => {
-    setTeamSize(team);
-    setHourlyRate(rate);
-    setWastedHours(hours);
-  };
 
   useEffect(() => {
     if (typeof window !== "undefined") {
@@ -554,7 +533,7 @@ export default function Home() {
     { href: "#pillars", label: "Core Pillars" },
     { href: "#services", label: "Infrastructure" },
     { href: "#studio", label: "Studio" },
-    { href: "#calculator", label: "ROI Calculator" },
+    { href: "/pricing", label: "Pricing & ROI" },
     { href: "#book", label: "Contact Us" },
   ];
 
@@ -605,7 +584,6 @@ export default function Home() {
             <a href="#services" className="hover:text-[#B8FF00] transition-colors">Infrastructure</a>
             <a href="#studio" className="hover:text-[#B8FF00] transition-colors">Studio</a>
             <Link href="/pricing" className="hover:text-[#B8FF00] transition-colors">Pricing</Link>
-            <a href="#calculator" className="hover:text-[#B8FF00] transition-colors">ROI Calculator</a>
             <button
               onClick={() => setIsChatOpen(true)}
               className="hover:text-[#B8FF00] transition-colors flex items-center gap-1.5 font-medium cursor-pointer"
@@ -1096,107 +1074,6 @@ export default function Home() {
         {/* Parallax Logo Convergence Section */}
         <LogoConvergence />
 
-        {/* ROI Calculator */}
-        <section id="calculator" className="reveal-target opacity-0 translate-y-12">
-          <TiltCard className="bg-neutral-950/90 border border-white/10 p-6 sm:p-10 lg:p-12 shadow-2xl">
-            <div className="grid lg:grid-cols-2 gap-12 sm:gap-16 items-center">
-              <div>
-                <div className="text-xs font-mono font-bold text-[#B8FF00] uppercase tracking-wider mb-1.5">
-                  ROI Calculator
-                </div>
-                <h2 className="text-3xl sm:text-4xl font-heading font-black text-white tracking-tight mb-4">
-                  Calculate Time Saved.
-                </h2>
-                <p className="text-neutral-400 text-sm sm:text-base mb-8 leading-relaxed">
-                  Enter your team&apos;s details to see exactly how much time and money you save when you automate your daily workflows.
-                </p>
-
-                <div className="flex flex-wrap gap-2 mb-8">
-                  <button
-                    onClick={() => setPreset(4, 1500, 8)}
-                    className="px-3.5 py-1.5 bg-neutral-900 border border-white/10 text-neutral-300 hover:text-white hover:border-[#B8FF00] text-xs font-mono font-bold rounded-xl transition-all"
-                  >
-                    Startup (4)
-                  </button>
-                  <button
-                    onClick={() => setPreset(12, 3000, 14)}
-                    className="px-3.5 py-1.5 bg-neutral-900 border border-white/10 text-neutral-300 hover:text-white hover:border-[#B8FF00] text-xs font-mono font-bold rounded-xl transition-all"
-                  >
-                    Growth Agency (12)
-                  </button>
-                  <button
-                    onClick={() => setPreset(28, 5000, 18)}
-                    className="px-3.5 py-1.5 bg-neutral-900 border border-white/10 text-neutral-300 hover:text-white hover:border-[#B8FF00] text-xs font-mono font-bold rounded-xl transition-all"
-                  >
-                    Enterprise (28)
-                  </button>
-                </div>
-
-                <div className="space-y-6">
-                  {[
-                    { label: "Core Team Size", val: teamSize, unit: "People", min: 1, max: 80, step: 1, setter: setTeamSize },
-                    { label: "Avg. Hourly Rate (₹)", val: hourlyRate, unit: "₹/hr", min: 500, max: 10000, step: 100, setter: setHourlyRate },
-                    { label: "Wasted Manual Hrs/Wk", val: wastedHours, unit: "Hrs", min: 1, max: 40, step: 1, setter: setWastedHours },
-                  ].map((input, i) => (
-                    <div key={i}>
-                      <div className="flex justify-between items-end mb-2">
-                        <label className="text-xs font-semibold text-neutral-300">{input.label}</label>
-                        <span className="text-lg font-bold text-white font-mono">
-                          {input.val} <span className="text-xs font-normal text-neutral-500">{input.unit}</span>
-                        </span>
-                      </div>
-                      <input
-                        type="range"
-                        min={input.min}
-                        max={input.max}
-                        step={input.step}
-                        value={input.val}
-                        onChange={(e) => input.setter(Number(e.target.value))}
-                        className="w-full h-2 bg-neutral-800 rounded-lg appearance-none cursor-pointer accent-[#B8FF00]"
-                      />
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              {/* Output Display */}
-              <div className="bg-neutral-950/90 rounded-3xl p-6 sm:p-8 border border-white/10 shadow-2xl relative overflow-hidden">
-                <div className="absolute top-0 right-0 w-64 h-64 bg-[#B8FF00]/5 rounded-full blur-[100px] pointer-events-none" />
-
-                <h3 className="text-xs font-mono font-bold text-[#B8FF00] uppercase tracking-widest mb-6 flex items-center gap-2">
-                  <Activity className="w-4 h-4 text-[#B8FF00]" /> Projected Savings
-                </h3>
-
-                <div className="space-y-5 mb-6 relative z-10">
-                  <div>
-                    <div className="text-xs text-neutral-500 font-mono mb-1">Annual Hours Saved</div>
-                    <div className="text-3xl sm:text-4xl font-heading font-black text-white tracking-tight">
-                      <AnimatedCounter value={annualHoursSaved} suffix=" hrs" />
-                    </div>
-                  </div>
-
-                  <div className="h-[1px] w-full bg-white/10"></div>
-
-                  <div>
-                    <div className="text-xs text-neutral-500 font-mono mb-1">Payroll Recovered</div>
-                    <div className="text-3xl sm:text-4xl font-heading font-black text-white tracking-tight">
-                      <AnimatedCounter value={annualPayrollSaved} prefix="₹" />
-                    </div>
-                  </div>
-                </div>
-
-                <div className="p-5 rounded-2xl border border-[#B8FF00]/25 bg-[#B8FF00]/5 relative z-10">
-                  <div className="text-xs text-[#B8FF00] font-mono font-bold mb-1">Estimated Revenue Lift</div>
-                  <div className="text-3xl sm:text-4xl font-heading font-black text-[#B8FF00] tracking-tight">
-                    <AnimatedCounter value={estimatedRevenueLift} prefix="₹" />
-                  </div>
-                  <p className="text-xs text-neutral-400 mt-2">Based on compounding speed & automated nurture systems.</p>
-                </div>
-              </div>
-            </div>
-          </TiltCard>
-        </section>
-
         {/* Dedicated Book a Call Section with WhatsApp Submission */}
         <section id="book" className="reveal-target opacity-0 translate-y-12">
           <TiltCard className="bg-neutral-950/90 border border-white/10 p-6 sm:p-10 lg:p-14 relative overflow-hidden shadow-2xl">
@@ -1447,9 +1324,9 @@ export default function Home() {
               <h4 className="text-white font-bold text-sm mb-4">Infrastructure</h4>
               <ul className="space-y-2.5 text-xs text-neutral-400 font-medium">
                 <li><a href="#pillars" className="hover:text-[#B8FF00] transition-colors">Core Pillars</a></li>
-                <li><a href="#services" className="hover:text-[#B8FF00] transition-colors">Services</a></li>
+                <li><a href="#services" className="hover:text-[#B8FF00] transition-colors">Capabilities</a></li>
                 <li><a href="#studio" className="hover:text-[#B8FF00] transition-colors">Workflow Studio</a></li>
-                <li><a href="#calculator" className="hover:text-[#B8FF00] transition-colors">ROI Calculator</a></li>
+                <li><Link href="/pricing#calculator" className="hover:text-[#B8FF00] transition-colors">ROI Simulator</Link></li>
               </ul>
             </div>
 
