@@ -70,23 +70,80 @@ export default function About() {
             </div>
           </motion.div>
 
-          {/* Continuous Scroll Parallax 3D Visual Monogram Orb (5 cols) */}
+          {/* Interactive Live Architecture Engine Visual HUD (5 cols) */}
           <motion.div
             style={{ y: yOrb, scale: scaleOrb, rotate: rotateOrb }}
             className="lg:col-span-5 flex items-center justify-center"
           >
-            <div className="relative w-72 h-72 sm:w-96 sm:h-96 rounded-3xl bg-gradient-to-tr from-neutral-900 via-neutral-950 to-black p-1 shadow-2xl shadow-black border border-white/15 flex items-center justify-center group hover:border-[#B8FF00]/50 transition-all duration-500">
-              <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(184,255,0,0.15)_0%,transparent_70%)] rounded-3xl" />
-              
-              <div className="relative w-full h-full rounded-2xl overflow-hidden flex flex-col items-center justify-center p-8 bg-black/90">
-                <div className="relative w-48 h-48 sm:w-60 sm:h-60 flex items-center justify-center">
-                  <Image
-                    src="/logo.png"
-                    alt="HandsFree Master Logo"
-                    fill
-                    sizes="(max-width: 640px) 192px, 240px"
-                    className="object-contain drop-shadow-[0_0_30px_rgba(184,255,0,0.3)]"
-                  />
+            <div className="relative w-full max-w-[420px] rounded-3xl bg-neutral-950/90 border border-white/15 p-6 shadow-2xl shadow-black relative overflow-hidden group hover:border-[#B8FF00]/50 transition-all duration-500">
+              {/* Background HUD Grid & Glow */}
+              <div className="absolute top-0 right-0 w-48 h-48 bg-[#B8FF00]/10 rounded-full blur-3xl pointer-events-none" />
+              <div className="absolute inset-0 bg-[linear-gradient(to_right,#1f1f1f_1px,transparent_1px),linear-gradient(to_bottom,#1f1f1f_1px,transparent_1px)] bg-[size:1.5rem_1.5rem] opacity-20 pointer-events-none" />
+
+              {/* HUD Header Bar */}
+              <div className="relative z-10 flex items-center justify-between pb-4 border-b border-white/10 mb-5">
+                <div className="flex items-center gap-2.5">
+                  <span className="w-2 h-2 rounded-full bg-[#B8FF00] animate-ping" />
+                  <span className="font-mono text-xs font-bold text-white tracking-wider">
+                    CORE ENGINE v2.4
+                  </span>
+                </div>
+                <span className="font-mono text-[10px] text-[#B8FF00] bg-[#B8FF00]/10 px-2 py-0.5 rounded border border-[#B8FF00]/30 font-bold">
+                  AUTONOMOUS
+                </span>
+              </div>
+
+              {/* Dynamic Telemetry Matrix */}
+              <div className="relative z-10 space-y-3 mb-5">
+                <div className="p-3.5 rounded-2xl bg-neutral-900/80 border border-white/5 flex items-center justify-between">
+                  <div className="flex items-center gap-3">
+                    <div className="w-8 h-8 rounded-xl bg-black border border-white/10 flex items-center justify-center text-[#B8FF00]">
+                      <Zap className="w-4 h-4" />
+                    </div>
+                    <div>
+                      <div className="text-xs font-bold text-white">Global Edge TTFB</div>
+                      <div className="text-[10px] text-neutral-400 font-mono">Next.js Edge Runtime</div>
+                    </div>
+                  </div>
+                  <div className="font-mono text-xs font-bold text-[#B8FF00]">12ms</div>
+                </div>
+
+                <div className="p-3.5 rounded-2xl bg-neutral-900/80 border border-white/5 flex items-center justify-between">
+                  <div className="flex items-center gap-3">
+                    <div className="w-8 h-8 rounded-xl bg-black border border-white/10 flex items-center justify-center text-[#B8FF00]">
+                      <ShieldCheck className="w-4 h-4" />
+                    </div>
+                    <div>
+                      <div className="text-xs font-bold text-white">AI Pipeline Reliability</div>
+                      <div className="text-[10px] text-neutral-400 font-mono">Fault-Tolerant Queue</div>
+                    </div>
+                  </div>
+                  <div className="font-mono text-xs font-bold text-white">99.99%</div>
+                </div>
+              </div>
+
+              {/* Live Activity Stream & Architecture Graph */}
+              <div className="relative z-10 p-4 rounded-2xl bg-black/80 border border-white/10">
+                <div className="flex items-center justify-between text-[11px] font-mono text-neutral-400 mb-3">
+                  <span>LIVE TRAFFIC TELEMETRY</span>
+                  <span className="text-[#B8FF00] font-bold animate-pulse">● ACTIVE</span>
+                </div>
+
+                {/* Animated Waveform Visualizer */}
+                <div className="flex items-end gap-1.5 h-12 mb-3 px-1">
+                  {[40, 65, 85, 45, 95, 70, 55, 90, 100, 60, 75, 90, 80, 95, 60].map((h, i) => (
+                    <motion.div
+                      key={i}
+                      animate={{ height: [`${h}%`, `${Math.max(25, (h + 35) % 100)}%`, `${h}%`] }}
+                      transition={{ duration: 1.8, repeat: Infinity, delay: i * 0.1 }}
+                      className="flex-1 bg-[#B8FF00] rounded-full opacity-85 shadow-[0_0_8px_rgba(184,255,0,0.4)]"
+                    />
+                  ))}
+                </div>
+
+                <div className="flex items-center justify-between font-mono text-[10px] text-neutral-500 pt-2 border-t border-white/5">
+                  <span>LATENCY: 0.08ms</span>
+                  <span>SYNC: 24/7 AUTOPILOT</span>
                 </div>
               </div>
             </div>

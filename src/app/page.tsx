@@ -8,6 +8,7 @@ import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
 import Marquee from "@/components/Marquee";
 import Services from "@/components/Services";
+import GrowthInfrastructure from "@/components/GrowthInfrastructure";
 import WorkflowStudio from "@/components/WorkflowStudio";
 import StatsCalculator from "@/components/StatsCalculator";
 import About from "@/components/About";
@@ -72,6 +73,7 @@ export default function Home() {
         <Hero />
         <Marquee />
         <Services />
+        <GrowthInfrastructure />
         <WorkflowStudio />
         <StatsCalculator />
         <About />
