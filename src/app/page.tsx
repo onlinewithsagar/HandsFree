@@ -1033,7 +1033,7 @@ export default function Home() {
 
         {/* ROI Calculator */}
         <section id="calculator" className="reveal-target opacity-0 translate-y-12">
-          <div className="bento-card p-6 sm:p-10 lg:p-12">
+          <TiltCard className="bg-neutral-950/90 border border-white/10 p-6 sm:p-10 lg:p-12 shadow-2xl">
             <div className="grid lg:grid-cols-2 gap-12 sm:gap-16 items-center">
               <div>
                 <div className="text-xs font-mono font-bold text-[#B8FF00] uppercase tracking-wider mb-1.5">
@@ -1129,12 +1129,12 @@ export default function Home() {
                 </div>
               </div>
             </div>
-          </div>
+          </TiltCard>
         </section>
 
         {/* Dedicated Book a Call Section with WhatsApp Submission */}
         <section id="book" className="reveal-target opacity-0 translate-y-12">
-          <div className="bento-card p-6 sm:p-10 lg:p-14 relative overflow-hidden">
+          <TiltCard className="bg-neutral-950/90 border border-white/10 p-6 sm:p-10 lg:p-14 relative overflow-hidden shadow-2xl">
             <div className="absolute top-0 right-0 w-96 h-96 bg-[#B8FF00]/5 rounded-full blur-[120px] pointer-events-none" />
             <div className="grid lg:grid-cols-2 gap-12 sm:gap-16 relative z-10">
               <div>
@@ -1268,12 +1268,12 @@ export default function Home() {
                 </form>
               </div>
             </div>
-          </div>
+          </TiltCard>
         </section>
 
         {/* Testimonials */}
         <section id="testimonials" className="reveal-target opacity-0 translate-y-12">
-          <div className="bento-card p-8 sm:p-16 text-center relative overflow-hidden">
+          <TiltCard className="bg-neutral-950/90 border border-white/10 p-8 sm:p-16 text-center relative overflow-hidden shadow-2xl">
             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-[15rem] font-serif text-white/[0.02] pointer-events-none select-none leading-none">
               &ldquo;
             </div>
@@ -1307,7 +1307,7 @@ export default function Home() {
                 ))}
               </div>
             </div>
-          </div>
+          </TiltCard>
         </section>
       </main>
 

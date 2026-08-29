@@ -50,22 +50,34 @@ export default function TiltCard({ children, className = "" }: TiltCardProps) {
       animate={{
         rotateX,
         rotateY,
-        scale: isHovered ? 1.02 : 1,
+        scale: isHovered ? 1.03 : 1,
       }}
-      transition={{ type: "spring", stiffness: 350, damping: 25 }}
-      style={{ perspective: 1000, transformStyle: "preserve-3d" }}
-      className={`relative overflow-hidden rounded-3xl ${className}`}
+      transition={{ type: "spring", stiffness: 400, damping: 28 }}
+      style={{ perspective: 1200, transformStyle: "preserve-3d" }}
+      className={`relative overflow-hidden rounded-3xl transition-shadow duration-300 ${isHovered ? 'shadow-[0_20px_50px_rgba(0,0,0,0.9),0_0_30px_rgba(184,255,0,0.18)]' : ''} ${className}`}
     >
       {/* Dynamic Cursor Spotlight Radial Glow */}
       {isHovered && (
-        <div
-          className="pointer-events-none absolute -inset-px opacity-100 transition-opacity duration-300 z-10"
-          style={{
-            background: `radial-gradient(450px circle at ${mousePosition.x}px ${mousePosition.y}px, rgba(184, 255, 0, 0.12), transparent 80%)`,
-          }}
-        />
+        <>
+          {/* Radial Spotlight */}
+          <div
+            className="pointer-events-none absolute -inset-px opacity-100 transition-opacity duration-300 z-10"
+            style={{
+              background: `radial-gradient(500px circle at ${mousePosition.x}px ${mousePosition.y}px, rgba(184, 255, 0, 0.18), transparent 75%)`,
+            }}
+          />
+          {/* Ambient Sheen Glare */}
+          <div
+            className="pointer-events-none absolute inset-0 z-20 transition-opacity duration-300 opacity-60 mix-blend-overlay"
+            style={{
+              background: `linear-gradient(${rotateY * 8 + 120}deg, rgba(255, 255, 255, 0.15) 0%, transparent 60%)`,
+            }}
+          />
+        </>
       )}
-      {children}
+      <div style={{ transform: isHovered ? "translateZ(20px)" : "translateZ(0px)", transition: "transform 0.25s ease-out" }} className="h-full flex flex-col justify-between">
+        {children}
+      </div>
     </motion.div>
   );
 }
