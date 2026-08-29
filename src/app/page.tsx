@@ -63,7 +63,7 @@ export default function Home() {
     <SmoothScrollProvider>
       <CustomCursor />
       <ScrollProgress />
-      <main className="min-h-screen bg-white text-slate-800">
+      <main className="min-h-screen bg-black text-slate-100 selection:bg-lime-400 selection:text-black">
         <Navbar
           soundEnabled={soundEnabled}
           onToggleSound={() => setSoundEnabled(!soundEnabled)}

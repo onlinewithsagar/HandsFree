@@ -44,16 +44,16 @@ export default function Testimonials() {
   ];
 
   return (
-    <section ref={containerRef} id="testimonials" className="py-24 bg-slate-50 relative overflow-hidden">
+    <section ref={containerRef} id="testimonials" className="py-24 bg-black relative overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center max-w-3xl mx-auto mb-16">
-          <div className="inline-block px-3 py-1 rounded-full bg-blue-100 text-blue-700 font-mono text-xs font-bold uppercase mb-3">
+          <div className="inline-block px-3.5 py-1 rounded-full bg-[#B8FF00]/10 border border-[#B8FF00]/25 text-[#B8FF00] font-mono text-xs font-bold uppercase mb-3.5">
             Client Stories
           </div>
-          <h2 className="font-heading font-black text-4xl sm:text-5xl text-slate-900 tracking-tight mb-4">
+          <h2 className="font-heading font-black text-4xl sm:text-5xl text-white tracking-tight mb-4">
             Trusted by ambitious teams.
           </h2>
-          <p className="text-slate-600 text-base sm:text-lg">
+          <p className="text-neutral-400 text-base sm:text-lg">
             Real revenue metrics and time unlocked by leadership operating on the HandsFree architecture.
           </p>
         </div>
@@ -61,21 +61,21 @@ export default function Testimonials() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {testimonials.map((t, idx) => (
             <motion.div key={idx} style={{ y: t.yMotion }}>
-              <TiltCard className="p-8 bg-white border border-slate-200 shadow-xl shadow-slate-200/50 flex flex-col justify-between h-full group">
+              <TiltCard className="p-8 bg-neutral-950/90 rounded-3xl border border-white/10 hover:border-[#B8FF00]/50 shadow-xl shadow-black flex flex-col justify-between h-full group transition-all duration-300 hover:shadow-[0_0_30px_rgba(184,255,0,0.1)]">
                 <div>
-                  <div className="text-blue-600 text-5xl font-serif mb-4 leading-none">“</div>
-                  <p className="text-slate-700 text-base leading-relaxed mb-6 font-normal">
+                  <div className="text-[#B8FF00] text-5xl font-serif mb-4 leading-none select-none">“</div>
+                  <p className="text-neutral-300 text-base leading-relaxed mb-8 font-normal">
                     {t.quote}
                   </p>
                 </div>
 
-                <div className="flex items-center gap-3 pt-4 border-t border-slate-100">
-                  <div className="w-10 h-10 rounded-xl bg-blue-600 text-white font-bold flex items-center justify-center text-sm shadow-md">
+                <div className="flex items-center gap-3 pt-5 border-t border-neutral-900">
+                  <div className="w-10 h-10 rounded-xl bg-[#B8FF00] text-black font-black flex items-center justify-center text-sm shadow-md shadow-[#B8FF00]/20">
                     {t.avatar}
                   </div>
                   <div>
-                    <div className="font-bold text-sm text-slate-900">{t.author}</div>
-                    <div className="text-xs text-slate-500">{t.role}</div>
+                    <div className="font-bold text-sm text-white">{t.author}</div>
+                    <div className="text-xs text-neutral-400">{t.role}</div>
                   </div>
                 </div>
               </TiltCard>

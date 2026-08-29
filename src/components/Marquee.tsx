@@ -14,15 +14,15 @@ export default function Marquee() {
   ];
 
   return (
-    <div className="border-y border-slate-200/80 bg-slate-900 text-white overflow-hidden py-4 select-none">
+    <div className="border-y border-white/10 bg-neutral-950 text-white overflow-hidden py-4 select-none">
       <div className="animate-marquee-slow flex items-center gap-12 font-mono text-xs uppercase tracking-widest">
         {[...items, ...items, ...items].map((item, idx) => {
           const Icon = item.icon;
           return (
             <div key={idx} className="flex items-center gap-3 shrink-0">
-              <Icon className="w-4 h-4 text-cyan-400" />
-              <span>{item.text}</span>
-              <span className="text-slate-600 font-bold">•</span>
+              <Icon className="w-4 h-4 text-[#B8FF00]" />
+              <span className="text-neutral-300">{item.text}</span>
+              <span className="text-neutral-700 font-bold">•</span>
             </div>
           );
         })}

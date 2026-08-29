@@ -43,7 +43,7 @@ export default function Process() {
   ];
 
   return (
-    <section ref={containerRef} id="process" className="py-24 bg-white relative overflow-hidden">
+    <section ref={containerRef} id="process" className="py-24 bg-black relative overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -52,13 +52,13 @@ export default function Process() {
           transition={{ duration: 0.7 }}
           className="text-center max-w-3xl mx-auto mb-16"
         >
-          <div className="inline-block px-3 py-1 rounded-full bg-blue-100 text-blue-700 font-mono text-xs font-bold uppercase mb-3">
+          <div className="inline-block px-3.5 py-1 rounded-full bg-[#B8FF00]/10 border border-[#B8FF00]/25 text-[#B8FF00] font-mono text-xs font-bold uppercase mb-3.5">
             Our 4-Sprint Process
           </div>
-          <h2 className="font-heading font-black text-4xl sm:text-5xl text-slate-900 tracking-tight mb-4">
+          <h2 className="font-heading font-black text-4xl sm:text-5xl text-white tracking-tight mb-4">
             A proven path to autonomous scale.
           </h2>
-          <p className="text-slate-600 text-base sm:text-lg">
+          <p className="text-neutral-400 text-base sm:text-lg">
             From initial discovery to full deployment, our collaborative process keeps your team in control with zero operational downtime.
           </p>
         </motion.div>
@@ -69,14 +69,14 @@ export default function Process() {
               key={idx}
               style={{ y: yMotions[idx] }}
               whileHover={{ scale: 1.03 }}
-              className="p-8 rounded-3xl bg-slate-50 border border-slate-200 relative group transition-all shadow-sm hover:shadow-xl hover:border-blue-300"
+              className="p-8 rounded-3xl bg-neutral-950/90 border border-white/10 relative group transition-all shadow-xl shadow-black hover:shadow-[0_0_30px_rgba(184,255,0,0.15)] hover:border-[#B8FF00]/50"
             >
-              <div className="font-mono text-3xl font-black text-blue-600 mb-4 flex items-center justify-between">
+              <div className="font-mono text-3xl font-black text-[#B8FF00] mb-4 flex items-center justify-between">
                 <span>{s.num}</span>
-                <span className="w-3 h-3 rounded-full bg-blue-600 group-hover:scale-150 transition-transform shadow-md shadow-blue-500/50"></span>
+                <span className="w-3 h-3 rounded-full bg-[#B8FF00] group-hover:scale-150 transition-transform shadow-[0_0_10px_rgba(184,255,0,0.8)]"></span>
               </div>
-              <h3 className="font-heading font-bold text-xl text-slate-900 mb-2">{s.title}</h3>
-              <p className="text-slate-600 text-sm leading-relaxed">{s.desc}</p>
+              <h3 className="font-heading font-bold text-xl text-white mb-2">{s.title}</h3>
+              <p className="text-neutral-400 text-sm leading-relaxed">{s.desc}</p>
             </motion.div>
           ))}
         </div>

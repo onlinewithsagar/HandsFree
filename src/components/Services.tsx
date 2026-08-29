@@ -48,22 +48,25 @@ export default function Services() {
   ];
 
   return (
-    <section ref={containerRef} id="services" className="py-20 bg-slate-50 relative overflow-hidden">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section ref={containerRef} id="services" className="py-24 bg-black relative overflow-hidden">
+      {/* Background glow */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[350px] bg-[#B8FF00]/5 rounded-full blur-[140px] pointer-events-none" />
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="text-center max-w-2xl mx-auto mb-14"
+          className="text-center max-w-2xl mx-auto mb-16"
         >
-          <div className="inline-block px-3 py-1 rounded-full bg-blue-100 text-blue-700 font-mono text-xs font-bold uppercase mb-3">
+          <div className="inline-block px-3.5 py-1 rounded-full bg-[#B8FF00]/10 border border-[#B8FF00]/25 text-[#B8FF00] font-mono text-xs font-bold uppercase mb-3.5">
             Core Pillars
           </div>
-          <h2 className="font-heading font-black text-3xl sm:text-4xl text-slate-900 tracking-tight mb-3">
+          <h2 className="font-heading font-black text-3xl sm:text-5xl text-white tracking-tight mb-3">
             Three pillars of digital scale.
           </h2>
-          <p className="text-slate-600 text-sm sm:text-base leading-relaxed">
+          <p className="text-neutral-400 text-sm sm:text-base leading-relaxed">
             Pixel-perfect web applications, autonomous AI automations, and compounding growth systems.
           </p>
         </motion.div>
@@ -73,33 +76,33 @@ export default function Services() {
             const Icon = p.icon;
             return (
               <motion.div key={idx} style={{ y: p.yMotion }}>
-                <TiltCard className="bg-white p-7 border border-slate-200 shadow-lg shadow-slate-200/50 flex flex-col justify-between h-full group">
+                <TiltCard className="bg-neutral-950/90 p-8 rounded-3xl border border-white/10 hover:border-[#B8FF00]/50 shadow-xl shadow-black flex flex-col justify-between h-full group transition-all duration-300 hover:shadow-[0_0_30px_rgba(184,255,0,0.1)]">
                   <div>
-                    <div className="flex items-center justify-between mb-6">
-                      <div className="w-12 h-12 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center group-hover:bg-blue-600 group-hover:text-white transition-colors duration-300 shadow-sm">
+                    <div className="flex items-center justify-between mb-8">
+                      <div className="w-13 h-13 rounded-2xl bg-neutral-900 border border-white/10 text-[#B8FF00] flex items-center justify-center group-hover:bg-[#B8FF00] group-hover:text-black group-hover:border-[#B8FF00] transition-all duration-300 shadow-sm">
                         <Icon className="w-6 h-6" />
                       </div>
-                      <span className="font-mono text-3xl font-black text-slate-200 group-hover:text-blue-200 transition-colors">
+                      <span className="font-mono text-4xl font-black text-neutral-800 group-hover:text-neutral-600 transition-colors">
                         {p.num}
                       </span>
                     </div>
 
-                    <div className="text-xs font-mono font-bold text-blue-600 mb-1.5">
+                    <div className="text-xs font-mono font-bold text-[#B8FF00] mb-2 tracking-wider">
                       {p.pillar}
                     </div>
 
-                    <h3 className="font-heading font-bold text-xl text-slate-900 mb-2">
+                    <h3 className="font-heading font-bold text-2xl text-white mb-3">
                       {p.title}
                     </h3>
 
-                    <p className="text-slate-600 text-sm leading-relaxed mb-6">
+                    <p className="text-neutral-400 text-sm leading-relaxed mb-8">
                       {p.desc}
                     </p>
                   </div>
 
                   <a
                     href="#contact"
-                    className="inline-flex items-center justify-between w-full pt-4 border-t border-slate-100 text-sm font-bold text-blue-600 group-hover:text-blue-700 transition-colors"
+                    className="inline-flex items-center justify-between w-full pt-5 border-t border-neutral-900 text-sm font-bold text-[#B8FF00] group-hover:text-white transition-colors"
                   >
                     <span>{p.linkText}</span>
                     <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />

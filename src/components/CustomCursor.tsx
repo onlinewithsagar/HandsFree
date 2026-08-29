@@ -55,8 +55,8 @@ export default function CustomCursor() {
           width: isPointer ? 48 : 36,
           height: isPointer ? 48 : 36,
           scale: isClicking ? 0.75 : 1,
-          borderColor: isPointer ? "rgba(0, 210, 255, 0.9)" : "rgba(0, 87, 255, 0.45)",
-          backgroundColor: isPointer ? "rgba(0, 87, 255, 0.08)" : "transparent",
+          borderColor: isPointer ? "rgba(184, 255, 0, 0.9)" : "rgba(184, 255, 0, 0.35)",
+          backgroundColor: isPointer ? "rgba(184, 255, 0, 0.1)" : "rgba(0, 0, 0, 0)",
         }}
         transition={{
           type: "spring",
@@ -64,7 +64,7 @@ export default function CustomCursor() {
           stiffness: 380,
           mass: 0.5,
         }}
-        className="fixed rounded-full border-2 border-blue-500 backdrop-blur-[1px]"
+        className="fixed rounded-full border-2 border-[#B8FF00] backdrop-blur-[1px]"
       />
 
       {/* Inner Pinpoint Core Dot */}
@@ -79,7 +79,7 @@ export default function CustomCursor() {
           damping: 40,
           stiffness: 600,
         }}
-        className="fixed w-2 h-2 rounded-full bg-blue-600 shadow-sm shadow-blue-500"
+        className="fixed w-2 h-2 rounded-full bg-[#B8FF00] shadow-[0_0_8px_rgba(184,255,0,0.8)]"
       />
     </div>
   );

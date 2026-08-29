@@ -1,8 +1,9 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import Image from "next/image";
 import { motion, useScroll, useTransform } from "framer-motion";
-import { Zap, Bot, TrendingUp, ShieldCheck, ArrowRight, Play } from "lucide-react";
+import { Zap, Bot, TrendingUp, ShieldCheck, ArrowRight, Play, Sparkles } from "lucide-react";
 
 export default function Hero() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -52,15 +53,15 @@ export default function Hero() {
     resize();
     window.addEventListener("resize", resize);
 
-    const count = window.innerWidth < 768 ? 28 : 75;
+    const count = window.innerWidth < 768 ? 30 : 80;
     for (let i = 0; i < count; i++) {
       particles.push({
         x: Math.random() * canvas.width,
         y: Math.random() * canvas.height,
-        size: Math.random() * 2.5 + 1,
-        speedX: (Math.random() - 0.5) * 0.5,
-        speedY: (Math.random() - 0.5) * 0.5,
-        opacity: Math.random() * 0.5 + 0.15,
+        size: Math.random() * 2 + 0.8,
+        speedX: (Math.random() - 0.5) * 0.4,
+        speedY: (Math.random() - 0.5) * 0.4,
+        opacity: Math.random() * 0.5 + 0.1,
         pulse: Math.random() * Math.PI * 2,
         pulseSpeed: Math.random() * 0.02 + 0.01,
       });
@@ -74,7 +75,7 @@ export default function Hero() {
         p.x += p.speedX;
         p.y += p.speedY;
         p.pulse += p.pulseSpeed;
-        p.opacity = Math.sin(p.pulse) * 0.3 + 0.4;
+        p.opacity = Math.sin(p.pulse) * 0.3 + 0.35;
 
         if (p.x < 0) p.x = canvas.width;
         if (p.x > canvas.width) p.x = 0;
@@ -83,7 +84,7 @@ export default function Hero() {
 
         ctx.beginPath();
         ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(0, 87, 255, ${p.opacity})`;
+        ctx.fillStyle = `rgba(184, 255, 0, ${p.opacity * 0.7})`;
         ctx.fill();
       });
 
@@ -92,12 +93,12 @@ export default function Hero() {
           const dx = particles[i].x - particles[j].x;
           const dy = particles[i].y - particles[j].y;
           const dist = Math.sqrt(dx * dx + dy * dy);
-          if (dist < 100) {
+          if (dist < 90) {
             ctx.beginPath();
             ctx.moveTo(particles[i].x, particles[i].y);
             ctx.lineTo(particles[j].x, particles[j].y);
-            ctx.strokeStyle = `rgba(0, 87, 255, ${(1 - dist / 100) * 0.15})`;
-            ctx.lineWidth = 0.6;
+            ctx.strokeStyle = `rgba(184, 255, 0, ${(1 - dist / 90) * 0.12})`;
+            ctx.lineWidth = 0.5;
             ctx.stroke();
           }
         }
@@ -116,8 +117,12 @@ export default function Hero() {
   return (
     <section
       ref={containerRef}
-      className="relative min-h-[85vh] sm:min-h-[92vh] flex items-center justify-center pt-24 pb-12 sm:pt-28 sm:pb-16 overflow-hidden bg-white px-4"
+      className="relative min-h-[90vh] sm:min-h-[95vh] flex items-center justify-center pt-24 pb-14 sm:pt-32 sm:pb-20 overflow-hidden bg-black px-4"
     >
+      {/* Background Radial Ambient Lights */}
+      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[600px] h-[600px] bg-[#B8FF00]/5 rounded-full blur-[140px] pointer-events-none" />
+      <div className="absolute bottom-10 left-1/4 w-[400px] h-[400px] bg-[#B8FF00]/3 rounded-full blur-[120px] pointer-events-none" />
+
       {/* Interactive Particle Canvas */}
       <canvas
         ref={canvasRef}
@@ -127,53 +132,53 @@ export default function Hero() {
       {/* Floating Parallax Badges - Shown on Desktop Only to prevent mobile overlap */}
       <motion.div
         style={{ y: yBadge1 }}
-        className="hidden xl:flex absolute top-[28%] left-[6%] z-10 items-center gap-3 px-4 py-3 rounded-2xl bg-white/90 backdrop-blur-md border border-slate-200 shadow-xl shadow-blue-500/5 hover:scale-105 transition-transform"
+        className="hidden xl:flex absolute top-[28%] left-[6%] z-10 items-center gap-3 px-4 py-3 rounded-2xl bg-neutral-950/80 backdrop-blur-md border border-white/10 shadow-xl shadow-black/80 hover:border-[#B8FF00]/50 hover:shadow-[0_0_20px_rgba(184,255,0,0.15)] transition-all"
       >
-        <div className="w-8 h-8 rounded-lg bg-emerald-50 text-emerald-600 flex items-center justify-center font-bold">
+        <div className="w-8 h-8 rounded-lg bg-[#B8FF00]/10 text-[#B8FF00] flex items-center justify-center font-bold">
           <Zap className="w-4 h-4" />
         </div>
         <div>
-          <div className="text-[10px] font-mono text-slate-400 uppercase">Latency</div>
-          <div className="text-xs font-bold text-slate-900 font-mono">12ms Sub-Second</div>
+          <div className="text-[10px] font-mono text-neutral-500 uppercase">Latency</div>
+          <div className="text-xs font-bold text-white font-mono">12ms Sub-Second</div>
         </div>
       </motion.div>
 
       <motion.div
         style={{ y: yBadge2 }}
-        className="hidden xl:flex absolute top-[24%] right-[6%] z-10 items-center gap-3 px-4 py-3 rounded-2xl bg-white/90 backdrop-blur-md border border-slate-200 shadow-xl shadow-blue-500/5 hover:scale-105 transition-transform"
+        className="hidden xl:flex absolute top-[24%] right-[6%] z-10 items-center gap-3 px-4 py-3 rounded-2xl bg-neutral-950/80 backdrop-blur-md border border-white/10 shadow-xl shadow-black/80 hover:border-[#B8FF00]/50 hover:shadow-[0_0_20px_rgba(184,255,0,0.15)] transition-all"
       >
-        <div className="w-8 h-8 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center font-bold">
+        <div className="w-8 h-8 rounded-lg bg-[#B8FF00]/10 text-[#B8FF00] flex items-center justify-center font-bold">
           <Bot className="w-4 h-4" />
         </div>
         <div>
-          <div className="text-[10px] font-mono text-slate-400 uppercase">AI Agents</div>
-          <div className="text-xs font-bold text-slate-900 font-mono">Autonomous 24/7</div>
+          <div className="text-[10px] font-mono text-neutral-500 uppercase">AI Agents</div>
+          <div className="text-xs font-bold text-white font-mono">Autonomous 24/7</div>
         </div>
       </motion.div>
 
       <motion.div
         style={{ y: yBadge3 }}
-        className="hidden xl:flex absolute bottom-[22%] left-[8%] z-10 items-center gap-3 px-4 py-3 rounded-2xl bg-white/90 backdrop-blur-md border border-slate-200 shadow-xl shadow-blue-500/5 hover:scale-105 transition-transform"
+        className="hidden xl:flex absolute bottom-[22%] left-[8%] z-10 items-center gap-3 px-4 py-3 rounded-2xl bg-neutral-950/80 backdrop-blur-md border border-white/10 shadow-xl shadow-black/80 hover:border-[#B8FF00]/50 hover:shadow-[0_0_20px_rgba(184,255,0,0.15)] transition-all"
       >
-        <div className="w-8 h-8 rounded-lg bg-cyan-50 text-cyan-600 flex items-center justify-center font-bold">
+        <div className="w-8 h-8 rounded-lg bg-emerald-950/60 text-emerald-400 flex items-center justify-center font-bold">
           <TrendingUp className="w-4 h-4" />
         </div>
         <div>
-          <div className="text-[10px] font-mono text-slate-400 uppercase">Conversion Lift</div>
-          <div className="text-xs font-bold text-slate-900 font-mono">+3.8x Multiplier</div>
+          <div className="text-[10px] font-mono text-neutral-500 uppercase">Conversion Lift</div>
+          <div className="text-xs font-bold text-white font-mono">+3.8x Multiplier</div>
         </div>
       </motion.div>
 
       <motion.div
         style={{ y: yBadge4 }}
-        className="hidden xl:flex absolute bottom-[18%] right-[8%] z-10 items-center gap-3 px-4 py-3 rounded-2xl bg-white/90 backdrop-blur-md border border-slate-200 shadow-xl shadow-blue-500/5 hover:scale-105 transition-transform"
+        className="hidden xl:flex absolute bottom-[18%] right-[8%] z-10 items-center gap-3 px-4 py-3 rounded-2xl bg-neutral-950/80 backdrop-blur-md border border-white/10 shadow-xl shadow-black/80 hover:border-[#B8FF00]/50 hover:shadow-[0_0_20px_rgba(184,255,0,0.15)] transition-all"
       >
-        <div className="w-8 h-8 rounded-lg bg-indigo-50 text-indigo-600 flex items-center justify-center font-bold">
-          <ShieldCheck className="w-4 h-4" />
+        <div className="w-8 h-8 rounded-lg bg-neutral-900 text-neutral-300 flex items-center justify-center font-bold">
+          <ShieldCheck className="w-4 h-4 text-[#B8FF00]" />
         </div>
         <div>
-          <div className="text-[10px] font-mono text-slate-400 uppercase">Reliability</div>
-          <div className="text-xs font-bold text-slate-900 font-mono">99.99% Zero Drag</div>
+          <div className="text-[10px] font-mono text-neutral-500 uppercase">Reliability</div>
+          <div className="text-xs font-bold text-white font-mono">99.99% Zero Drag</div>
         </div>
       </motion.div>
 
@@ -183,26 +188,26 @@ export default function Hero() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
-          className="inline-flex items-center gap-2 px-3 py-1 sm:px-3.5 sm:py-1.5 rounded-full border border-blue-200 bg-blue-50/80 text-blue-700 text-[10px] sm:text-xs font-mono font-bold tracking-wider uppercase mb-5 shadow-sm"
+          className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-[#B8FF00]/30 bg-[#B8FF00]/10 text-[#B8FF00] text-[10px] sm:text-xs font-mono font-bold tracking-wider uppercase mb-6 shadow-[0_0_20px_rgba(184,255,0,0.15)]"
         >
-          <span className="w-2 h-2 rounded-full bg-blue-600 animate-ping"></span>
+          <span className="w-2 h-2 rounded-full bg-[#B8FF00] animate-ping"></span>
           <span>WEBSITE • AUTOMATION • GROWTH</span>
         </motion.div>
 
         <motion.h1
           style={{ y: yTitle, opacity }}
-          className="font-heading font-black text-4xl xs:text-5xl sm:text-7xl lg:text-8xl tracking-tight text-slate-950 mb-4 sm:mb-6 leading-[1.08] break-words"
+          className="font-heading font-black text-5xl xs:text-6xl sm:text-7xl lg:text-8xl tracking-tight text-white mb-5 sm:mb-6 leading-[1.05] break-words"
         >
           <span className="block">Build.</span>
-          <span className="block text-blue-600">Automate.</span>
-          <span className="block bg-gradient-to-r from-blue-600 to-cyan-500 bg-clip-text text-transparent">
+          <span className="block text-[#B8FF00] drop-shadow-[0_0_35px_rgba(184,255,0,0.35)]">Automate.</span>
+          <span className="block bg-gradient-to-r from-white via-neutral-200 to-neutral-500 bg-clip-text text-transparent">
             Grow.
           </span>
         </motion.h1>
 
         <motion.p
           style={{ y: ySubtitle, opacity }}
-          className="text-sm sm:text-lg md:text-xl text-slate-600 max-w-2xl mx-auto mb-8 sm:mb-10 leading-relaxed font-normal px-2"
+          className="text-sm sm:text-lg md:text-xl text-neutral-400 max-w-2xl mx-auto mb-8 sm:mb-10 leading-relaxed font-normal px-2"
         >
           We engineer high-converting web applications, intelligent AI automations, and autonomous growth engines so your company scales 24/7 without manual drag.
         </motion.p>
@@ -213,18 +218,18 @@ export default function Hero() {
         >
           <a
             href="#contact"
-            className="w-full sm:w-auto px-6 py-3.5 sm:px-8 sm:py-4 rounded-xl text-sm sm:text-base font-bold text-white bg-blue-600 hover:bg-blue-700 shadow-lg shadow-blue-500/25 flex items-center justify-center gap-2 group transition-all"
+            className="w-full sm:w-auto px-7 py-4 rounded-xl text-sm sm:text-base font-bold text-black bg-[#B8FF00] hover:bg-[#A3E600] shadow-lg shadow-[#B8FF00]/25 hover:shadow-[#B8FF00]/50 flex items-center justify-center gap-2 group transition-all hover:scale-[1.02]"
           >
-            <Zap className="w-4 h-4 text-yellow-300" />
+            <Zap className="w-4 h-4 fill-black text-black" />
             <span>Start Your Project</span>
             <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
           </a>
 
           <a
             href="#studio"
-            className="w-full sm:w-auto px-6 py-3.5 sm:px-8 sm:py-4 rounded-xl text-sm sm:text-base font-bold text-slate-800 bg-slate-50 hover:bg-slate-100 border border-slate-200 flex items-center justify-center gap-2 transition-all hover:border-slate-300"
+            className="w-full sm:w-auto px-7 py-4 rounded-xl text-sm sm:text-base font-bold text-white bg-neutral-900/90 hover:bg-neutral-800 border border-white/10 flex items-center justify-center gap-2 transition-all hover:border-[#B8FF00]/40"
           >
-            <Play className="w-4 h-4 text-blue-600 fill-blue-600" />
+            <Play className="w-4 h-4 text-[#B8FF00] fill-[#B8FF00]" />
             <span>Explore Studio</span>
           </a>
         </motion.div>

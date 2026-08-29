@@ -23,6 +23,14 @@ const jetbrainsMono = JetBrains_Mono({
 export const metadata: Metadata = {
   title: "HandsFree — High-Performance Websites, AI Automations & Growth",
   description: "We engineer ultra-fast web applications, intelligent AI pipelines, and autonomous growth engines for scalable businesses.",
+  icons: {
+    icon: [
+      { url: "/favicon.ico" },
+      { url: "/favicon.png", sizes: "32x32", type: "image/png" },
+      { url: "/icon-192.png", sizes: "192x192", type: "image/png" },
+    ],
+    apple: [{ url: "/apple-touch-icon.png", sizes: "180x180", type: "image/png" }],
+  },
 };
 
 export default function RootLayout({
@@ -33,9 +41,9 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${inter.variable} ${spaceGrotesk.variable} ${jetbrainsMono.variable} scroll-smooth`}
+      className={`${inter.variable} ${spaceGrotesk.variable} ${jetbrainsMono.variable} scroll-smooth dark`}
     >
-      <body className="selection:bg-blue-600 selection:text-white antialiased bg-white text-slate-800">
+      <body className="selection:bg-lime-400 selection:text-black antialiased bg-black text-slate-200">
         {children}
       </body>
     </html>
