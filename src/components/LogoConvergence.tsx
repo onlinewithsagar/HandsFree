@@ -107,12 +107,6 @@ export default function LogoConvergence() {
 
         {/* Lock Status & Call To Action */}
         <motion.div style={{ opacity: textOpacity, y: textY }} className="space-y-5">
-          <div className="inline-flex items-center gap-3 px-4 py-2 rounded-xl bg-neutral-950/90 border border-white/10 shadow-xl">
-            <span className="w-2 h-2 rounded-full bg-[#B8FF00] animate-ping" />
-            <span className="font-mono text-xs sm:text-sm font-bold text-white tracking-wide">
-              SYSTEM LOCKED: <span className="text-[#B8FF00]">HANDSFREE ACTIVATED</span>
-            </span>
-          </div>
 
           <div>
             <a

@@ -168,18 +168,12 @@ export default function Chatbot() {
             className="group relative flex items-center gap-3 px-4 py-3 rounded-full bg-neutral-950 border border-white/15 text-white shadow-2xl hover:border-[#B8FF00] hover:shadow-[0_0_25px_rgba(184,255,0,0.25)] transition-all"
             aria-label="Open Interactive AI Guide"
           >
-            <div className="w-8 h-8 rounded-full bg-black border border-white/10 flex items-center justify-center overflow-hidden">
-              <Image
-                src="/logo-icon-tight.png"
-                alt="AI Guide"
-                width={28}
-                height={28}
-                className="w-full h-full object-contain p-0.5"
-              />
+            <div className="w-8 h-8 rounded-full bg-[#B8FF00] flex items-center justify-center text-black shadow-sm shadow-[#B8FF00]/40">
+              <Bot className="w-4 h-4" />
             </div>
             <div className="text-left pr-1">
               <div className="flex items-center gap-1.5 font-heading font-bold text-xs text-white">
-                <span>Interactive Guide</span>
+                <span>Chat with AI</span>
                 <span className="w-1.5 h-1.5 rounded-full bg-[#B8FF00] animate-ping" />
               </div>
               <div className="font-mono text-[9px] text-[#B8FF00]">Instant Answers</div>
@@ -201,23 +195,17 @@ export default function Chatbot() {
             {/* Header Bar */}
             <div className="px-5 py-4 bg-neutral-900/90 border-b border-white/10 flex items-center justify-between">
               <div className="flex items-center gap-3">
-                <div className="w-8 h-8 rounded-xl bg-black border border-white/10 flex items-center justify-center overflow-hidden">
-                  <Image
-                    src="/logo-icon-tight.png"
-                    alt="HandsFree AI"
-                    width={28}
-                    height={28}
-                    className="w-full h-full object-contain p-0.5"
-                  />
+                <div className="w-8 h-8 rounded-xl bg-[#B8FF00] flex items-center justify-center text-black shadow-md shadow-[#B8FF00]/20">
+                  <Bot className="w-5 h-5" />
                 </div>
                 <div>
                   <div className="font-heading font-bold text-sm text-white flex items-center gap-2">
-                    <span>HandsFree AI Guide</span>
+                    <span>Chat with AI</span>
                     <span className="text-[9px] font-mono font-bold text-[#B8FF00] bg-[#B8FF00]/10 px-1.5 py-0.5 rounded border border-[#B8FF00]/20">
-                      GUIDED
+                      AI ONLINE
                     </span>
                   </div>
-                  <div className="text-[10px] text-neutral-400 font-mono">1-Click Fast Answers</div>
+                  <div className="text-[10px] text-neutral-400 font-mono">HandsFree Intelligent Guide</div>
                 </div>
               </div>
 

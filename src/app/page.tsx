@@ -2,6 +2,7 @@
 
 import { useState, useRef, useEffect } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   Zap,
@@ -412,8 +413,10 @@ export default function Home() {
   }, []);
 
   useEffect(() => {
-    if (terminalEndRef.current) terminalEndRef.current.scrollIntoView({ behavior: "smooth" });
-  }, [executionStep]);
+    if (isPipelineRunning && terminalEndRef.current) {
+      terminalEndRef.current.scrollIntoView({ behavior: "smooth", block: "nearest" });
+    }
+  }, [executionStep, isPipelineRunning]);
 
   useEffect(() => {
     if (isChatOpen && chatContainerRef.current) {
@@ -548,11 +551,21 @@ export default function Home() {
             <a href="#services" className="hover:text-[#B8FF00] transition-colors">Infrastructure</a>
             <a href="#studio" className="hover:text-[#B8FF00] transition-colors">Studio</a>
             <a href="#calculator" className="hover:text-[#B8FF00] transition-colors">ROI Calculator</a>
+            <button
+              onClick={() => setIsChatOpen(true)}
+              className="hover:text-[#B8FF00] transition-colors flex items-center gap-1.5 font-medium cursor-pointer"
+            >
+              <Bot className="w-4 h-4 text-[#B8FF00]" />
+              <span>Chat with AI</span>
+            </button>
           </div>
 
           <div className="flex items-center gap-3">
-            <a href="#book" className="hidden xs:inline-flex px-5 py-2.5 bg-[#B8FF00] hover:bg-[#A3E600] text-black text-sm font-bold rounded-full transition-all items-center gap-1.5 shadow-lg shadow-[#B8FF00]/20 hover:scale-105">
-              Book Call <ArrowRightIcon className="w-4 h-4 stroke-[2.5]" />
+            <a
+              href="#book"
+              className="px-5 py-2.5 bg-[#B8FF00] hover:bg-[#A3E600] text-black text-sm font-bold rounded-full transition-all flex items-center gap-1.5 shadow-lg shadow-[#B8FF00]/25 hover:scale-105"
+            >
+              Contact Us <ArrowRightIcon className="w-4 h-4 stroke-[2.5]" />
             </a>
 
             {/* Mobile Hamburger Button */}
@@ -624,6 +637,31 @@ export default function Home() {
                       <ChevronRight className="w-4 h-4 text-neutral-500 group-hover:text-[#B8FF00]" />
                     </motion.a>
                   ))}
+                  <Link
+                    href="/careers"
+                    onClick={() => setMobileNavOpen(false)}
+                    className="flex items-center justify-between px-4 py-3.5 rounded-2xl text-neutral-200 hover:text-white hover:bg-neutral-900 border border-transparent hover:border-neutral-800 font-semibold text-base transition-all group"
+                  >
+                    <div className="flex items-center gap-2">
+                      <span>Careers</span>
+                      <span className="text-[9px] bg-[#B8FF00]/10 text-[#B8FF00] px-1.5 py-0.5 rounded font-mono font-bold">SPOT INSTANCES</span>
+                    </div>
+                    <ChevronRight className="w-4 h-4 text-neutral-500 group-hover:text-[#B8FF00]" />
+                  </Link>
+
+                  <button
+                    onClick={() => {
+                      setMobileNavOpen(false);
+                      setIsChatOpen(true);
+                    }}
+                    className="w-full flex items-center justify-between px-4 py-3.5 rounded-2xl text-[#B8FF00] hover:text-white hover:bg-neutral-900 border border-[#B8FF00]/20 hover:border-neutral-800 font-semibold text-base transition-all group cursor-pointer"
+                  >
+                    <div className="flex items-center gap-2.5">
+                      <Bot className="w-4 h-4 text-[#B8FF00]" />
+                      <span>Chat with AI</span>
+                    </div>
+                    <ChevronRight className="w-4 h-4 text-neutral-500 group-hover:text-[#B8FF00]" />
+                  </button>
                 </div>
               </div>
 
@@ -1271,10 +1309,11 @@ export default function Home() {
             </div>
 
             <div>
-              <h4 className="text-white font-bold text-sm mb-4">Legal</h4>
+              <h4 className="text-white font-bold text-sm mb-4">Company</h4>
               <ul className="space-y-2.5 text-xs text-neutral-400 font-medium">
-                <li><a href="#" className="hover:text-[#B8FF00] transition-colors">Privacy Policy</a></li>
-                <li><a href="#" className="hover:text-[#B8FF00] transition-colors">Terms of Service</a></li>
+                <li><Link href="/careers" className="hover:text-[#B8FF00] transition-colors flex items-center gap-1.5">Careers <span className="text-[9px] bg-[#B8FF00]/10 text-[#B8FF00] px-1.5 py-0.5 rounded font-mono font-bold">SPOT HIRING</span></Link></li>
+                <li><Link href="/privacy" className="hover:text-[#B8FF00] transition-colors">Privacy Policy</Link></li>
+                <li><Link href="/terms" className="hover:text-[#B8FF00] transition-colors">Terms of Service</Link></li>
               </ul>
             </div>
           </div>
@@ -1302,23 +1341,17 @@ export default function Home() {
               {/* Header Bar */}
               <div className="px-5 py-4 bg-neutral-900/90 border-b border-white/10 flex items-center justify-between">
                 <div className="flex items-center gap-3">
-                  <div className="w-8 h-8 rounded-xl bg-black border border-white/10 flex items-center justify-center overflow-hidden">
-                    <Image
-                      src="/logo-icon-tight.png"
-                      alt="HandsFree AI"
-                      width={28}
-                      height={28}
-                      className="w-full h-full object-contain p-0.5"
-                    />
+                  <div className="w-8 h-8 rounded-xl bg-[#B8FF00] flex items-center justify-center text-black shadow-md shadow-[#B8FF00]/20">
+                    <Bot className="w-5 h-5" />
                   </div>
                   <div>
                     <div className="font-heading font-bold text-sm text-white flex items-center gap-2">
-                      <span>HandsFree AI Guide</span>
+                      <span>Chat with AI</span>
                       <span className="text-[9px] font-mono font-bold text-[#B8FF00] bg-[#B8FF00]/10 px-1.5 py-0.5 rounded border border-[#B8FF00]/20">
-                        GUIDED
+                        AI ONLINE
                       </span>
                     </div>
-                    <div className="text-[10px] text-neutral-400 font-mono">1-Click Fast Answers</div>
+                    <div className="text-[10px] text-neutral-400 font-mono">HandsFree Intelligent Guide</div>
                   </div>
                 </div>
 
@@ -1427,18 +1460,12 @@ export default function Home() {
             className="group relative flex items-center gap-2.5 sm:gap-3 px-3.5 sm:px-4 py-2.5 sm:py-3 rounded-full bg-neutral-950 border border-white/15 text-white shadow-2xl hover:border-[#B8FF00] hover:shadow-[0_0_25px_rgba(184,255,0,0.25)] transition-all"
             aria-label="Open Interactive AI Guide"
           >
-            <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-black border border-white/10 flex items-center justify-center overflow-hidden">
-              <Image
-                src="/logo-icon-tight.png"
-                alt="AI Guide"
-                width={28}
-                height={28}
-                className="w-full h-full object-contain p-0.5"
-              />
+            <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-[#B8FF00] flex items-center justify-center text-black shadow-sm shadow-[#B8FF00]/40">
+              <Bot className="w-4 h-4" />
             </div>
             <div className="text-left pr-1">
               <div className="flex items-center gap-1.5 font-heading font-bold text-xs text-white">
-                <span>Interactive Guide</span>
+                <span>Chat with AI</span>
                 <span className="w-1.5 h-1.5 rounded-full bg-[#B8FF00] animate-ping" />
               </div>
               <div className="font-mono text-[9px] text-[#B8FF00]">Instant Answers</div>

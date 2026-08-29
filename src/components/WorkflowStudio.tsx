@@ -94,10 +94,10 @@ export default function WorkflowStudio() {
   const terminalEndRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (terminalEndRef.current) {
-      terminalEndRef.current.scrollIntoView({ behavior: "smooth" });
+    if (isPipelineRunning && terminalEndRef.current) {
+      terminalEndRef.current.scrollIntoView({ behavior: "smooth", block: "nearest" });
     }
-  }, [executionStep]);
+  }, [executionStep, isPipelineRunning]);
 
   const runPipeline = () => {
     if (isPipelineRunning) return;

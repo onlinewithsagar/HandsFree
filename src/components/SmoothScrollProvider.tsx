@@ -18,6 +18,19 @@ export default function SmoothScrollProvider({
       touchMultiplier: 2,
     });
 
+    const handleAnchorClick = (e: MouseEvent) => {
+      const target = (e.target as HTMLElement).closest("a");
+      if (target && target.hash && target.origin === window.location.origin) {
+        const elem = document.querySelector(target.hash);
+        if (elem) {
+          e.preventDefault();
+          lenis.scrollTo(elem as HTMLElement, { offset: -90, duration: 1.2 });
+        }
+      }
+    };
+
+    document.addEventListener("click", handleAnchorClick);
+
     function raf(time: number) {
       lenis.raf(time);
       requestAnimationFrame(raf);
@@ -26,6 +39,7 @@ export default function SmoothScrollProvider({
     const animId = requestAnimationFrame(raf);
 
     return () => {
+      document.removeEventListener("click", handleAnchorClick);
       cancelAnimationFrame(animId);
       lenis.destroy();
     };
