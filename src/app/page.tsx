@@ -16,6 +16,7 @@ import LogoConvergence from "@/components/LogoConvergence";
 import Testimonials from "@/components/Testimonials";
 import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
+import Chatbot from "@/components/Chatbot";
 
 export default function Home() {
   const [soundEnabled, setSoundEnabled] = useState(true);
@@ -81,6 +82,7 @@ export default function Home() {
         <Testimonials />
         <Contact onPlaySound={playSound} />
         <Footer />
+        <Chatbot />
       </main>
     </SmoothScrollProvider>
   );
