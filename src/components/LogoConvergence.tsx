@@ -66,21 +66,21 @@ export default function LogoConvergence() {
           Scroll down to lock in the architecture. As human leadership connects with autonomous systems, total operational leverage is achieved.
         </p>
 
-        {/* Parallax Hands Convergence Stage */}
-        <div className="relative w-72 h-72 sm:w-96 sm:h-96 mx-auto mb-12 flex items-center justify-center">
+        {/* Parallax Hands Convergence Stage - Sleek, Compact and Centered */}
+        <div className="relative w-52 h-52 sm:w-64 sm:h-64 mx-auto mb-10 flex items-center justify-center">
           {/* Energy shockwave aura when fully connected */}
           <motion.div
             style={{ opacity: glowOpacity }}
-            className="absolute inset-0 rounded-full border border-[#B8FF00]/40 shadow-[0_0_60px_rgba(184,255,0,0.3)] animate-pulse pointer-events-none"
+            className="absolute inset-0 rounded-full border border-[#B8FF00]/40 shadow-[0_0_50px_rgba(184,255,0,0.3)] animate-pulse pointer-events-none"
           />
 
           {/* Connection Central Spark Pulse */}
           <motion.div
             style={{ opacity: glowOpacity, scale: energyScale }}
-            className="absolute w-16 h-16 rounded-full bg-[#B8FF00] blur-xl z-20 pointer-events-none"
+            className="absolute w-12 h-12 rounded-full bg-[#B8FF00] blur-xl z-20 pointer-events-none"
           />
 
-          {/* Left Pillar & Reaching Hand */}
+          {/* Left Pillar & Reaching Hand (Transparent Clean PNG) */}
           <motion.div
             style={{
               x: xLeft,
@@ -90,15 +90,15 @@ export default function LogoConvergence() {
             className="absolute inset-0 z-10 will-change-transform"
           >
             <Image
-              src="/hand-left-layer.png"
+              src="/hand-left-clean.png"
               alt="HandsFree Left Hand"
               fill
-              sizes="(max-width: 640px) 288px, 384px"
-              className="object-contain drop-shadow-[0_0_25px_rgba(184,255,0,0.25)]"
+              sizes="(max-width: 640px) 208px, 256px"
+              className="object-contain drop-shadow-[0_0_20px_rgba(184,255,0,0.2)]"
             />
           </motion.div>
 
-          {/* Right Pillar & Reaching Hand */}
+          {/* Right Pillar & Reaching Hand (Transparent Clean PNG) */}
           <motion.div
             style={{
               x: xRight,
@@ -108,19 +108,19 @@ export default function LogoConvergence() {
             className="absolute inset-0 z-10 will-change-transform"
           >
             <Image
-              src="/hand-right-layer.png"
+              src="/hand-right-clean.png"
               alt="HandsFree Right Hand"
               fill
-              sizes="(max-width: 640px) 288px, 384px"
-              className="object-contain drop-shadow-[0_0_25px_rgba(184,255,0,0.25)]"
+              sizes="(max-width: 640px) 208px, 256px"
+              className="object-contain drop-shadow-[0_0_20px_rgba(184,255,0,0.2)]"
             />
           </motion.div>
         </div>
 
         {/* Lock Status & Call To Action */}
-        <motion.div style={{ opacity: textOpacity, y: textY }} className="space-y-6">
-          <div className="inline-flex items-center gap-3 px-5 py-2.5 rounded-2xl bg-neutral-950 border border-white/10 shadow-xl">
-            <span className="w-2.5 h-2.5 rounded-full bg-[#B8FF00] animate-ping" />
+        <motion.div style={{ opacity: textOpacity, y: textY }} className="space-y-5">
+          <div className="inline-flex items-center gap-3 px-4 py-2 rounded-xl bg-neutral-950/90 border border-white/10 shadow-xl">
+            <span className="w-2 h-2 rounded-full bg-[#B8FF00] animate-ping" />
             <span className="font-mono text-xs sm:text-sm font-bold text-white tracking-wide">
               SYSTEM LOCKED: <span className="text-[#B8FF00]">HANDSFREE ACTIVATED</span>
             </span>
@@ -129,7 +129,7 @@ export default function LogoConvergence() {
           <div>
             <a
               href="#contact"
-              className="inline-flex items-center gap-2 px-8 py-4 rounded-xl font-bold text-black bg-[#B8FF00] hover:bg-[#A3E600] text-base shadow-lg shadow-[#B8FF00]/30 hover:scale-105 transition-all"
+              className="inline-flex items-center gap-2 px-7 py-3.5 rounded-xl font-bold text-black bg-[#B8FF00] hover:bg-[#A3E600] text-sm sm:text-base shadow-lg shadow-[#B8FF00]/30 hover:scale-105 transition-all"
             >
               <Zap className="w-4 h-4 fill-black text-black" />
               <span>Connect Your Infrastructure</span>
