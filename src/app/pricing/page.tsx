@@ -24,6 +24,7 @@ import SubpageHeader from "@/components/SubpageHeader";
 
 export default function PricingPage() {
   const [billingCycle, setBillingCycle] = useState<"sprint" | "retainer">("sprint");
+  const [category, setCategory] = useState<"all" | "web" | "automation">("all");
 
   // ROI Calculator State
   const [teamSize, setTeamSize] = useState(12);
@@ -46,69 +47,78 @@ export default function PricingPage() {
   };
 
   const TIERS = [
+    // 🌐 WEBSITES ONLY
     {
-      name: "Starter Velocity",
-      tagline: "For early projects & founders looking to launch a fast, sleek web interface with zero hassle.",
-      badge: "Launch Special",
+      category: "web",
+      name: "Starter Web Sprint",
+      tagline: "High-converting Next.js landing page or modern multi-section website with 3D micro-animations.",
+      badge: "Web App",
       popular: false,
-      priceSprint: "₹4,999",
+      priceSprint: "₹3,999",
       periodSprint: "one-time sprint",
-      priceRetainer: "₹2,499",
+      priceRetainer: "₹1,999",
       periodRetainer: "per month",
       deliverable: "Delivered in 3–5 Business Days",
       features: [
-        "Modern Fast Next.js Web App / Landing Page",
-        "Responsive Glassmorphic UI & Smooth Motion",
-        "Direct WhatsApp & Email Lead Capture",
-        "SEO Meta Tags & Social Share Cards",
-        "Vercel Edge Live Deployment & SSL",
+        "High-Speed Next.js 15 Web Application",
+        "Responsive Glassmorphic UI & 3D Transitions",
+        "Direct WhatsApp & Email Lead Capture Form",
+        "Custom Domain & Free SSL Setup",
+        "SEO Meta Architecture & Google Indexing",
         "7 Days Dedicated Launch Hypercare",
       ],
-      ctaText: "Get Starter Sprint",
+      ctaText: "Build Website",
       ctaLink: "/#book",
     },
+    // 🤖 AUTOMATION ONLY
     {
-      name: "Autonomous Growth Engine",
-      tagline: "High-performance web app + automated lead routing & smart AI customer response flows.",
-      badge: "Best Value",
-      popular: true,
-      priceSprint: "₹11,999",
+      category: "automation",
+      name: "Autonomous Pipeline",
+      tagline: "Smart AI automation agents, two-way CRM sync, and automatic lead response routing.",
+      badge: "AI Automation",
+      popular: false,
+      priceSprint: "₹5,999",
       periodSprint: "one-time sprint",
-      priceRetainer: "₹5,499",
+      priceRetainer: "₹2,999",
+      periodRetainer: "per month",
+      deliverable: "Delivered in 4–6 Business Days",
+      features: [
+        "Multi-Step AI Agent Auto-Responder",
+        "CRM Sync (HubSpot / Google Sheets / Airtable)",
+        "Instant WhatsApp & Email Alert Triggers",
+        "Automated Invoicing & Payment Links",
+        "Webhook & Third-Party API Plumbing",
+        "7 Days Dedicated Monitoring & Tuning",
+      ],
+      ctaText: "Automate Workflows",
+      ctaLink: "/#book",
+    },
+    // 🚀 FULL-STACK COMBO (WEBSITE + AUTOMATION)
+    {
+      category: "all",
+      name: "Complete Growth Engine",
+      tagline: "High-performance website + full AI automation backend to capture & nurture clients 100% hands-free.",
+      badge: "Best Value (All-In-One)",
+      popular: true,
+      priceSprint: "₹8,999",
+      periodSprint: "one-time sprint",
+      priceRetainer: "₹4,499",
       periodRetainer: "per month",
       deliverable: "Delivered in 7–10 Business Days",
       features: [
-        "Everything in Starter Velocity",
-        "AI Agent Automation / Auto-Responder Setup",
-        "CRM & Google Sheets / Airtable Two-Way Sync",
-        "Automated WhatsApp / Email Follow-up Triggers",
-        "Payment Links / UPI / Stripe Integration",
-        "14 Days Dedicated Hypercare & Architecture Support",
+        "Complete Next.js Web App / Client Portal",
+        "Everything in Autonomous Pipeline Included",
+        "Smart AI Knowledge Assistant Integration",
+        "Bidirectional CRM Sync & Real-time Database",
+        "Payment Gateway Integration (UPI / Stripe)",
+        "14 Days Dedicated Hypercare Support",
       ],
-      ctaText: "Build Growth Engine",
-      ctaLink: "/#book",
-    },
-    {
-      name: "Custom Sprint Pod",
-      tagline: "Tailored full-stack features and custom AI workflows scoped precisely to your budget.",
-      badge: "Flexible Scope",
-      popular: false,
-      priceSprint: "₹19,999+",
-      periodSprint: "tailored scope",
-      priceRetainer: "₹8,999",
-      periodRetainer: "per month",
-      deliverable: "Rapid Scope in 12 Hours",
-      features: [
-        "Dedicated Multi-Disciplinary Builder Pod",
-        "Custom AI Tooling & Internal Workflow Dashboards",
-        "Webhooks, Automations & Custom API Integrations",
-        "Database Architecture (Supabase / Postgres / Redis)",
-        "Direct WhatsApp / Slack Access with Founders",
-      ],
-      ctaText: "Discuss Custom Scope",
+      ctaText: "Get Full Engine",
       ctaLink: "/#book",
     },
   ];
+
+  const filteredTiers = category === "all" ? TIERS : TIERS.filter((t) => t.category === category || t.category === "all");
 
   return (
     <div className="min-h-screen bg-black text-neutral-200 font-sans selection:bg-[#B8FF00] selection:text-black pb-24">
@@ -130,6 +140,40 @@ export default function PricingPage() {
         <p className="text-neutral-400 text-base sm:text-lg max-w-2xl mx-auto mb-10 leading-relaxed">
           Predictable sprint pricing with zero hidden fees. Every sprint delivers working software and autonomous pipelines deployed directly to production.
         </p>
+
+        {/* Category Selector Tabs */}
+        <div className="flex items-center justify-center gap-2 mb-6">
+          <button
+            onClick={() => setCategory("all")}
+            className={`px-4 py-2 rounded-xl text-xs font-mono font-bold transition-all ${
+              category === "all"
+                ? "bg-white text-black shadow-lg"
+                : "bg-neutral-900 border border-white/10 text-neutral-400 hover:text-white"
+            }`}
+          >
+            All Packages
+          </button>
+          <button
+            onClick={() => setCategory("web")}
+            className={`px-4 py-2 rounded-xl text-xs font-mono font-bold transition-all ${
+              category === "web"
+                ? "bg-[#B8FF00] text-black shadow-lg shadow-[#B8FF00]/25"
+                : "bg-neutral-900 border border-white/10 text-neutral-400 hover:text-white"
+            }`}
+          >
+            🌐 Websites Only
+          </button>
+          <button
+            onClick={() => setCategory("automation")}
+            className={`px-4 py-2 rounded-xl text-xs font-mono font-bold transition-all ${
+              category === "automation"
+                ? "bg-[#B8FF00] text-black shadow-lg shadow-[#B8FF00]/25"
+                : "bg-neutral-900 border border-white/10 text-neutral-400 hover:text-white"
+            }`}
+          >
+            🤖 AI Automations Only
+          </button>
+        </div>
 
         {/* Sprint vs Retainer Toggle */}
         <div className="inline-flex flex-col sm:flex-row items-center p-1.5 bg-neutral-900/90 border border-white/10 rounded-2xl mb-12 sm:mb-16 shadow-xl max-w-full gap-1 sm:gap-0">
@@ -157,7 +201,7 @@ export default function PricingPage() {
 
         {/* Pricing Cards Grid */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8 text-left mb-24">
-          {TIERS.map((tier, idx) => (
+          {filteredTiers.map((tier, idx) => (
             <TiltCard
               key={idx}
               className={`p-7 sm:p-8 flex flex-col justify-between relative transition-all ${
