@@ -600,10 +600,11 @@ export default function Home() {
           </a>
 
           {/* Desktop Navigation Links */}
-          <div className="hidden md:flex items-center gap-8 text-sm font-semibold text-neutral-300">
+          <div className="hidden md:flex items-center gap-7 text-sm font-semibold text-neutral-300">
             <a href="#pillars" className="hover:text-[#B8FF00] transition-colors">Pillars</a>
             <a href="#services" className="hover:text-[#B8FF00] transition-colors">Infrastructure</a>
             <a href="#studio" className="hover:text-[#B8FF00] transition-colors">Studio</a>
+            <Link href="/pricing" className="hover:text-[#B8FF00] transition-colors">Pricing</Link>
             <a href="#calculator" className="hover:text-[#B8FF00] transition-colors">ROI Calculator</a>
             <button
               onClick={() => setIsChatOpen(true)}
