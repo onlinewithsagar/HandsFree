@@ -14,20 +14,21 @@ interface CurrencyConfig {
 }
 
 const currencies: Record<CurrencyKey, CurrencyConfig> = {
-  USD: { symbol: "$", name: "USD", rateMultiplier: 1 },
-  EUR: { symbol: "€", name: "EUR", rateMultiplier: 0.92 },
-  GBP: { symbol: "£", name: "GBP", rateMultiplier: 0.78 },
-  INR: { symbol: "₹", name: "INR", rateMultiplier: 83.5 },
+  INR: { symbol: "₹", name: "INR", rateMultiplier: 1 },
+  USD: { symbol: "$", name: "USD", rateMultiplier: 0.012 },
+  EUR: { symbol: "€", name: "EUR", rateMultiplier: 0.011 },
+  GBP: { symbol: "£", name: "GBP", rateMultiplier: 0.0094 },
 };
 
 export default function StatsCalculator() {
-  const [selectedCurrency, setSelectedCurrency] = useState<CurrencyKey>("USD");
-  const [teamSize, setTeamSize] = useState(10);
-  const [hourlyRate, setHourlyRate] = useState(60);
-  const [wastedHours, setWastedHours] = useState(12);
+  const [selectedCurrency, setSelectedCurrency] = useState<CurrencyKey>("INR");
+  const [teamSize, setTeamSize] = useState(8);
+  const [hourlyRate, setHourlyRate] = useState(1500); // Base in INR
+  const [wastedHours, setWastedHours] = useState(10);
 
   const curr = currencies[selectedCurrency];
 
+  // Converted value for display and math
   const convertedHourlyRate = Math.round(hourlyRate * curr.rateMultiplier);
   const weeklyHoursSaved = teamSize * wastedHours * 0.85;
   const annualHoursSaved = Math.round(weeklyHoursSaved * 48);
@@ -41,9 +42,9 @@ export default function StatsCalculator() {
 
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* ROI Matrix Container */}
-        <div className="bg-neutral-950 text-white rounded-3xl p-6 sm:p-10 lg:p-12 border border-white/10 shadow-2xl shadow-black">
+        <div className="bg-neutral-950 text-white rounded-3xl p-5 sm:p-8 lg:p-12 border border-white/10 shadow-2xl shadow-black">
           {/* Header Bar */}
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-white/10 mb-8">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-white/10 mb-6 sm:mb-8">
             <div>
               <div className="text-xs font-mono font-bold text-[#B8FF00] uppercase tracking-wider mb-1">
                 ROI Calculator
@@ -54,13 +55,13 @@ export default function StatsCalculator() {
             </div>
 
             {/* Currency Pill */}
-            <div className="flex flex-wrap items-center gap-1.5 bg-neutral-900 p-1.5 rounded-xl border border-white/10 w-full sm:w-auto justify-start">
+            <div className="flex flex-wrap items-center gap-1.5 bg-neutral-900 p-1.5 rounded-xl border border-white/10 w-full sm:w-auto">
               <Coins className="w-3.5 h-3.5 text-[#B8FF00] ml-1.5 hidden xs:inline-block" />
               {(Object.keys(currencies) as CurrencyKey[]).map((cKey) => (
                 <button
                   key={cKey}
                   onClick={() => setSelectedCurrency(cKey)}
-                  className={`flex-1 sm:flex-none px-2.5 py-1 rounded-lg font-mono text-xs font-bold transition-all text-center ${
+                  className={`flex-1 sm:flex-none px-3 py-1 rounded-lg font-mono text-xs font-bold transition-all text-center ${
                     selectedCurrency === cKey
                       ? "bg-[#B8FF00] text-black shadow-sm"
                       : "text-neutral-400 hover:text-white"
@@ -73,8 +74,30 @@ export default function StatsCalculator() {
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-            {/* Sliders (6 cols) */}
+            {/* Sliders & Presets (6 cols) */}
             <div className="lg:col-span-6 space-y-6">
+              {/* Quick Presets */}
+              <div className="flex flex-wrap items-center gap-2">
+                <button
+                  onClick={() => { setTeamSize(4); setHourlyRate(1000); setWastedHours(6); }}
+                  className="px-3 py-1 rounded-lg bg-neutral-900 border border-white/10 hover:border-[#B8FF00] text-neutral-300 text-xs font-mono font-bold transition-all"
+                >
+                  Startup (4)
+                </button>
+                <button
+                  onClick={() => { setTeamSize(12); setHourlyRate(2500); setWastedHours(12); }}
+                  className="px-3 py-1 rounded-lg bg-neutral-900 border border-white/10 hover:border-[#B8FF00] text-neutral-300 text-xs font-mono font-bold transition-all"
+                >
+                  Agency (12)
+                </button>
+                <button
+                  onClick={() => { setTeamSize(30); setHourlyRate(4500); setWastedHours(18); }}
+                  className="px-3 py-1 rounded-lg bg-neutral-900 border border-white/10 hover:border-[#B8FF00] text-neutral-300 text-xs font-mono font-bold transition-all"
+                >
+                  Enterprise (30)
+                </button>
+              </div>
+
               <div>
                 <div className="flex justify-between items-center mb-2">
                   <label className="text-xs font-semibold text-neutral-300">
@@ -87,7 +110,7 @@ export default function StatsCalculator() {
                 <input
                   type="range"
                   min="2"
-                  max="50"
+                  max="60"
                   value={teamSize}
                   onChange={(e) => setTeamSize(Number(e.target.value))}
                   className="w-full h-2 bg-neutral-800 rounded-lg appearance-none cursor-pointer accent-[#B8FF00]"
@@ -100,14 +123,14 @@ export default function StatsCalculator() {
                     Hourly Rate ({curr.symbol}/hr)
                   </label>
                   <span className="font-mono text-xs font-bold text-[#B8FF00] bg-[#B8FF00]/10 px-2 py-0.5 rounded border border-[#B8FF00]/30">
-                    {curr.symbol}{convertedHourlyRate}/hr
+                    {curr.symbol}{convertedHourlyRate.toLocaleString()}/hr
                   </span>
                 </div>
                 <input
                   type="range"
-                  min="20"
-                  max="200"
-                  step="5"
+                  min="500"
+                  max="8000"
+                  step="250"
                   value={hourlyRate}
                   onChange={(e) => setHourlyRate(Number(e.target.value))}
                   className="w-full h-2 bg-neutral-800 rounded-lg appearance-none cursor-pointer accent-[#B8FF00]"
@@ -135,8 +158,8 @@ export default function StatsCalculator() {
             </div>
 
             {/* Results Display (6 cols) */}
-            <div className="lg:col-span-6 bg-neutral-900/90 border border-white/10 rounded-2xl p-5 sm:p-6 space-y-4">
-              <div className="grid grid-cols-2 gap-3">
+            <div className="lg:col-span-6 bg-neutral-900/90 border border-white/10 rounded-2xl p-4 sm:p-6 space-y-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <div className="bg-black/80 p-3.5 rounded-xl border border-white/5">
                   <div className="text-[11px] text-neutral-400 font-mono mb-0.5">Time Saved / Yr</div>
                   <div className="font-heading font-black text-xl sm:text-2xl text-white">
@@ -154,8 +177,8 @@ export default function StatsCalculator() {
 
               <div className="bg-black p-4 rounded-xl border border-[#B8FF00]/30 shadow-[0_0_20px_rgba(184,255,0,0.1)]">
                 <div className="text-[11px] text-[#B8FF00] font-mono mb-0.5">Projected Revenue Upside</div>
-                <div className="font-heading font-black text-2xl sm:text-3xl text-white flex items-center gap-2">
-                  <TrendingUp className="w-5 h-5 text-[#B8FF00]" />
+                <div className="font-heading font-black text-xl sm:text-3xl text-white flex items-center gap-2 flex-wrap">
+                  <TrendingUp className="w-5 h-5 text-[#B8FF00] shrink-0" />
                   <AnimatedCounter value={estimatedRevenueLift} prefix={`+${curr.symbol}`} suffix=" / yr" />
                 </div>
               </div>
