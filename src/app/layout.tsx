@@ -14,8 +14,10 @@ const spaceGrotesk = Space_Grotesk({
   display: "swap",
 });
 
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://handsfree-three.vercel.app";
+
 export const metadata: Metadata = {
-  metadataBase: new URL("https://handsfree.co"),
+  metadataBase: new URL(siteUrl),
   title: {
     default: "HandsFree — High-Speed Web Apps & Autonomous AI Systems",
     template: "%s | HandsFree",
@@ -51,7 +53,7 @@ export const metadata: Metadata = {
     title: "HandsFree — High-Speed Web Apps & Autonomous AI Systems",
     description:
       "Stop manual drag. We engineer high-converting web applications, intelligent AI automations, and autonomous growth funnels.",
-    url: "https://handsfree.co",
+    url: siteUrl,
     siteName: "HandsFree",
     images: [
       {
@@ -86,6 +88,7 @@ export const metadata: Metadata = {
   },
   icons: {
     icon: [
+      { url: "/favicon-32x32.png", sizes: "32x32", type: "image/png" },
       { url: "/favicon.png", sizes: "32x32", type: "image/png" },
       { url: "/favicon.ico", sizes: "any" },
     ],
@@ -103,11 +106,11 @@ export default function RootLayout({
     "@graph": [
       {
         "@type": "Organization",
-        "@id": "https://handsfree.co/#organization",
+        "@id": `${siteUrl}/#organization`,
         name: "HandsFree",
-        url: "https://handsfree.co",
-        logo: "https://handsfree.co/favicon-32x32.png",
-        image: "https://handsfree.co/og-image.png",
+        url: siteUrl,
+        logo: `${siteUrl}/favicon-32x32.png`,
+        image: `${siteUrl}/og-image.png`,
         description:
           "HandsFree builds high-converting Next.js web apps and autonomous AI workflows to eliminate operational drag.",
         sameAs: ["https://twitter.com/handsfree", "https://linkedin.com/company/handsfree"],
@@ -119,12 +122,12 @@ export default function RootLayout({
       },
       {
         "@type": "WebSite",
-        "@id": "https://handsfree.co/#website",
-        url: "https://handsfree.co",
+        "@id": `${siteUrl}/#website`,
+        url: siteUrl,
         name: "HandsFree",
         description: "High-Speed Web Applications & Autonomous AI Workflows",
         publisher: {
-          "@id": "https://handsfree.co/#organization",
+          "@id": `${siteUrl}/#organization`,
         },
       },
       {
@@ -165,6 +168,16 @@ export default function RootLayout({
   return (
     <html lang="en" className="dark scroll-smooth">
       <head>
+        {/* Fallback explicit meta tags for WhatsApp & OpenGraph link scrapers */}
+        <meta property="og:image" content={`${siteUrl}/og-image.png`} />
+        <meta property="og:image:secure_url" content={`${siteUrl}/og-image.png`} />
+        <meta property="og:image:type" content="image/png" />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
+        <meta property="og:image:alt" content="HandsFree — Website • Automation • Growth" />
+        <meta name="twitter:image" content={`${siteUrl}/og-image.png`} />
+        <meta name="twitter:card" content="summary_large_image" />
+
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
