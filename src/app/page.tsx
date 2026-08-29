@@ -75,6 +75,7 @@ export default function Home() {
         <WorkflowStudio />
         <StatsCalculator />
         <About />
+        <LogoConvergence />
         <Testimonials />
         <Contact onPlaySound={playSound} />
         <Footer />
