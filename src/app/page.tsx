@@ -864,9 +864,9 @@ export default function Home() {
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
             {INFRASTRUCTURE_SERVICES.map((service, idx) => (
-              <div
+              <TiltCard
                 key={idx}
-                className={`bento-card p-6 sm:p-7 group flex flex-col justify-between ${
+                className={`bg-neutral-950/80 border border-white/10 hover:border-[#B8FF00]/40 p-6 sm:p-7 group flex flex-col justify-between shadow-xl transition-all ${
                   idx === 0 || idx === 3 ? "md:col-span-2" : "col-span-1"
                 }`}
               >
@@ -884,7 +884,7 @@ export default function Home() {
                     {service.desc}
                   </p>
                 </div>
-              </div>
+              </TiltCard>
             ))}
           </div>
         </section>
