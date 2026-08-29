@@ -24,7 +24,7 @@ import SubpageHeader from "@/components/SubpageHeader";
 
 export default function PricingPage() {
   const [billingCycle, setBillingCycle] = useState<"sprint" | "retainer">("sprint");
-  const [category, setCategory] = useState<"all" | "web" | "automation">("all");
+  const [activeTab, setActiveTab] = useState<"web" | "automation" | "combo">("web");
 
   // ROI Calculator State
   const [teamSize, setTeamSize] = useState(12);
@@ -46,78 +46,6 @@ export default function PricingPage() {
     setWastedHours(hours);
   };
 
-  const TIERS = [
-    // 1. WEBSITES ONLY
-    {
-      category: "web",
-      name: "Starter Web Sprint",
-      tagline: "High-converting Next.js landing page or modern multi-section website with 3D micro-animations.",
-      badge: "Website Only",
-      popular: false,
-      priceSprint: "₹3,999",
-      periodSprint: "one-time sprint",
-      priceRetainer: "₹1,999",
-      periodRetainer: "per month",
-      deliverable: "Delivered in 3–5 Business Days",
-      features: [
-        "High-Speed Next.js 15 Web Application",
-        "Responsive Glassmorphic UI & 3D Transitions",
-        "Direct WhatsApp & Email Lead Capture Form",
-        "Custom Domain & Free SSL Setup",
-        "SEO Meta Architecture & Google Indexing",
-        "7 Days Dedicated Launch Hypercare",
-      ],
-      ctaText: "Build Website",
-      ctaLink: "/#book",
-    },
-    // 2. AUTOMATION ONLY
-    {
-      category: "automation",
-      name: "Autonomous Pipeline",
-      tagline: "Smart AI automation agents, two-way CRM sync, and automatic lead response routing.",
-      badge: "Automation Only",
-      popular: false,
-      priceSprint: "₹5,999",
-      periodSprint: "one-time sprint",
-      priceRetainer: "₹2,999",
-      periodRetainer: "per month",
-      deliverable: "Delivered in 4–6 Business Days",
-      features: [
-        "Multi-Step AI Agent Auto-Responder",
-        "CRM Sync (HubSpot / Google Sheets / Airtable)",
-        "Instant WhatsApp & Email Alert Triggers",
-        "Automated Invoicing & Payment Links",
-        "Webhook & Third-Party API Plumbing",
-        "7 Days Dedicated Monitoring & Tuning",
-      ],
-      ctaText: "Automate Workflows",
-      ctaLink: "/#book",
-    },
-    // 3. FULL-STACK COMBO (WEBSITE + AUTOMATION)
-    {
-      category: "all",
-      name: "Complete Growth Engine",
-      tagline: "High-performance website + full AI automation backend to capture & nurture clients 100% hands-free.",
-      badge: "Website + Automation",
-      popular: true,
-      priceSprint: "₹8,999",
-      periodSprint: "one-time sprint",
-      priceRetainer: "₹4,499",
-      periodRetainer: "per month",
-      deliverable: "Delivered in 7–10 Business Days",
-      features: [
-        "Complete Next.js Web App / Client Portal",
-        "Everything in Autonomous Pipeline Included",
-        "Smart AI Knowledge Assistant Integration",
-        "Bidirectional CRM Sync & Real-time Database",
-        "Payment Gateway Integration (UPI / Stripe)",
-        "14 Days Dedicated Hypercare Support",
-      ],
-      ctaText: "Get Full Engine",
-      ctaLink: "/#book",
-    },
-  ];
-
   return (
     <div className="min-h-screen bg-black text-neutral-200 font-sans selection:bg-[#B8FF00] selection:text-black pb-24">
       {/* Top Header */}
@@ -130,42 +58,51 @@ export default function PricingPage() {
           <span>Transparent Sprint Pricing</span>
         </div>
 
-        <h1 className="text-4xl sm:text-6xl font-heading font-black text-white tracking-tight mb-6 leading-tight">
-          Simple, Transparent <br />
-          <span className="text-[#B8FF00]">Sprint Pricing.</span>
+        <h1 className="text-4xl sm:text-6xl font-heading font-black text-white tracking-tight mb-4 leading-tight">
+          Choose Your <span className="text-[#B8FF00]">Sprint.</span>
         </h1>
 
-        <p className="text-neutral-400 text-base sm:text-lg max-w-2xl mx-auto mb-10 leading-relaxed">
-          Select what you need: a high-converting website, an autonomous AI backend pipeline, or the complete all-in-one growth engine.
+        <p className="text-neutral-400 text-sm sm:text-base max-w-xl mx-auto mb-10 leading-relaxed">
+          Select what you want to build: high-converting websites, autonomous AI pipelines, or the full all-in-one growth suite.
         </p>
 
-        {/* Clean Sprint vs Retainer Toggle */}
-        <div className="inline-flex items-center p-1 bg-neutral-900 border border-white/10 rounded-2xl mb-14 sm:mb-16 shadow-xl">
+        {/* Primary Service Selector Tabs at the Top */}
+        <div className="max-w-md mx-auto p-1.5 bg-neutral-900/90 border border-white/10 rounded-2xl flex items-center justify-between mb-6 shadow-xl">
+          {[
+            { id: "web", label: "Websites" },
+            { id: "automation", label: "Automations" },
+            { id: "combo", label: "Both (All-in-One)" },
+          ].map((tab) => (
+            <button
+              key={tab.id}
+              onClick={() => setActiveTab(tab.id as "web" | "automation" | "combo")}
+              className={`flex-1 py-2.5 px-3 rounded-xl text-xs font-mono font-bold transition-all cursor-pointer text-center ${
+                activeTab === tab.id
+                  ? "bg-[#B8FF00] text-black shadow-md shadow-[#B8FF00]/25"
+                  : "text-neutral-400 hover:text-white"
+              }`}
+            >
+              {tab.label}
+            </button>
+          ))}
+        </div>
+
+        {/* Billing Cycle Toggle */}
+        <div className="inline-flex items-center p-1 bg-neutral-950 border border-white/10 rounded-xl mb-14 shadow-lg text-[11px] font-mono">
           <button
             onClick={() => setBillingCycle("sprint")}
-            className={`px-5 py-2.5 rounded-xl text-xs font-mono font-bold transition-all cursor-pointer ${
+            className={`px-4 py-1.5 rounded-lg transition-all cursor-pointer ${
               billingCycle === "sprint"
-                ? "bg-[#B8FF00] text-black shadow-md shadow-[#B8FF00]/20"
+                ? "bg-white text-black font-bold shadow"
                 : "text-neutral-400 hover:text-white"
             }`}
           >
-            One-Time Sprints
+            One-Time Sprint
           </button>
           <button
             onClick={() => setBillingCycle("retainer")}
-            className={`px-5 py-2.5 rounded-xl text-xs font-mono font-bold transition-all cursor-pointer ${
+            className={`px-4 py-1.5 rounded-lg transition-all cursor-pointer ${
               billingCycle === "retainer"
-                ? "bg-[#B8FF00] text-black shadow-md shadow-[#B8FF00]/20"
-                : "text-neutral-400 hover:text-white"
-            }`}
-          >
-            Monthly Retainers
-          </button>
-        </div>
-
-        {/* 1. Website Development Section */}
-        <div className="text-left mb-16">
-          <div className="flex items-center gap-3 mb-6 pb-3 border-b border-white/10">
             <span className="text-xs font-mono font-bold text-[#B8FF00] tracking-wider uppercase bg-[#B8FF00]/10 px-3 py-1 rounded-full border border-[#B8FF00]/20">
               01. Website Development
             </span>
