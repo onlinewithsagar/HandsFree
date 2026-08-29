@@ -225,7 +225,7 @@ export default function Home() {
     name: "",
     business: "",
     phone: "",
-    service: "Complete HandsFree Solution",
+    service: "🌐 Modern Website / Landing Page (from ₹3,999)",
     timeline: "Immediate (< 2 weeks)",
     details: "",
   });
@@ -234,10 +234,10 @@ export default function Home() {
   const [isTimelineDropdownOpen, setIsTimelineDropdownOpen] = useState(false);
 
   const serviceOptions = [
-    "Complete HandsFree Solution",
-    "Web Apps & High-Converting Interfaces",
-    "AI Agent Automations & Tool Loops",
-    "Autonomous Growth Funnels & CRM Sync",
+    "🌐 Modern Website / Landing Page (from ₹3,999)",
+    "🤖 AI Workflow & CRM Automation (from ₹5,999)",
+    "🚀 Complete Growth Engine (Website + AI from ₹8,999)",
+    "⚡ Custom Sprint / Specialized Pod",
   ];
 
   const timelineOptions = [

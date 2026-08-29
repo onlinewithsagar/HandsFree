@@ -141,62 +141,52 @@ export default function PricingPage() {
           Predictable sprint pricing with zero hidden fees. Every sprint delivers working software and autonomous pipelines deployed directly to production.
         </p>
 
-        {/* Category Selector Tabs */}
-        <div className="flex items-center justify-center gap-2 mb-6">
-          <button
-            onClick={() => setCategory("all")}
-            className={`px-4 py-2 rounded-xl text-xs font-mono font-bold transition-all ${
-              category === "all"
-                ? "bg-white text-black shadow-lg"
-                : "bg-neutral-900 border border-white/10 text-neutral-400 hover:text-white"
-            }`}
-          >
-            All Packages
-          </button>
-          <button
-            onClick={() => setCategory("web")}
-            className={`px-4 py-2 rounded-xl text-xs font-mono font-bold transition-all ${
-              category === "web"
-                ? "bg-[#B8FF00] text-black shadow-lg shadow-[#B8FF00]/25"
-                : "bg-neutral-900 border border-white/10 text-neutral-400 hover:text-white"
-            }`}
-          >
-            🌐 Websites Only
-          </button>
-          <button
-            onClick={() => setCategory("automation")}
-            className={`px-4 py-2 rounded-xl text-xs font-mono font-bold transition-all ${
-              category === "automation"
-                ? "bg-[#B8FF00] text-black shadow-lg shadow-[#B8FF00]/25"
-                : "bg-neutral-900 border border-white/10 text-neutral-400 hover:text-white"
-            }`}
-          >
-            🤖 AI Automations Only
-          </button>
-        </div>
+        {/* Sleek Segmented Control: Category & Billing */}
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-3 mb-16 max-w-xl mx-auto">
+          {/* Category Tabs */}
+          <div className="w-full sm:w-auto p-1 bg-neutral-900/90 border border-white/10 rounded-2xl flex items-center shadow-lg">
+            {[
+              { id: "all", label: "All" },
+              { id: "web", label: "🌐 Websites" },
+              { id: "automation", label: "🤖 Automations" },
+            ].map((tab) => (
+              <button
+                key={tab.id}
+                onClick={() => setCategory(tab.id as "all" | "web" | "automation")}
+                className={`flex-1 sm:flex-initial px-4 py-2 rounded-xl text-xs font-semibold transition-all cursor-pointer whitespace-nowrap ${
+                  category === tab.id
+                    ? "bg-[#B8FF00] text-black font-bold shadow-md shadow-[#B8FF00]/25"
+                    : "text-neutral-400 hover:text-white"
+                }`}
+              >
+                {tab.label}
+              </button>
+            ))}
+          </div>
 
-        {/* Sprint vs Retainer Toggle */}
-        <div className="inline-flex flex-col sm:flex-row items-center p-1.5 bg-neutral-900/90 border border-white/10 rounded-2xl mb-12 sm:mb-16 shadow-xl max-w-full gap-1 sm:gap-0">
-          <button
-            onClick={() => setBillingCycle("sprint")}
-            className={`w-full sm:w-auto px-5 py-2.5 rounded-xl text-xs font-mono font-bold transition-all ${
-              billingCycle === "sprint"
-                ? "bg-[#B8FF00] text-black shadow-lg shadow-[#B8FF00]/25"
-                : "text-neutral-400 hover:text-white"
-            }`}
-          >
-            One-Time Sprints
-          </button>
-          <button
-            onClick={() => setBillingCycle("retainer")}
-            className={`w-full sm:w-auto px-5 py-2.5 rounded-xl text-xs font-mono font-bold transition-all ${
-              billingCycle === "retainer"
-                ? "bg-[#B8FF00] text-black shadow-lg shadow-[#B8FF00]/25"
-                : "text-neutral-400 hover:text-white"
-            }`}
-          >
-            Monthly Hypercare Retainer
-          </button>
+          {/* Billing Sprint / Retainer Toggle */}
+          <div className="w-full sm:w-auto p-1 bg-neutral-900/90 border border-white/10 rounded-2xl flex items-center shadow-lg">
+            <button
+              onClick={() => setBillingCycle("sprint")}
+              className={`flex-1 sm:flex-initial px-4 py-2 rounded-xl text-xs font-semibold transition-all cursor-pointer whitespace-nowrap ${
+                billingCycle === "sprint"
+                  ? "bg-white text-black font-bold shadow-md"
+                  : "text-neutral-400 hover:text-white"
+              }`}
+            >
+              One-Time Sprints
+            </button>
+            <button
+              onClick={() => setBillingCycle("retainer")}
+              className={`flex-1 sm:flex-initial px-4 py-2 rounded-xl text-xs font-semibold transition-all cursor-pointer whitespace-nowrap ${
+                billingCycle === "retainer"
+                  ? "bg-white text-black font-bold shadow-md"
+                  : "text-neutral-400 hover:text-white"
+              }`}
+            >
+              Monthly Retainer
+            </button>
+          </div>
         </div>
 
         {/* Pricing Cards Grid */}
