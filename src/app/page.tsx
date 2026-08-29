@@ -763,7 +763,7 @@ export default function Home() {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {/* Pillar 01 */}
-            <TiltCard className="bg-neutral-950/80 border border-white/10 hover:border-[#B8FF00]/40 transition-all p-8 flex flex-col justify-between relative overflow-hidden group shadow-xl">
+            <TiltCard className="animate-float bg-neutral-950/80 border border-white/10 hover:border-[#B8FF00]/40 transition-all p-8 flex flex-col justify-between relative overflow-hidden group shadow-xl">
               <div className="absolute top-6 right-8 font-heading font-black text-4xl text-neutral-800/60 select-none">
                 01
               </div>
@@ -791,7 +791,7 @@ export default function Home() {
             </TiltCard>
 
             {/* Pillar 02 */}
-            <TiltCard className="bg-neutral-950/80 border border-white/10 hover:border-[#B8FF00]/40 transition-all p-8 flex flex-col justify-between relative overflow-hidden group shadow-xl">
+            <TiltCard className="animate-float-delayed bg-neutral-950/80 border border-white/10 hover:border-[#B8FF00]/40 transition-all p-8 flex flex-col justify-between relative overflow-hidden group shadow-xl">
               <div className="absolute top-6 right-8 font-heading font-black text-4xl text-neutral-800/60 select-none">
                 02
               </div>
@@ -819,7 +819,7 @@ export default function Home() {
             </TiltCard>
 
             {/* Pillar 03 */}
-            <TiltCard className="bg-neutral-950/80 border border-white/10 hover:border-[#B8FF00]/40 transition-all p-8 flex flex-col justify-between relative overflow-hidden group shadow-xl">
+            <TiltCard className="animate-float-reverse bg-neutral-950/80 border border-white/10 hover:border-[#B8FF00]/40 transition-all p-8 flex flex-col justify-between relative overflow-hidden group shadow-xl">
               <div className="absolute top-6 right-8 font-heading font-black text-4xl text-neutral-800/60 select-none">
                 03
               </div>
@@ -863,29 +863,37 @@ export default function Home() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
-            {INFRASTRUCTURE_SERVICES.map((service, idx) => (
-              <TiltCard
-                key={idx}
-                className={`bg-neutral-950/80 border border-white/10 hover:border-[#B8FF00]/40 p-6 sm:p-7 group flex flex-col justify-between shadow-xl transition-all ${
-                  idx === 0 || idx === 3 ? "md:col-span-2" : "col-span-1"
-                }`}
-              >
-                <div>
-                  <div className="mb-5 text-[#B8FF00] group-hover:scale-110 transform origin-left duration-300">
-                    {service.icon}
+            {INFRASTRUCTURE_SERVICES.map((service, idx) => {
+              const floatClass =
+                idx % 3 === 0
+                  ? "animate-float"
+                  : idx % 3 === 1
+                  ? "animate-float-delayed"
+                  : "animate-float-reverse";
+              return (
+                <TiltCard
+                  key={idx}
+                  className={`${floatClass} bg-neutral-950/80 border border-white/10 hover:border-[#B8FF00]/40 p-6 sm:p-7 group flex flex-col justify-between shadow-xl transition-all ${
+                    idx === 0 || idx === 3 ? "md:col-span-2" : "col-span-1"
+                  }`}
+                >
+                  <div>
+                    <div className="mb-5 text-[#B8FF00] group-hover:scale-110 transform origin-left duration-300">
+                      {service.icon}
+                    </div>
+                    <div className="text-[10px] font-mono font-bold tracking-widest text-[#B8FF00] mb-2 uppercase">
+                      {service.tag}
+                    </div>
+                    <h3 className="text-lg sm:text-xl font-bold text-white mb-2 leading-snug">
+                      {service.title}
+                    </h3>
+                    <p className="text-neutral-400 text-xs sm:text-sm leading-relaxed">
+                      {service.desc}
+                    </p>
                   </div>
-                  <div className="text-[10px] font-mono font-bold tracking-widest text-[#B8FF00] mb-2 uppercase">
-                    {service.tag}
-                  </div>
-                  <h3 className="text-lg sm:text-xl font-bold text-white mb-2 leading-snug">
-                    {service.title}
-                  </h3>
-                  <p className="text-neutral-400 text-xs sm:text-sm leading-relaxed">
-                    {service.desc}
-                  </p>
-                </div>
-              </TiltCard>
-            ))}
+                </TiltCard>
+              );
+            })}
           </div>
         </section>
 
