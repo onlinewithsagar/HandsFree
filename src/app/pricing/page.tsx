@@ -135,10 +135,10 @@ export default function PricingPage() {
         </p>
 
         {/* Sprint vs Retainer Toggle */}
-        <div className="inline-flex items-center p-1.5 bg-neutral-900/90 border border-white/10 rounded-2xl mb-16 shadow-xl">
+        <div className="inline-flex flex-col sm:flex-row items-center p-1.5 bg-neutral-900/90 border border-white/10 rounded-2xl mb-12 sm:mb-16 shadow-xl max-w-full gap-1 sm:gap-0">
           <button
             onClick={() => setBillingCycle("sprint")}
-            className={`px-5 py-2.5 rounded-xl text-xs font-mono font-bold transition-all ${
+            className={`w-full sm:w-auto px-5 py-2.5 rounded-xl text-xs font-mono font-bold transition-all ${
               billingCycle === "sprint"
                 ? "bg-[#B8FF00] text-black shadow-lg shadow-[#B8FF00]/25"
                 : "text-neutral-400 hover:text-white"
@@ -148,7 +148,7 @@ export default function PricingPage() {
           </button>
           <button
             onClick={() => setBillingCycle("retainer")}
-            className={`px-5 py-2.5 rounded-xl text-xs font-mono font-bold transition-all ${
+            className={`w-full sm:w-auto px-5 py-2.5 rounded-xl text-xs font-mono font-bold transition-all ${
               billingCycle === "retainer"
                 ? "bg-[#B8FF00] text-black shadow-lg shadow-[#B8FF00]/25"
                 : "text-neutral-400 hover:text-white"

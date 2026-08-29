@@ -133,28 +133,28 @@ export default function HiringPage() {
         </div>
 
         {/* Application Form with Custom Dropdowns Matching Index */}
-        <div id="apply" className="p-8 sm:p-12 rounded-3xl bg-neutral-950 border border-white/10 relative overflow-hidden shadow-2xl">
+        <div id="apply" className="p-5 sm:p-8 md:p-12 rounded-2xl sm:rounded-3xl bg-neutral-950 border border-white/10 relative overflow-hidden shadow-2xl">
           <div className="absolute top-0 right-0 w-80 h-80 bg-[#B8FF00]/5 rounded-full blur-[100px] pointer-events-none" />
 
-          <div className="max-w-2xl mx-auto text-center mb-10 relative z-10">
+          <div className="max-w-2xl mx-auto text-center mb-8 sm:mb-10 relative z-10">
             <div className="w-12 h-12 rounded-2xl bg-[#B8FF00]/10 border border-[#B8FF00]/25 flex items-center justify-center text-[#B8FF00] mx-auto mb-4">
               <Briefcase className="w-6 h-6" />
             </div>
-            <h2 className="text-3xl font-heading font-black text-white mb-3">
+            <h2 className="text-2xl sm:text-3xl font-heading font-black text-white mb-3">
               Join the Spot Instance Network
             </h2>
-            <p className="text-neutral-400 text-sm">
+            <p className="text-neutral-400 text-xs sm:text-sm">
               We review submissions directly. As soon as a client project matching your stack is initialized, we ping you directly.
             </p>
           </div>
 
           {isSubmitted ? (
-            <div className="max-w-lg mx-auto p-8 rounded-2xl bg-neutral-900/80 border border-[#B8FF00]/30 text-center space-y-4">
+            <div className="max-w-lg mx-auto p-6 sm:p-8 rounded-2xl bg-neutral-900/80 border border-[#B8FF00]/30 text-center space-y-4">
               <div className="w-12 h-12 rounded-full bg-[#B8FF00] text-black flex items-center justify-center mx-auto font-bold">
                 <CheckCircle2 className="w-6 h-6" />
               </div>
               <h3 className="text-xl font-bold text-white">Application Received!</h3>
-              <p className="text-sm text-neutral-300">
+              <p className="text-xs sm:text-sm text-neutral-300">
                 You are now in the HandsFree Spot Instance pool. We will reach out directly on WhatsApp or Email when a matching requirement opens.
               </p>
               <button
@@ -165,8 +165,8 @@ export default function HiringPage() {
               </button>
             </div>
           ) : (
-            <form onSubmit={handleSubmit} className="max-w-xl mx-auto space-y-5 relative z-10">
-              <div className="grid sm:grid-cols-2 gap-4">
+            <form onSubmit={handleSubmit} className="max-w-xl mx-auto space-y-4 sm:space-y-5 relative z-10">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div className="space-y-1.5">
                   <label className="text-xs font-mono font-bold text-neutral-400 uppercase tracking-wider">Full Name *</label>
                   <input
@@ -200,14 +200,14 @@ export default function HiringPage() {
                     setIsSpecialtyDropdownOpen(!isSpecialtyDropdownOpen);
                     setIsAvailabilityDropdownOpen(false);
                   }}
-                  className="w-full bg-neutral-900 border border-white/10 hover:border-white/20 rounded-xl px-4 py-3 text-white text-sm flex items-center justify-between transition-all text-left"
+                  className="w-full bg-neutral-900 border border-white/10 hover:border-white/20 rounded-xl px-4 py-3 text-white text-sm flex items-center justify-between transition-all text-left truncate"
                 >
                   <span className="truncate pr-2">{formData.specialty}</span>
                   <ChevronDown className={`w-4 h-4 text-[#B8FF00] shrink-0 transition-transform ${isSpecialtyDropdownOpen ? 'rotate-180' : ''}`} />
                 </button>
 
                 {isSpecialtyDropdownOpen && (
-                  <div className="absolute top-full left-0 right-0 mt-1.5 z-30 bg-neutral-950 border border-white/15 rounded-2xl p-1.5 shadow-2xl shadow-black overflow-hidden max-h-60 overflow-y-auto">
+                  <div className="absolute top-full left-0 right-0 mt-1.5 z-30 bg-neutral-950 border border-white/15 rounded-2xl p-1.5 shadow-2xl shadow-black overflow-hidden max-h-60 overflow-y-auto custom-scrollbar">
                     {SPECIALTY_OPTIONS.map((opt) => (
                       <button
                         key={opt}
@@ -222,8 +222,8 @@ export default function HiringPage() {
                             : "text-neutral-300 hover:bg-neutral-900 hover:text-white"
                         }`}
                       >
-                        <span>{opt}</span>
-                        {formData.specialty === opt && <span className="w-1.5 h-1.5 rounded-full bg-[#B8FF00]" />}
+                        <span className="truncate pr-2">{opt}</span>
+                        {formData.specialty === opt && <span className="w-1.5 h-1.5 rounded-full bg-[#B8FF00] shrink-0" />}
                       </button>
                     ))}
                   </div>
@@ -239,9 +239,9 @@ export default function HiringPage() {
                     setIsAvailabilityDropdownOpen(!isAvailabilityDropdownOpen);
                     setIsSpecialtyDropdownOpen(false);
                   }}
-                  className="w-full bg-neutral-900 border border-white/10 hover:border-white/20 rounded-xl px-4 py-3 text-white text-sm flex items-center justify-between transition-all text-left"
+                  className="w-full bg-neutral-900 border border-white/10 hover:border-white/20 rounded-xl px-4 py-3 text-white text-sm flex items-center justify-between transition-all text-left truncate"
                 >
-                  <span>{formData.availability}</span>
+                  <span className="truncate pr-2">{formData.availability}</span>
                   <ChevronDown className={`w-4 h-4 text-[#B8FF00] shrink-0 transition-transform ${isAvailabilityDropdownOpen ? 'rotate-180' : ''}`} />
                 </button>
 
@@ -261,8 +261,8 @@ export default function HiringPage() {
                             : "text-neutral-300 hover:bg-neutral-900 hover:text-white"
                         }`}
                       >
-                        <span>{opt}</span>
-                        {formData.availability === opt && <span className="w-1.5 h-1.5 rounded-full bg-[#B8FF00]" />}
+                        <span className="truncate pr-2">{opt}</span>
+                        {formData.availability === opt && <span className="w-1.5 h-1.5 rounded-full bg-[#B8FF00] shrink-0" />}
                       </button>
                     ))}
                   </div>
@@ -278,7 +278,7 @@ export default function HiringPage() {
                   value={formData.portfolio}
                   onChange={(e) => setFormData({ ...formData, portfolio: e.target.value })}
                   placeholder="https://github.com/your-username"
-                  className="w-full bg-neutral-900 border border-white/10 rounded-xl px-4 py-3 text-white text-sm focus:outline-none focus:border-[#B8FF00] transition-colors"
+                  className="w-full bg-neutral-900 border border-white/10 rounded-xl px-4 py-3 text-white text-sm focus:outline-none focus:border-[#B8FF00] transition-colors truncate"
                 />
               </div>
 
@@ -296,9 +296,9 @@ export default function HiringPage() {
 
               <button
                 type="submit"
-                className="w-full py-4 rounded-xl bg-[#B8FF00] hover:bg-[#A3E600] text-black font-heading font-black text-sm uppercase tracking-wider flex items-center justify-center gap-2 shadow-lg shadow-[#B8FF00]/25 transition-all hover:scale-[1.02] cursor-pointer"
+                className="w-full py-4 px-4 rounded-xl bg-[#B8FF00] hover:bg-[#A3E600] text-black font-heading font-black text-xs sm:text-sm uppercase tracking-wider flex items-center justify-center gap-2 shadow-lg shadow-[#B8FF00]/25 transition-all hover:scale-[1.01] cursor-pointer text-center leading-snug break-words"
               >
-                <Send className="w-4 h-4 stroke-[2.5]" />
+                <Send className="w-4 h-4 stroke-[2.5] shrink-0" />
                 <span>Submit Spot Instance Application</span>
               </button>
             </form>
