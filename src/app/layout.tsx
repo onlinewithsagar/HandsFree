@@ -23,7 +23,7 @@ export const metadata: Metadata = {
     template: "%s | HandsFree",
   },
   description:
-    "HandsFree engineers high-converting Next.js web applications, autonomous AI agent workflows, CRM synchronization, and automated billing to eliminate operational drag.",
+    "HandsFree builds high-converting Next.js web apps, autonomous AI agent workflows, CRM sync, and automated billing to eliminate operational drag.",
   keywords: [
     "HandsFree",
     "HandsFree AI",
