@@ -147,3 +147,11 @@ html.lenis, html.lenis body {
   animation: floatReverse 8s ease-in-out infinite;
   animation-delay: 1s;
 }
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-float,
+  .animate-float-delayed,
+  .animate-float-reverse {
+    animation: none;
+  }
+}

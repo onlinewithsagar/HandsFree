@@ -30,10 +30,12 @@ export default function Hero() {
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
 
     let animId: number;
+    let visible = true;
     let particles: Array<{
       x: number;
       y: number;
@@ -104,12 +106,22 @@ export default function Hero() {
         }
       }
 
-      animId = requestAnimationFrame(render);
+      if (visible) animId = requestAnimationFrame(render);
     }
-    render();
+    animId = requestAnimationFrame(render);
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        visible = entry.isIntersecting;
+        if (visible) animId = requestAnimationFrame(render);
+      },
+      { threshold: 0 }
+    );
+    observer.observe(canvas);
 
     return () => {
       window.removeEventListener("resize", resize);
+      observer.disconnect();
       cancelAnimationFrame(animId);
     };
   }, []);

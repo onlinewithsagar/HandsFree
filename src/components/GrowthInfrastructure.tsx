@@ -99,10 +99,11 @@ export default function GrowthInfrastructure() {
             return (
               <motion.div
                 key={idx}
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 0, y: 32 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.4, delay: idx * 0.05 }}
+                viewport={{ once: true, margin: "-60px" }}
+                transition={{ duration: 0.5, delay: (idx % 4) * 0.08, ease: [0.16, 1, 0.3, 1] }}
+                className={idx % 2 === 0 ? "animate-float" : "animate-float-delayed"}
               >
                 <TiltCard className="p-6 sm:p-7 rounded-3xl bg-neutral-950/90 border border-white/10 hover:border-[#B8FF00]/50 shadow-xl shadow-black/80 flex flex-col justify-between h-full group transition-all duration-300 hover:shadow-[0_0_25px_rgba(184,255,0,0.12)]">
                   <div>

@@ -1,7 +1,7 @@
 "use client";
 
-import { motion } from "framer-motion";
-import { useState, useRef, MouseEvent, ReactNode } from "react";
+import { motion, useMotionValue, useSpring, useTransform, MotionValue } from "framer-motion";
+import { useRef, useState, PointerEvent, ReactNode, useEffect } from "react";
 
 interface TiltCardProps {
   children: ReactNode;
@@ -10,74 +10,87 @@ interface TiltCardProps {
 
 export default function TiltCard({ children, className = "" }: TiltCardProps) {
   const ref = useRef<HTMLDivElement>(null);
-  const [rotateX, setRotateX] = useState(0);
-  const [rotateY, setRotateY] = useState(0);
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  const [tiltEnabled, setTiltEnabled] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
 
-  function handleMouseMove(e: MouseEvent<HTMLDivElement>) {
-    if (!ref.current) return;
+  useEffect(() => {
+    // Fine pointer = mouse/trackpad. Skip tilt physics on touch to save CPU/battery on mobile.
+    setTiltEnabled(window.matchMedia("(pointer: fine)").matches);
+  }, []);
+
+  const mx = useMotionValue(0.5);
+  const my = useMotionValue(0.5);
+
+  const springConfig = { stiffness: 400, damping: 30, mass: 0.5 };
+  const rotateX = useSpring(useTransform(my, [0, 1], [10, -10]), springConfig);
+  const rotateY = useSpring(useTransform(mx, [0, 1], [-10, 10]), springConfig);
+  const scale = useSpring(isHovered ? 1.03 : 1, springConfig);
+
+  const glowX = useTransform(mx, (v) => `${v * 100}%`);
+  const glowY = useTransform(my, (v) => `${v * 100}%`);
+  const sheenAngle = useTransform(rotateY, (v) => `${v * 8 + 120}deg`);
+
+  function handlePointerMove(e: PointerEvent<HTMLDivElement>) {
+    if (!tiltEnabled || !ref.current) return;
     const rect = ref.current.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
-    const centerX = rect.width / 2;
-    const centerY = rect.height / 2;
-
-    const rX = ((y - centerY) / centerY) * -10;
-    const rY = ((x - centerX) / centerX) * 10;
-
-    setRotateX(rX);
-    setRotateY(rY);
-    setMousePosition({ x, y });
+    mx.set((e.clientX - rect.left) / rect.width);
+    my.set((e.clientY - rect.top) / rect.height);
   }
 
-  function handleMouseLeave() {
-    setRotateX(0);
-    setRotateY(0);
+  function handlePointerLeave() {
+    mx.set(0.5);
+    my.set(0.5);
     setIsHovered(false);
-  }
-
-  function handleMouseEnter() {
-    setIsHovered(true);
   }
 
   return (
     <motion.div
       ref={ref}
-      onMouseMove={handleMouseMove}
-      onMouseEnter={handleMouseEnter}
-      onMouseLeave={handleMouseLeave}
-      animate={{
-        rotateX,
-        rotateY,
-        scale: isHovered ? 1.03 : 1,
+      onPointerMove={handlePointerMove}
+      onPointerEnter={() => setIsHovered(true)}
+      onPointerLeave={handlePointerLeave}
+      style={{
+        rotateX: tiltEnabled ? rotateX : 0,
+        rotateY: tiltEnabled ? rotateY : 0,
+        scale,
+        perspective: 1200,
+        transformStyle: "preserve-3d",
+        willChange: "transform",
       }}
-      transition={{ type: "spring", stiffness: 400, damping: 28 }}
-      style={{ perspective: 1200, transformStyle: "preserve-3d" }}
       className={`relative overflow-hidden rounded-3xl transition-shadow duration-300 ${isHovered ? 'shadow-[0_20px_50px_rgba(0,0,0,0.9),0_0_30px_rgba(184,255,0,0.18)]' : ''} ${className}`}
     >
-      {/* Dynamic Cursor Spotlight Radial Glow */}
-      {isHovered && (
+      {tiltEnabled && (
         <>
-          {/* Radial Spotlight */}
-          <div
-            className="pointer-events-none absolute -inset-px opacity-100 transition-opacity duration-300 z-10"
+          <motion.div
+            className="pointer-events-none absolute -inset-px z-10"
             style={{
-              background: `radial-gradient(500px circle at ${mousePosition.x}px ${mousePosition.y}px, rgba(184, 255, 0, 0.18), transparent 75%)`,
+              opacity: isHovered ? 1 : 0,
+              background: useTransform(
+                [glowX, glowY] as [MotionValue<string>, MotionValue<string>],
+                (latest: string[]) => `radial-gradient(500px circle at ${latest[0]} ${latest[1]}, rgba(184, 255, 0, 0.18), transparent 75%)`
+              ),
+              transition: "opacity 0.3s",
             }}
           />
-          {/* Ambient Sheen Glare */}
-          <div
-            className="pointer-events-none absolute inset-0 z-20 transition-opacity duration-300 opacity-60 mix-blend-overlay"
+          <motion.div
+            className="pointer-events-none absolute inset-0 z-20 mix-blend-overlay"
             style={{
-              background: `linear-gradient(${rotateY * 8 + 120}deg, rgba(255, 255, 255, 0.15) 0%, transparent 60%)`,
+              opacity: isHovered ? 0.6 : 0,
+              background: useTransform(sheenAngle, (a) => `linear-gradient(${a}, rgba(255, 255, 255, 0.15) 0%, transparent 60%)`),
+              transition: "opacity 0.3s",
             }}
           />
         </>
       )}
-      <div style={{ transform: isHovered ? "translateZ(20px)" : "translateZ(0px)", transition: "transform 0.25s ease-out" }} className="h-full flex flex-col justify-between">
+      <motion.div
+        style={{
+          translateZ: tiltEnabled && isHovered ? 20 : 0,
+          transition: "transform 0.25s ease-out",
+        }}
+        className="h-full flex flex-col justify-between"
+      >
         {children}
-      </div>
+      </motion.div>
     </motion.div>
   );
 }
