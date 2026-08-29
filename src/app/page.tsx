@@ -225,6 +225,7 @@ export default function Home() {
     name: "",
     business: "",
     phone: "",
+    preferredCallTime: "Tomorrow Morning (10 AM - 1 PM)",
     service: "Basic Website / Landing Page (from ₹2,499)",
     timeline: "Immediate (< 2 weeks)",
     details: "",
@@ -232,6 +233,16 @@ export default function Home() {
 
   const [isServiceDropdownOpen, setIsServiceDropdownOpen] = useState(false);
   const [isTimelineDropdownOpen, setIsTimelineDropdownOpen] = useState(false);
+  const [isTimeDropdownOpen, setIsTimeDropdownOpen] = useState(false);
+
+  const callTimeOptions = [
+    "Today / ASAP (Next 2 Hours)",
+    "Tomorrow Morning (10 AM - 1 PM)",
+    "Tomorrow Afternoon (2 PM - 6 PM)",
+    "Evening Talk (7 PM - 9 PM)",
+    "Weekend Preferred (Saturday / Sunday)",
+    "Async via WhatsApp / Any Time",
+  ];
 
   const serviceOptions = [
     "Basic Website / Landing Page (from ₹2,499)",
@@ -490,6 +501,7 @@ export default function Home() {
       `👤 *Name:* ${formData.name}\n` +
       `🏢 *Company / Business:* ${formData.business}\n` +
       `📱 *WhatsApp:* ${formData.phone}\n` +
+      `🕒 *Best Time to Talk:* ${formData.preferredCallTime}\n` +
       `🎯 *Scope:* ${formData.service}\n` +
       `⏳ *Timeline:* ${formData.timeline}\n` +
       `📝 *Project Overview:* ${formData.details || "None specified"}`;
@@ -1141,16 +1153,57 @@ export default function Home() {
                     </div>
                   </div>
 
-                  <div className="space-y-1.5">
-                    <label className="text-xs font-mono font-bold text-neutral-400 uppercase tracking-wider">Phone (WhatsApp)</label>
-                    <input
-                      required
-                      type="tel"
-                      value={formData.phone}
-                      onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                      className="w-full bg-neutral-900 border border-white/10 rounded-xl px-4 py-3 text-white text-sm focus:outline-none focus:border-[#B8FF00] transition-colors"
-                      placeholder="+91 98765 43210"
-                    />
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div className="space-y-1.5">
+                      <label className="text-xs font-mono font-bold text-neutral-400 uppercase tracking-wider">Phone (WhatsApp)</label>
+                      <input
+                        required
+                        type="tel"
+                        value={formData.phone}
+                        onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                        className="w-full bg-neutral-900 border border-white/10 rounded-xl px-4 py-3 text-white text-sm focus:outline-none focus:border-[#B8FF00] transition-colors"
+                        placeholder="+91 98765 43210"
+                      />
+                    </div>
+
+                    <div className="space-y-1.5 relative">
+                      <label className="text-xs font-mono font-bold text-neutral-400 uppercase tracking-wider">When are you free for a talk?</label>
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setIsTimeDropdownOpen(!isTimeDropdownOpen);
+                          setIsServiceDropdownOpen(false);
+                          setIsTimelineDropdownOpen(false);
+                        }}
+                        className="w-full bg-neutral-900 border border-white/10 hover:border-white/20 rounded-xl px-4 py-3 text-white text-sm flex items-center justify-between transition-all text-left truncate"
+                      >
+                        <span className="truncate pr-2">{formData.preferredCallTime}</span>
+                        <ChevronDown className={`w-4 h-4 text-[#B8FF00] shrink-0 transition-transform ${isTimeDropdownOpen ? 'rotate-180' : ''}`} />
+                      </button>
+
+                      {isTimeDropdownOpen && (
+                        <div className="absolute top-full left-0 right-0 mt-1.5 z-30 bg-neutral-950 border border-white/15 rounded-2xl p-1.5 shadow-2xl shadow-black overflow-hidden">
+                          {callTimeOptions.map((opt) => (
+                            <button
+                              key={opt}
+                              type="button"
+                              onClick={() => {
+                                setFormData({ ...formData, preferredCallTime: opt });
+                                setIsTimeDropdownOpen(false);
+                              }}
+                              className={`w-full text-left px-3 py-2 rounded-xl text-xs font-medium flex items-center justify-between transition-all ${
+                                formData.preferredCallTime === opt
+                                  ? "bg-[#B8FF00]/10 text-[#B8FF00] font-bold"
+                                  : "text-neutral-300 hover:bg-neutral-900 hover:text-white"
+                              }`}
+                            >
+                              <span className="truncate pr-2">{opt}</span>
+                              {formData.preferredCallTime === opt && <span className="w-1.5 h-1.5 rounded-full bg-[#B8FF00] shrink-0" />}
+                            </button>
+                          ))}
+                        </div>
+                      )}
+                    </div>
                   </div>
 
                   {/* Custom Styled Dropdowns for Scope and Timeline */}

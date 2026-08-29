@@ -39,6 +39,7 @@ export default function PricingPage() {
   const [modalForm, setModalForm] = useState({
     name: "",
     business: "",
+    preferredTime: "Tomorrow Morning (10 AM - 1 PM)",
     requirements: "",
   });
 
@@ -55,7 +56,7 @@ export default function PricingPage() {
   const handleModalWhatsAppSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     const phone = "919489365108";
-    const text = `*New HandsFree Sprint Inquiry*%0A%0A*Selected Plan:* ${selectedPlan.title}%0A*Category:* ${selectedPlan.category}%0A*Price / Cycle:* ${selectedPlan.price} (${selectedPlan.cycle})%0A%0A*Name:* ${modalForm.name || "Founder"}%0A*Business / Project:* ${modalForm.business || "Not specified"}%0A*Project Notes:* ${modalForm.requirements || "Standard Scope"}`;
+    const text = `*New HandsFree Sprint Inquiry*%0A%0A*Selected Plan:* ${selectedPlan.title}%0A*Category:* ${selectedPlan.category}%0A*Price / Cycle:* ${selectedPlan.price} (${selectedPlan.cycle})%0A%0A*Name:* ${modalForm.name || "Founder"}%0A*Business / Project:* ${modalForm.business || "Not specified"}%0A*Free for a Talk:* ${modalForm.preferredTime || "Flexible"}%0A*Project Notes:* ${modalForm.requirements || "Standard Scope"}`;
     window.open(`https://wa.me/${phone}?text=${text}`, "_blank");
     setIsBookingModalOpen(false);
   };
@@ -499,51 +500,51 @@ export default function PricingPage() {
 
         {/* Embedded ROI Calculator on Pricing Page */}
         <section id="calculator" className="text-left mb-24">
-          <TiltCard className="bg-neutral-950/90 border border-white/10 p-6 sm:p-10 lg:p-12 shadow-2xl">
-            <div className="grid lg:grid-cols-2 gap-12 sm:gap-16 items-center">
+          <TiltCard className="bg-neutral-950/90 border border-white/10 p-5 sm:p-8 lg:p-12 shadow-2xl rounded-2xl sm:rounded-3xl">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-12 lg:gap-16 items-center">
               <div>
                 <div className="text-xs font-mono font-bold text-[#B8FF00] uppercase tracking-wider mb-1.5 flex items-center gap-2">
                   <Activity className="w-3.5 h-3.5" />
                   <span>ROI Simulator</span>
                 </div>
-                <h2 className="text-3xl sm:text-4xl font-heading font-black text-white tracking-tight mb-4">
+                <h2 className="text-2xl sm:text-4xl font-heading font-black text-white tracking-tight mb-3 sm:mb-4">
                   Calculate Your Payback Period.
                 </h2>
-                <p className="text-neutral-400 text-sm sm:text-base mb-8 leading-relaxed">
+                <p className="text-neutral-400 text-xs sm:text-base mb-6 sm:mb-8 leading-relaxed">
                   Enter your team&apos;s details to see how quickly a single HandsFree sprint recovers its entire cost in saved payroll and converted pipeline.
                 </p>
 
-                <div className="flex flex-wrap gap-2 mb-8">
+                <div className="flex flex-wrap gap-2 mb-6 sm:mb-8">
                   <button
-                    onClick={() => setPreset(4, 1500, 8)}
-                    className="px-3.5 py-1.5 bg-neutral-900 border border-white/10 text-neutral-300 hover:text-white hover:border-[#B8FF00] text-xs font-mono font-bold rounded-xl transition-all"
+                    onClick={() => setPreset(1, 300, 4)}
+                    className="px-3 py-1.5 bg-neutral-900 border border-white/10 text-neutral-300 hover:text-white hover:border-[#B8FF00] text-[11px] sm:text-xs font-mono font-bold rounded-xl transition-all cursor-pointer"
                   >
-                    Startup (4)
+                    Solo (1)
                   </button>
                   <button
-                    onClick={() => setPreset(12, 3000, 14)}
-                    className="px-3.5 py-1.5 bg-neutral-900 border border-white/10 text-neutral-300 hover:text-white hover:border-[#B8FF00] text-xs font-mono font-bold rounded-xl transition-all"
+                    onClick={() => setPreset(3, 450, 8)}
+                    className="px-3 py-1.5 bg-neutral-900 border border-white/10 text-neutral-300 hover:text-white hover:border-[#B8FF00] text-[11px] sm:text-xs font-mono font-bold rounded-xl transition-all cursor-pointer"
                   >
-                    Growth Agency (12)
+                    Small Team (3)
                   </button>
                   <button
-                    onClick={() => setPreset(28, 5000, 18)}
-                    className="px-3.5 py-1.5 bg-neutral-900 border border-white/10 text-neutral-300 hover:text-white hover:border-[#B8FF00] text-xs font-mono font-bold rounded-xl transition-all"
+                    onClick={() => setPreset(8, 600, 10)}
+                    className="px-3 py-1.5 bg-neutral-900 border border-white/10 text-neutral-300 hover:text-white hover:border-[#B8FF00] text-[11px] sm:text-xs font-mono font-bold rounded-xl transition-all cursor-pointer"
                   >
-                    Enterprise (28)
+                    Growing (8)
                   </button>
                 </div>
 
-                <div className="space-y-6">
+                <div className="space-y-5 sm:space-y-6">
                   {[
-                    { label: "Core Team Size", val: teamSize, unit: "People", min: 1, max: 80, step: 1, setter: setTeamSize },
-                    { label: "Avg. Hourly Rate (₹)", val: hourlyRate, unit: "₹/hr", min: 500, max: 10000, step: 100, setter: setHourlyRate },
-                    { label: "Wasted Manual Hrs/Wk", val: wastedHours, unit: "Hrs", min: 1, max: 40, step: 1, setter: setWastedHours },
+                    { label: "Core Team Size", val: teamSize, unit: "People", min: 1, max: 20, step: 1, setter: setTeamSize },
+                    { label: "Avg. Hourly Rate (₹)", val: hourlyRate, unit: "₹/hr", min: 200, max: 2000, step: 50, setter: setHourlyRate },
+                    { label: "Wasted Manual Hrs/Wk", val: wastedHours, unit: "Hrs", min: 1, max: 20, step: 1, setter: setWastedHours },
                   ].map((input, i) => (
                     <div key={i}>
                       <div className="flex justify-between items-end mb-2">
                         <label className="text-xs font-semibold text-neutral-300">{input.label}</label>
-                        <span className="text-lg font-bold text-white font-mono">
+                        <span className="text-base sm:text-lg font-bold text-white font-mono">
                           {input.val} <span className="text-xs font-normal text-neutral-500">{input.unit}</span>
                         </span>
                       </div>
@@ -562,17 +563,17 @@ export default function PricingPage() {
               </div>
 
               {/* Output Display */}
-              <div className="bg-neutral-950/90 rounded-3xl p-6 sm:p-8 border border-white/10 shadow-2xl relative overflow-hidden">
+              <div className="bg-neutral-950/90 rounded-2xl sm:rounded-3xl p-5 sm:p-8 border border-white/10 shadow-2xl relative overflow-hidden">
                 <div className="absolute top-0 right-0 w-64 h-64 bg-[#B8FF00]/5 rounded-full blur-[100px] pointer-events-none" />
 
-                <h3 className="text-xs font-mono font-bold text-[#B8FF00] uppercase tracking-widest mb-6 flex items-center gap-2">
+                <h3 className="text-xs font-mono font-bold text-[#B8FF00] uppercase tracking-widest mb-5 sm:mb-6 flex items-center gap-2">
                   <Activity className="w-4 h-4 text-[#B8FF00]" /> Projected Annual Impact
                 </h3>
 
-                <div className="space-y-5 mb-6 relative z-10">
+                <div className="space-y-4 sm:space-y-5 mb-5 sm:mb-6 relative z-10">
                   <div>
-                    <div className="text-xs text-neutral-500 font-mono mb-1">Annual Hours Recovered</div>
-                    <div className="text-3xl sm:text-4xl font-heading font-black text-white tracking-tight">
+                    <div className="text-[11px] sm:text-xs text-neutral-500 font-mono mb-1">Annual Hours Recovered</div>
+                    <div className="text-xl sm:text-3xl font-heading font-black text-white tracking-tight break-words">
                       <AnimatedCounter value={annualHoursSaved} suffix=" hrs" />
                     </div>
                   </div>
@@ -580,19 +581,21 @@ export default function PricingPage() {
                   <div className="h-[1px] w-full bg-white/10"></div>
 
                   <div>
-                    <div className="text-xs text-neutral-500 font-mono mb-1">Payroll Drag Eliminated</div>
-                    <div className="text-3xl sm:text-4xl font-heading font-black text-white tracking-tight">
+                    <div className="text-[11px] sm:text-xs text-neutral-500 font-mono mb-1">Payroll Drag Eliminated</div>
+                    <div className="text-xl sm:text-3xl font-heading font-black text-white tracking-tight break-words">
                       <AnimatedCounter value={annualPayrollSaved} prefix="₹" />
                     </div>
                   </div>
                 </div>
 
-                <div className="p-5 rounded-2xl border border-[#B8FF00]/25 bg-[#B8FF00]/5 relative z-10">
-                  <div className="text-xs text-[#B8FF00] font-mono font-bold mb-1">Estimated Revenue Lift</div>
-                  <div className="text-3xl sm:text-4xl font-heading font-black text-[#B8FF00] tracking-tight">
+                <div className="p-4 sm:p-5 rounded-2xl border border-[#B8FF00]/25 bg-[#B8FF00]/5 relative z-10">
+                  <div className="text-xs text-[#B8FF00] font-mono font-bold mb-1">Estimated Annual Value Lift</div>
+                  <div className="text-xl sm:text-3xl lg:text-4xl font-heading font-black text-[#B8FF00] tracking-tight break-words">
                     <AnimatedCounter value={estimatedRevenueLift} prefix="₹" />
                   </div>
-                  <p className="text-xs text-neutral-400 mt-2">Based on zero-touch follow-ups and sub-second lead capture.</p>
+                  <p className="text-[11px] sm:text-xs text-neutral-400 mt-2 leading-relaxed">
+                    Based on zero-touch follow-ups, automated inquiries, and sub-second lead capture.
+                  </p>
                 </div>
               </div>
             </div>
@@ -651,48 +654,48 @@ export default function PricingPage() {
 
       {/* Instant Plan Booking & Custom Inquiry Popup Modal */}
       {isBookingModalOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md animate-in fade-in duration-200">
-          <div className="w-full max-w-lg bg-neutral-950 border border-[#B8FF00]/40 rounded-3xl p-6 sm:p-8 shadow-[0_0_50px_rgba(184,255,0,0.15)] relative overflow-hidden">
+        <div className="fixed inset-0 z-[100] flex items-center justify-center p-3.5 sm:p-4 bg-black/85 backdrop-blur-md animate-in fade-in duration-200">
+          <div className="w-full max-w-lg bg-neutral-950 border border-[#B8FF00]/40 rounded-2xl sm:rounded-3xl p-5 sm:p-7 shadow-[0_0_50px_rgba(184,255,0,0.15)] relative overflow-hidden max-h-[92vh] overflow-y-auto">
             {/* Ambient Background Glow */}
             <div className="absolute top-0 right-0 w-48 h-48 bg-[#B8FF00]/10 rounded-full blur-3xl pointer-events-none" />
 
             {/* Modal Header */}
-            <div className="flex items-center justify-between pb-4 border-b border-white/10 mb-5">
+            <div className="flex items-start justify-between pb-3.5 border-b border-white/10 mb-4">
               <div>
                 <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-[#B8FF00] bg-[#B8FF00]/10 px-2.5 py-0.5 rounded-full border border-[#B8FF00]/20">
                   {selectedPlan.category}
                 </span>
-                <h3 className="text-xl font-heading font-black text-white mt-1">
+                <h3 className="text-lg sm:text-xl font-heading font-black text-white mt-1.5 leading-snug">
                   {selectedPlan.title}
                 </h3>
               </div>
               <button
                 onClick={() => setIsBookingModalOpen(false)}
-                className="w-8 h-8 rounded-full bg-neutral-900 border border-white/10 flex items-center justify-center text-neutral-400 hover:text-white hover:border-white/20 transition-all cursor-pointer"
+                className="w-8 h-8 rounded-full bg-neutral-900 border border-white/10 flex items-center justify-center text-neutral-400 hover:text-white hover:border-white/20 transition-all cursor-pointer shrink-0 ml-2"
               >
                 <X className="w-4 h-4" />
               </button>
             </div>
 
-            {/* Selected Package Badge & Price */}
-            <div className="p-3.5 rounded-2xl bg-neutral-900/80 border border-white/10 flex items-center justify-between mb-5">
+            {/* Selected Package Badge & Price (Clean Stacked Layout) */}
+            <div className="p-3.5 rounded-xl sm:rounded-2xl bg-neutral-900/80 border border-white/10 flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-4">
               <div>
                 <div className="text-[11px] font-mono text-neutral-400">Selected Plan Rate:</div>
-                <div className="text-base font-bold text-white font-mono">
-                  {selectedPlan.price} <span className="text-xs text-neutral-500 font-normal">({selectedPlan.cycle})</span>
+                <div className="text-base font-bold text-white font-mono flex items-baseline gap-1.5 flex-wrap">
+                  <span className="text-lg text-[#B8FF00] font-black">{selectedPlan.price}</span>
+                  <span className="text-xs text-neutral-400 font-normal">({selectedPlan.cycle})</span>
                 </div>
               </div>
-              <div className="text-right">
-                <span className="text-[11px] text-[#B8FF00] font-mono flex items-center gap-1">
-                  <CheckCircle2 className="w-3.5 h-3.5" /> Fast WhatsApp Dispatch
-                </span>
+              <div className="inline-flex items-center gap-1.5 text-[11px] text-[#B8FF00] font-mono self-start sm:self-auto bg-[#B8FF00]/10 px-2.5 py-1 rounded-lg border border-[#B8FF00]/20">
+                <CheckCircle2 className="w-3.5 h-3.5 shrink-0" />
+                <span>Instant WhatsApp Dispatch</span>
               </div>
             </div>
 
             {/* Form */}
-            <form onSubmit={handleModalWhatsAppSubmit} className="space-y-4">
+            <form onSubmit={handleModalWhatsAppSubmit} className="space-y-3.5">
               <div>
-                <label className="text-xs font-mono font-bold text-neutral-400 uppercase tracking-wider block mb-1.5">
+                <label className="text-[11px] sm:text-xs font-mono font-bold text-neutral-400 uppercase tracking-wider block mb-1">
                   Your Name *
                 </label>
                 <input
@@ -701,12 +704,12 @@ export default function PricingPage() {
                   placeholder="e.g. Alex Rivera"
                   value={modalForm.name}
                   onChange={(e) => setModalForm({ ...modalForm, name: e.target.value })}
-                  className="w-full bg-neutral-900 border border-white/10 rounded-xl px-4 py-2.5 text-white text-sm focus:outline-none focus:border-[#B8FF00] transition-colors"
+                  className="w-full bg-neutral-900 border border-white/10 rounded-xl px-3.5 py-2.5 text-white text-xs sm:text-sm focus:outline-none focus:border-[#B8FF00] transition-colors"
                 />
               </div>
 
               <div>
-                <label className="text-xs font-mono font-bold text-neutral-400 uppercase tracking-wider block mb-1.5">
+                <label className="text-[11px] sm:text-xs font-mono font-bold text-neutral-400 uppercase tracking-wider block mb-1">
                   Business / Project Name
                 </label>
                 <input
@@ -714,12 +717,30 @@ export default function PricingPage() {
                   placeholder="e.g. Apex Health or New Startup"
                   value={modalForm.business}
                   onChange={(e) => setModalForm({ ...modalForm, business: e.target.value })}
-                  className="w-full bg-neutral-900 border border-white/10 rounded-xl px-4 py-2.5 text-white text-sm focus:outline-none focus:border-[#B8FF00] transition-colors"
+                  className="w-full bg-neutral-900 border border-white/10 rounded-xl px-3.5 py-2.5 text-white text-xs sm:text-sm focus:outline-none focus:border-[#B8FF00] transition-colors"
                 />
               </div>
 
               <div>
-                <label className="text-xs font-mono font-bold text-neutral-400 uppercase tracking-wider block mb-1.5">
+                <label className="text-[11px] sm:text-xs font-mono font-bold text-neutral-400 uppercase tracking-wider block mb-1">
+                  When are you free for a talk?
+                </label>
+                <select
+                  value={modalForm.preferredTime}
+                  onChange={(e) => setModalForm({ ...modalForm, preferredTime: e.target.value })}
+                  className="w-full bg-neutral-900 border border-white/10 rounded-xl px-3.5 py-2.5 text-white text-xs sm:text-sm focus:outline-none focus:border-[#B8FF00] transition-colors cursor-pointer"
+                >
+                  <option value="Today / ASAP (Next 2 Hours)">Today / ASAP (Next 2 Hours)</option>
+                  <option value="Tomorrow Morning (10 AM - 1 PM)">Tomorrow Morning (10 AM - 1 PM)</option>
+                  <option value="Tomorrow Afternoon (2 PM - 6 PM)">Tomorrow Afternoon (2 PM - 6 PM)</option>
+                  <option value="Evening Talk (7 PM - 9 PM)">Evening Talk (7 PM - 9 PM)</option>
+                  <option value="Weekend Preferred (Saturday / Sunday)">Weekend Preferred (Saturday / Sunday)</option>
+                  <option value="Async via WhatsApp / Any Time">Async via WhatsApp / Any Time</option>
+                </select>
+              </div>
+
+              <div>
+                <label className="text-[11px] sm:text-xs font-mono font-bold text-neutral-400 uppercase tracking-wider block mb-1">
                   Custom Requirements / Notes
                 </label>
                 <textarea
@@ -727,17 +748,17 @@ export default function PricingPage() {
                   placeholder="Any specific features, reference links, or custom integrations needed..."
                   value={modalForm.requirements}
                   onChange={(e) => setModalForm({ ...modalForm, requirements: e.target.value })}
-                  className="w-full bg-neutral-900 border border-white/10 rounded-xl px-4 py-2.5 text-white text-sm focus:outline-none focus:border-[#B8FF00] transition-colors resize-none"
+                  className="w-full bg-neutral-900 border border-white/10 rounded-xl px-3.5 py-2.5 text-white text-xs sm:text-sm focus:outline-none focus:border-[#B8FF00] transition-colors resize-none"
                 />
               </div>
 
               {/* Submit to WhatsApp */}
               <button
                 type="submit"
-                className="w-full py-3.5 rounded-xl bg-[#B8FF00] hover:bg-[#A3E600] text-black font-heading font-black text-xs sm:text-sm uppercase tracking-wider flex items-center justify-center gap-2 shadow-lg shadow-[#B8FF00]/25 transition-all hover:scale-[1.01] cursor-pointer mt-2"
+                className="w-full py-2.5 sm:py-3 rounded-xl bg-[#B8FF00] hover:bg-[#A3E600] text-black font-mono font-bold text-xs sm:text-xs tracking-tight flex items-center justify-center gap-2 shadow-md shadow-[#B8FF00]/20 transition-all hover:scale-[1.01] cursor-pointer mt-1"
               >
-                <Send className="w-4 h-4 stroke-[2.5]" />
-                <span>Send to WhatsApp with Plan Details</span>
+                <Send className="w-3.5 h-3.5 stroke-[2.5] shrink-0" />
+                <span>Connect on WhatsApp</span>
               </button>
             </form>
           </div>

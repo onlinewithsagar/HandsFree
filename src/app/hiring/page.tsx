@@ -38,10 +38,20 @@ const AVAILABILITY_OPTIONS = [
   "Weekend Spot Surge Only",
 ];
 
+const INTERVIEW_TIME_OPTIONS = [
+  "Today / ASAP (Next 2 Hours)",
+  "Tomorrow Morning (10 AM - 1 PM)",
+  "Tomorrow Afternoon (2 PM - 6 PM)",
+  "Evening Talk (7 PM - 9 PM)",
+  "Weekend Preferred (Saturday / Sunday)",
+  "Async via GitHub / WhatsApp First",
+];
+
 export default function HiringPage() {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
+    preferredInterviewTime: INTERVIEW_TIME_OPTIONS[1],
     specialty: SPECIALTY_OPTIONS[0],
     availability: AVAILABILITY_OPTIONS[0],
     portfolio: "",
@@ -50,6 +60,7 @@ export default function HiringPage() {
 
   const [isSpecialtyDropdownOpen, setIsSpecialtyDropdownOpen] = useState(false);
   const [isAvailabilityDropdownOpen, setIsAvailabilityDropdownOpen] = useState(false);
+  const [isInterviewTimeDropdownOpen, setIsInterviewTimeDropdownOpen] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -199,6 +210,7 @@ export default function HiringPage() {
                   onClick={() => {
                     setIsSpecialtyDropdownOpen(!isSpecialtyDropdownOpen);
                     setIsAvailabilityDropdownOpen(false);
+                    setIsInterviewTimeDropdownOpen(false);
                   }}
                   className="w-full bg-neutral-900 border border-white/10 hover:border-white/20 rounded-xl px-4 py-3 text-white text-sm flex items-center justify-between transition-all text-left truncate"
                 >
@@ -230,43 +242,87 @@ export default function HiringPage() {
                 )}
               </div>
 
-              {/* Custom Styled Dropdown: Sprint Availability */}
-              <div className="space-y-1.5 relative">
-                <label className="text-xs font-mono font-bold text-neutral-400 uppercase tracking-wider">Spot Sprint Availability *</label>
-                <button
-                  type="button"
-                  onClick={() => {
-                    setIsAvailabilityDropdownOpen(!isAvailabilityDropdownOpen);
-                    setIsSpecialtyDropdownOpen(false);
-                  }}
-                  className="w-full bg-neutral-900 border border-white/10 hover:border-white/20 rounded-xl px-4 py-3 text-white text-sm flex items-center justify-between transition-all text-left truncate"
-                >
-                  <span className="truncate pr-2">{formData.availability}</span>
-                  <ChevronDown className={`w-4 h-4 text-[#B8FF00] shrink-0 transition-transform ${isAvailabilityDropdownOpen ? 'rotate-180' : ''}`} />
-                </button>
+              {/* Grid: Availability + When Free For a Talk */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                {/* Custom Styled Dropdown: Sprint Availability */}
+                <div className="space-y-1.5 relative">
+                  <label className="text-xs font-mono font-bold text-neutral-400 uppercase tracking-wider">Spot Sprint Availability *</label>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setIsAvailabilityDropdownOpen(!isAvailabilityDropdownOpen);
+                      setIsSpecialtyDropdownOpen(false);
+                      setIsInterviewTimeDropdownOpen(false);
+                    }}
+                    className="w-full bg-neutral-900 border border-white/10 hover:border-white/20 rounded-xl px-4 py-3 text-white text-sm flex items-center justify-between transition-all text-left truncate"
+                  >
+                    <span className="truncate pr-2">{formData.availability}</span>
+                    <ChevronDown className={`w-4 h-4 text-[#B8FF00] shrink-0 transition-transform ${isAvailabilityDropdownOpen ? 'rotate-180' : ''}`} />
+                  </button>
 
-                {isAvailabilityDropdownOpen && (
-                  <div className="absolute top-full left-0 right-0 mt-1.5 z-30 bg-neutral-950 border border-white/15 rounded-2xl p-1.5 shadow-2xl shadow-black overflow-hidden">
-                    {AVAILABILITY_OPTIONS.map((opt) => (
-                      <button
-                        key={opt}
-                        type="button"
-                        onClick={() => {
-                          setFormData({ ...formData, availability: opt });
-                          setIsAvailabilityDropdownOpen(false);
-                        }}
-                        className={`w-full text-left px-3.5 py-2.5 rounded-xl text-xs font-medium flex items-center justify-between transition-all ${
-                          formData.availability === opt
-                            ? "bg-[#B8FF00]/10 text-[#B8FF00] font-bold"
-                            : "text-neutral-300 hover:bg-neutral-900 hover:text-white"
-                        }`}
-                      >
-                        <span className="truncate pr-2">{opt}</span>
-                        {formData.availability === opt && <span className="w-1.5 h-1.5 rounded-full bg-[#B8FF00] shrink-0" />}
-                      </button>
-                    ))}
-                  </div>
-                )}
+                  {isAvailabilityDropdownOpen && (
+                    <div className="absolute top-full left-0 right-0 mt-1.5 z-30 bg-neutral-950 border border-white/15 rounded-2xl p-1.5 shadow-2xl shadow-black overflow-hidden">
+                      {AVAILABILITY_OPTIONS.map((opt) => (
+                        <button
+                          key={opt}
+                          type="button"
+                          onClick={() => {
+                            setFormData({ ...formData, availability: opt });
+                            setIsAvailabilityDropdownOpen(false);
+                          }}
+                          className={`w-full text-left px-3.5 py-2.5 rounded-xl text-xs font-medium flex items-center justify-between transition-all ${
+                            formData.availability === opt
+                              ? "bg-[#B8FF00]/10 text-[#B8FF00] font-bold"
+                              : "text-neutral-300 hover:bg-neutral-900 hover:text-white"
+                          }`}
+                        >
+                          <span className="truncate pr-2">{opt}</span>
+                          {formData.availability === opt && <span className="w-1.5 h-1.5 rounded-full bg-[#B8FF00] shrink-0" />}
+                        </button>
+                      ))}
+                    </div>
+                  )}
+                </div>
+
+                {/* Custom Styled Dropdown: Free For a Talk / Intro */}
+                <div className="space-y-1.5 relative">
+                  <label className="text-xs font-mono font-bold text-neutral-400 uppercase tracking-wider">When are you free for a talk?</label>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setIsInterviewTimeDropdownOpen(!isInterviewTimeDropdownOpen);
+                      setIsSpecialtyDropdownOpen(false);
+                      setIsAvailabilityDropdownOpen(false);
+                    }}
+                    className="w-full bg-neutral-900 border border-white/10 hover:border-white/20 rounded-xl px-4 py-3 text-white text-sm flex items-center justify-between transition-all text-left truncate"
+                  >
+                    <span className="truncate pr-2">{formData.preferredInterviewTime}</span>
+                    <ChevronDown className={`w-4 h-4 text-[#B8FF00] shrink-0 transition-transform ${isInterviewTimeDropdownOpen ? 'rotate-180' : ''}`} />
+                  </button>
+
+                  {isInterviewTimeDropdownOpen && (
+                    <div className="absolute top-full left-0 right-0 mt-1.5 z-30 bg-neutral-950 border border-white/15 rounded-2xl p-1.5 shadow-2xl shadow-black overflow-hidden">
+                      {INTERVIEW_TIME_OPTIONS.map((opt) => (
+                        <button
+                          key={opt}
+                          type="button"
+                          onClick={() => {
+                            setFormData({ ...formData, preferredInterviewTime: opt });
+                            setIsInterviewTimeDropdownOpen(false);
+                          }}
+                          className={`w-full text-left px-3.5 py-2.5 rounded-xl text-xs font-medium flex items-center justify-between transition-all ${
+                            formData.preferredInterviewTime === opt
+                              ? "bg-[#B8FF00]/10 text-[#B8FF00] font-bold"
+                              : "text-neutral-300 hover:bg-neutral-900 hover:text-white"
+                          }`}
+                        >
+                          <span className="truncate pr-2">{opt}</span>
+                          {formData.preferredInterviewTime === opt && <span className="w-1.5 h-1.5 rounded-full bg-[#B8FF00] shrink-0" />}
+                        </button>
+                      ))}
+                    </div>
+                  )}
+                </div>
               </div>
 
               {/* Portfolio / GitHub */}
