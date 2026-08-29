@@ -4,6 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import Footer from "@/components/Footer";
+import SubpageHeader from "@/components/SubpageHeader";
 import {
   ArrowLeft,
   Briefcase,
@@ -59,32 +60,7 @@ export default function HiringPage() {
   return (
     <div className="min-h-screen bg-black text-neutral-200 font-sans selection:bg-[#B8FF00] selection:text-black pb-20">
       {/* Top Header */}
-      <header className="border-b border-white/10 bg-black/40 backdrop-blur-2xl sticky top-0 z-40">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 py-4 flex items-center justify-between">
-          <Link href="/" className="flex items-center gap-2.5 group">
-            <div className="w-8 h-8 flex items-center justify-center transition-transform group-hover:scale-105">
-              <Image
-                src="/logo-icon-tight.png"
-                alt="HandsFree"
-                width={32}
-                height={32}
-                className="w-full h-full object-contain"
-              />
-            </div>
-            <div className="font-heading font-black text-xl tracking-tight text-white leading-none">
-              <span>Hands</span><span className="text-[#B8FF00]">Free</span>
-            </div>
-          </Link>
-
-          <Link
-            href="/"
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-neutral-900 border border-white/10 text-xs font-semibold text-neutral-300 hover:text-white hover:border-[#B8FF00] transition-colors"
-          >
-            <ArrowLeft className="w-3.5 h-3.5" />
-            <span>Back to Home</span>
-          </Link>
-        </div>
-      </header>
+      <SubpageHeader />
 
       {/* Main Content */}
       <main className="max-w-5xl mx-auto px-4 sm:px-6 py-16 sm:py-24">

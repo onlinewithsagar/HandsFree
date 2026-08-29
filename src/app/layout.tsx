@@ -3,6 +3,7 @@ import { Inter, Space_Grotesk } from "next/font/google";
 import "./globals.css";
 import SmoothScrollProvider from "@/components/SmoothScrollProvider";
 import CustomCursor from "@/components/CustomCursor";
+import Chatbot from "@/components/Chatbot";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -191,6 +192,7 @@ export default function RootLayout({
         <SmoothScrollProvider>
           <CustomCursor />
           {children}
+          <Chatbot />
         </SmoothScrollProvider>
       </body>
     </html>

@@ -71,14 +71,14 @@ const KNOWLEDGE_GRAPH: Record<string, ChatStep> = {
     id: "q_roi_calc",
     question: "How do I calculate our team's estimated ROI?",
     answer:
-      "Scroll up to our 'ROI Calculator' section! Enter your team size, average hourly rate, and weekly wasted manual hours to see your projected annual hours saved and revenue multiplier in INR (₹) or USD ($).",
+      "Visit our dedicated '/pricing' page! Enter your team size, average hourly rate, and weekly wasted manual hours into the interactive ROI Simulator to see your projected annual hours saved and revenue multiplier in INR (₹).",
     followUps: ["q_book_sprint", "root_services"],
   },
   q_book_sprint: {
     id: "q_book_sprint",
     question: "How do we get started and book a discovery sprint?",
     answer:
-      "You can submit your requirements in the contact form at the bottom of the page or email us at handsfree.in@gmail.com. Our engineering team reviews specifications and responds within 4 hours with an actionable roadmap.",
+      "You can submit your requirements in the contact form at the bottom of the page or email us directly at handsfree.in@gmail.com. Our engineering architects respond within 4 hours with an actionable roadmap.",
     followUps: ["root_timeline", "root_services"],
   },
   q_support: {
@@ -295,7 +295,7 @@ export default function Chatbot() {
                   <RotateCcw className="w-2.5 h-2.5" /> Start Over
                 </button>
                 <a
-                  href="#contact"
+                  href="/#book"
                   onClick={() => setIsOpen(false)}
                   className="text-[10px] font-mono font-bold text-[#B8FF00] hover:underline flex items-center gap-1"
                 >
