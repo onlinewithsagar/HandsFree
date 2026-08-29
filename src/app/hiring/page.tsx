@@ -36,30 +36,6 @@ const AVAILABILITY_OPTIONS = [
   "Weekend Spot Surge Only",
 ];
 
-const SPOT_ROLES = [
-  {
-    title: "AI Agent Orchestration Engineer",
-    type: "Spot Instance Pod",
-    stack: "LangGraph, OpenAI / Anthropic APIs, Python, FastAPI, Vector DBs",
-    desc: "Build autonomous multi-agent pipelines, tool-use loops, and bidirectional real-time CRM synchronizations.",
-    status: "Surge Requirement",
-  },
-  {
-    title: "Next.js 15 High-Velocity Fullstack",
-    type: "Spot Instance Pod",
-    stack: "Next.js 15, TypeScript, Tailwind CSS, Framer Motion, Edge Functions",
-    desc: "Craft sub-second, conversion-engineered web interfaces and high-intent digital experiences.",
-    status: "Open Roster",
-  },
-  {
-    title: "Autonomous Growth Systems Architect",
-    type: "Spot Instance Pod",
-    stack: "HubSpot, Salesforce, Webhooks, WhatsApp Cloud API, Retool, Make",
-    desc: "Design end-to-end inbound capture, dynamic billing, lead scoring, and zero-touch lead routing engines.",
-    status: "Open Roster",
-  },
-];
-
 export default function HiringPage() {
   const [formData, setFormData] = useState({
     name: "",
@@ -176,56 +152,6 @@ export default function HiringPage() {
             <div className="mt-4 pt-4 border-t border-white/5 text-[11px] font-mono text-neutral-500">
               REWARD: FAST PAYOUTS
             </div>
-          </div>
-        </div>
-
-        {/* Spot Requirement Profiles */}
-        <div className="mb-16">
-          <div className="flex items-center justify-between mb-8">
-            <div>
-              <h2 className="text-2xl sm:text-3xl font-heading font-black text-white">
-                Spot Instance Requirement Profiles
-              </h2>
-              <p className="text-neutral-400 text-xs sm:text-sm mt-1">
-                Profiles we activate as sprint requirements land:
-              </p>
-            </div>
-            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#B8FF00]/10 text-[#B8FF00] border border-[#B8FF00]/20 text-xs font-mono">
-              <span className="w-2 h-2 rounded-full bg-[#B8FF00] animate-ping" /> Live Roster
-            </span>
-          </div>
-
-          <div className="space-y-4">
-            {SPOT_ROLES.map((role, idx) => (
-              <div
-                key={idx}
-                className="p-6 rounded-2xl bg-neutral-950/70 border border-white/10 hover:border-[#B8FF00]/40 transition-all flex flex-col md:flex-row md:items-center justify-between gap-6"
-              >
-                <div className="space-y-2">
-                  <div className="flex flex-wrap items-center gap-2.5">
-                    <h3 className="text-lg font-bold text-white">{role.title}</h3>
-                    <span className="px-2.5 py-0.5 rounded-full bg-white/5 border border-white/10 text-[11px] font-mono text-neutral-300">
-                      {role.type}
-                    </span>
-                    <span className="px-2.5 py-0.5 rounded-full bg-[#B8FF00]/10 border border-[#B8FF00]/25 text-[11px] font-mono text-[#B8FF00] font-bold">
-                      {role.status}
-                    </span>
-                  </div>
-                  <p className="text-sm text-neutral-300 max-w-2xl">{role.desc}</p>
-                  <div className="text-xs font-mono text-neutral-500">
-                    <strong className="text-neutral-400">Stack:</strong> {role.stack}
-                  </div>
-                </div>
-
-                <a
-                  href="#apply"
-                  className="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl bg-neutral-900 hover:bg-[#B8FF00] text-neutral-200 hover:text-black font-bold text-xs transition-all shrink-0 border border-white/10 hover:border-[#B8FF00]"
-                >
-                  <span>Join Pool</span>
-                  <Zap className="w-3.5 h-3.5" />
-                </a>
-              </div>
-            ))}
           </div>
         </div>
 
