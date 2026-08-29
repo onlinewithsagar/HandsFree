@@ -1,12 +1,21 @@
 "use client";
 
 import { useState } from "react";
-import { motion } from "framer-motion";
-import { Send, Check, Mail, ShieldCheck, Sparkles } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
+import { Send, Check, Mail, ShieldCheck, Sparkles, ChevronDown } from "lucide-react";
 
 export default function Contact({ onPlaySound }: { onPlaySound: (type: "click" | "success" | "ping") => void }) {
   const [submitted, setSubmitted] = useState(false);
   const [submitting, setSubmitting] = useState(false);
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [selectedNeed, setSelectedNeed] = useState("Full Trifecta (Website + Automation + Growth)");
+
+  const needsOptions = [
+    "Full Trifecta (Website + Automation + Growth)",
+    "High-Speed Next.js Web Development",
+    "Autonomous AI Pipelines & Plumbings",
+    "CRM Integration & Stripe Auto-Billing",
+  ];
 
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -74,22 +83,62 @@ export default function Contact({ onPlaySound }: { onPlaySound: (type: "click" |
               </div>
             </div>
 
-            <div>
+            <div className="relative">
               <label className="block text-xs font-mono font-bold text-neutral-400 uppercase tracking-wider mb-2">
                 Primary Need
               </label>
-              <div className="relative">
-                <select className="w-full px-4 py-3.5 rounded-xl bg-neutral-900/90 border border-white/10 text-white focus:outline-none focus:border-[#B8FF00]/60 hover:border-white/20 text-sm transition-all appearance-none cursor-pointer">
-                  <option className="bg-neutral-950 text-white">Full Trifecta (Website + Automation + Growth)</option>
-                  <option className="bg-neutral-950 text-white">Web Application Development</option>
-                  <option className="bg-neutral-950 text-white">AI Automation Plumbing</option>
-                </select>
-                <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-neutral-400">
-                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
-                  </svg>
-                </div>
-              </div>
+
+              {/* Custom Dark Theme Dropdown Trigger */}
+              <button
+                type="button"
+                onClick={() => setDropdownOpen(!dropdownOpen)}
+                className={`w-full px-4 py-3.5 rounded-xl bg-neutral-900/90 border text-left text-sm flex items-center justify-between transition-all ${
+                  dropdownOpen
+                    ? "border-[#B8FF00] shadow-[0_0_15px_rgba(184,255,0,0.15)] text-white"
+                    : "border-white/10 text-neutral-200 hover:border-white/20"
+                }`}
+              >
+                <span>{selectedNeed}</span>
+                <ChevronDown
+                  className={`w-4 h-4 text-[#B8FF00] transition-transform duration-200 ${
+                    dropdownOpen ? "rotate-180" : ""
+                  }`}
+                />
+              </button>
+
+              {/* Custom Dark Theme Options Menu */}
+              <AnimatePresence>
+                {dropdownOpen && (
+                  <motion.div
+                    initial={{ opacity: 0, y: -6, scale: 0.98 }}
+                    animate={{ opacity: 1, y: 0, scale: 1 }}
+                    exit={{ opacity: 0, y: -6, scale: 0.98 }}
+                    transition={{ duration: 0.15 }}
+                    className="absolute top-full left-0 right-0 mt-2 z-30 bg-neutral-950/95 backdrop-blur-xl border border-white/15 rounded-2xl p-1.5 shadow-2xl shadow-black overflow-hidden"
+                  >
+                    {needsOptions.map((opt) => (
+                      <button
+                        key={opt}
+                        type="button"
+                        onClick={() => {
+                          setSelectedNeed(opt);
+                          setDropdownOpen(false);
+                        }}
+                        className={`w-full text-left px-3.5 py-2.5 rounded-xl text-xs sm:text-sm font-medium flex items-center justify-between transition-all ${
+                          selectedNeed === opt
+                            ? "bg-[#B8FF00]/10 text-[#B8FF00] font-bold"
+                            : "text-neutral-300 hover:bg-neutral-900 hover:text-white"
+                        }`}
+                      >
+                        <span>{opt}</span>
+                        {selectedNeed === opt && (
+                          <span className="w-1.5 h-1.5 rounded-full bg-[#B8FF00]" />
+                        )}
+                      </button>
+                    ))}
+                  </motion.div>
+                )}
+              </AnimatePresence>
             </div>
 
             <div>

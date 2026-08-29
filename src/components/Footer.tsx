@@ -11,14 +11,14 @@ export default function Footer() {
   return (
     <footer className="bg-black text-white border-t border-white/10 py-16">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-8">
-        <div className="flex items-center gap-3">
-          <div className="w-9 h-9 rounded-xl overflow-hidden border border-white/15 bg-black flex items-center justify-center">
+        <div className="flex items-center gap-2.5">
+          <div className="w-8 h-8 flex items-center justify-center">
             <Image
               src="/logo-icon-tight.png"
               alt="HandsFree Logo Icon"
-              width={36}
-              height={36}
-              className="w-full h-full object-contain p-0.5"
+              width={32}
+              height={32}
+              className="w-full h-full object-contain"
             />
           </div>
           <div>
