@@ -22,12 +22,13 @@ const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://handsfree-three.ver
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: "HandsFree — High-Speed Web Apps & Autonomous AI Systems",
-    template: "%s | HandsFree",
+    default: "HandsFreeStudio — High-Speed Web Apps & Autonomous AI Systems",
+    template: "%s | HandsFreeStudio",
   },
   description:
-    "HandsFree builds high-converting Next.js web apps, autonomous AI agent workflows, CRM sync, and automated billing to eliminate operational drag.",
+    "HandsFreeStudio builds high-converting Next.js web apps, autonomous AI agent workflows, CRM sync, and automated billing to eliminate operational drag.",
   keywords: [
+    "HandsFreeStudio",
     "HandsFree",
     "HandsFree AI",
     "Next.js web development",
@@ -41,9 +42,9 @@ export const metadata: Metadata = {
     "workflow automation",
     "handsfree systems",
   ],
-  authors: [{ name: "HandsFree Systems Inc." }],
-  creator: "HandsFree Systems Inc.",
-  publisher: "HandsFree Systems Inc.",
+  authors: [{ name: "HandsFreeStudio Inc." }],
+  creator: "HandsFreeStudio Inc.",
+  publisher: "HandsFreeStudio Inc.",
   formatDetection: {
     email: false,
     address: false,
@@ -53,11 +54,11 @@ export const metadata: Metadata = {
     canonical: "/",
   },
   openGraph: {
-    title: "HandsFree — High-Speed Web Apps & Autonomous AI Systems",
+    title: "HandsFreeStudio — High-Speed Web Apps & Autonomous AI Systems",
     description:
       "Stop manual drag. We engineer high-converting web applications, intelligent AI automations, and autonomous growth funnels.",
     url: siteUrl,
-    siteName: "HandsFree",
+    siteName: "HandsFreeStudio",
     images: [
       {
         url: "/og-image.png",

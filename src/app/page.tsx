@@ -573,14 +573,14 @@ export default function Home() {
             <div className="w-8 h-8 flex items-center justify-center transition-transform group-hover:scale-105">
               <Image
                 src="/logo-icon-tight.png"
-                alt="HandsFree"
+                alt="HandsFreeStudio"
                 width={32}
                 height={32}
                 className="w-full h-full object-contain"
               />
             </div>
             <div className="font-heading font-black text-xl tracking-tight text-white leading-none">
-              <span>Hands</span><span className="text-[#B8FF00]">Free</span>
+              <span>Hands</span><span className="text-[#B8FF00]">Free</span><span className="text-white">Studio</span>
             </div>
           </a>
 
@@ -643,14 +643,14 @@ export default function Home() {
                     <div className="w-8 h-8 flex items-center justify-center">
                       <Image
                         src="/logo-icon-tight.png"
-                        alt="HandsFree"
+                        alt="HandsFreeStudio"
                         width={32}
                         height={32}
                         className="w-full h-full object-contain"
                       />
                     </div>
                     <div className="font-heading font-black text-lg text-white">
-                      <span>Hands</span><span className="text-[#B8FF00]">Free</span>
+                      <span>Hands</span><span className="text-[#B8FF00]">Free</span><span className="text-white">Studio</span>
                     </div>
                   </div>
                   <button
